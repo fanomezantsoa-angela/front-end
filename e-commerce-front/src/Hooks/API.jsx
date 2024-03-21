@@ -21,3 +21,21 @@ export const type_product = async () => {
         throw error;
     }
 };
+export const login = async (formData) => {
+  try {
+    const response = await axiosInstance.post("/api/login/", formData,
+  
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const inscription = async (formData) => {
+  try {
+    const response = await axiosInstance.post("/api/inscription", formData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

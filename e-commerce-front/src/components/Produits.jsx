@@ -1,19 +1,20 @@
 import { Inputhandler } from "../Hooks/Inputhandler";
-import { Button } from "../little/Button";
+import { Button } from "../littlecomponent/Button";
 import { postProduct, type_product } from "../Hooks/API";
 import { useState, useEffect } from "react";
-
+import { Forminput } from "../littlecomponent/Forminput";
+import { Formulaire } from "../littlecomponent/Formulaire";
 function Produits() {
     
     const [name, setName, namechange] = Inputhandler("");
-    const [desciption, setDescription, descriptionchange] = Inputhandler("");
+    const [description, setDescription, descriptionchange] = Inputhandler("");
     const [price, setPrice, pricechange] = Inputhandler("");
     const [expiration_date, setExpiration_date, expirationchange] = Inputhandler("");
     const [type, setType, typechange] = Inputhandler("");
     const [typeOptions, setTypeOptions] = useState([]);
     const formData = {
         name: name,
-        description: desciption,
+        description: description,
         price: price,
         expiration_date: expiration_date,
         type: type
@@ -52,40 +53,46 @@ function Produits() {
         resetform()
     }
     return (
-      <div className="Produits-form">
-        <form>
-          <label htmlFor="name">Name</label> <br />
-          <input type="text" value={name} onChange={namechange} /> <br />
-          <label htmlFor="desciption">Description</label> <br />
-          <input
-            type="text"
-            value={desciption}
-            onChange={descriptionchange}
-          />{" "}
-          <br />
-          <label htmlFor="price">Price</label> <br />
-          <input type="number" value={price} onChange={pricechange} /> <br />
-          <label htmlFor="expiration_date">Date d'éxpiration</label> <br />
-          <input
-            type="date"
+      <div className="Produits-container">
+        <Formulaire classname="Produits-form">
+          <Forminput
+            typeinput="text"
+            nomlabel="Name"
+            value={name}
+            inputchange={namechange}
+          />
+          <Forminput
+            typeinput="text"
+            nomlabel="description"
+            value={description}
+            inputchange={descriptionchange}
+          />
+          <Forminput
+            typeinput="number"
+            nomlabel="Price"
+            value={price}
+            inputchange={pricechange}
+          />
+          <Forminput
+            typeinput="date"
+            nomlabel="Date d'éxpiration"
             value={expiration_date}
-            onChange={expirationchange}
-          />{" "}
-          <br />
+            inputchange={expirationchange}
+          />
+      
           <select value={type} onChange={typechange}>
-            <option value="">Select Type</option>
             {typeOptions.map((typeOption, index) => (
               <option key={index} value={typeOption.id}>
                 {typeOption.designation}
               </option>
             ))}
-          </select>
+          </select> <br />
           <Button
             action="Ajouter Produit"
             buttonhandle={submit}
             classname="ajout-produit"
           />
-        </form>
+        </Formulaire>
       </div>
     );
 }
