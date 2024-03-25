@@ -3,7 +3,7 @@ import { Button } from "../littlecomponent/Button";
 import {inscription} from "../Hooks/API";
 import { useNavigate } from "react-router-dom";
 import { Forminput } from "../littlecomponent/Forminput";
-
+import { Formulaire } from "../littlecomponent/Formulaire";
 function Inscription() {
     const navigate = useNavigate();
   const [first_name, setFirst_name, first_namechange] = Inputhandler("");
@@ -11,22 +11,24 @@ function Inscription() {
   const [email, setEmail, emailchange] = Inputhandler("");
   const [birthdate, setBirthdate, birthdatechange] =
     Inputhandler("");
-  const [contact, setContact, contactchange] = Inputhandler("");
+ // const [contact, setContact, contactchange] = Inputhandler("");
  const [password, setPassword, passwordchange] = Inputhandler("");
     const formData = {
-        first_name: first_name,
-        last_name: last_name,
-        contact: contact,
-        email: email,
-        birthdate: birthdate,
-        password: password
-  };
+      first_name: first_name,
+      last_name: last_name,
+      // contact: contact,
+      email: email,
+      password: password,
+      is_staff: true,
+      is_superuser: true,
+      birthdate: birthdate
+    };
     const resetform = () => {
       setFirst_name("");
       setLast_name("");
       setEmail("");
       setBirthdate("");
-        setContact("");
+     
         setPassword("");
     };
 
@@ -58,12 +60,7 @@ function Inscription() {
           value={last_name}
           inputchange={last_namechange}
         />
-        <Forminput
-          typeinput="text"
-          nomlabel="Contact"
-          value={contact}
-          inputchange={contactchange}
-        />
+      
         <Forminput
           typeinput="date"
           nomlabel="Birth date"

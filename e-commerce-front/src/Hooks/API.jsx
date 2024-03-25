@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://192.168.43.150:8000", // Replace this with your API base URL
+  baseURL: "https://ecommerce-pm4j.onrender.com", // Replace this with your API base URL
 });
 
 export const postProduct = async (formData) => {
@@ -23,8 +23,9 @@ export const type_product = async () => {
 };
 export const login = async (formData) => {
   try {
-    const response = await axiosInstance.post("/api/login/", formData,
-  
+    const response = await axiosInstance.post("/api/token/", formData, {
+      'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
+    }
     );
     return response.data;
   } catch (error) {
@@ -33,7 +34,7 @@ export const login = async (formData) => {
 };
 export const inscription = async (formData) => {
   try {
-    const response = await axiosInstance.post("/api/inscription", formData);
+    const response = await axiosInstance.post("/api/client/", formData);
     return response.data;
   } catch (error) {
     throw error;
