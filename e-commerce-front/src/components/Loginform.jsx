@@ -2,29 +2,40 @@ import { Forminput } from "../littlecomponent/Forminput";
 import { Formulaire } from "../littlecomponent/Formulaire";
 import { Inputhandler } from "../Hooks/Inputhandler";
 import { Button } from "../littlecomponent/Button";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { login } from "../Hooks/API";
+import { AuthContext } from "../Hooks/Auth";
 import "./connexion.css"
-function Loginform() {
-  const navigate = useNavigate();
+function Loginform({ closeform }) {
+   const { setIsLoggedIn } = useContext(AuthContext);
   const [email, setEmail, emailchange] = Inputhandler("");
   const [password, setPassword, passwordchange] = Inputhandler("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const formData = {
     email: email,
     password: password,
   };
+   const resetform = () => {
+   
+     setEmail("");
+     
+
+     setPassword("");
+   };
+
   const loginsubmit = async (e) => {
     e.preventDefault();
     try {
       const responseData = await login(formData);
-      localStorage.setItem("jwt-token", responseData.token);
+      const token = responseData.access;
+      localStorage.setItem("token", token);
+      
       setIsLoggedIn(true);
-      setEmail("");
-      setPassword("");
+   
       resetform();
-      navigate("/");
+      closeform();
+     
+      
     } catch (error) {
       // Handle errors
       console.error("Error:", error);

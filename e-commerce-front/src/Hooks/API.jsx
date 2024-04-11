@@ -1,7 +1,8 @@
 import axios from "axios";
-
+const getToken = localStorage.getItem("token") 
+const getAuthorizationHeader = () => `Bearer ${getToken}`;
 const axiosInstance = axios.create({
-  baseURL: "https://ecommerce-pm4j.onrender.com", // Replace this with your API base URL
+  baseURL: "https://ecommerce-pm4j.onrender.com", 
 });
 
 export const postProduct = async (formData) => {
@@ -15,7 +16,13 @@ export const postProduct = async (formData) => {
 };
 export const type_product = async () => {
     try {
-        const response = await axiosInstance.get("/api/type_product/");
+      const response = await axiosInstance.get("/api/type_product/", 
+        {
+      headers: {
+        Authorization: getAuthorizationHeader(),
+      },
+        });
+      console.log(typeof response.data);
         return response.data;
     } catch (error) {
         throw error;
@@ -24,9 +31,9 @@ export const type_product = async () => {
 export const login = async (formData) => {
   try {
     const response = await axiosInstance.post("/api/token/", formData, {
-      'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}`
-    }
-    );
+      "content-type": "application/json",
+    });
+
     return response.data;
   } catch (error) {
     throw error;
@@ -39,4 +46,5 @@ export const inscription = async (formData) => {
   } catch (error) {
     throw error;
   }
+
 };
