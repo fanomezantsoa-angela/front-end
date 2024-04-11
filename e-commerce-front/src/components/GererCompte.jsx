@@ -8,22 +8,21 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { Logout } from "@mui/icons-material";
 
+import { AuthContext } from "../Hooks/Auth";
 function GererCompte() {
   const [anchorEl, setAnchorEl] = useState(null);
-  
-
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
-    };
-    const Logginout =  () => {
-      logout();
-       
-        
-    };
+  };
+  const Logginout = () => {
+    logout();
+    setIsLoggedIn(false); 
+  };
   return (
     <div>
       <Tooltip title="Account settings">
@@ -85,7 +84,6 @@ function GererCompte() {
           Logout
         </MenuItem>
       </Menu>
-   
     </div>
   );
 }

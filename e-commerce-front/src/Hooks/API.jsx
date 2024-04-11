@@ -1,6 +1,6 @@
 import axios from "axios";
 const getToken = localStorage.getItem("token") 
-const getAuthorizationHeader = () => `Bearer ${getToken}`;
+const getAuthorizationHeader = `Bearer ${getToken}`;
 const axiosInstance = axios.create({
   baseURL: "https://ecommerce-pm4j.onrender.com", 
 });
@@ -19,7 +19,7 @@ export const type_product = async () => {
       const response = await axiosInstance.get("/api/type_product/", 
         {
       headers: {
-        Authorization: getAuthorizationHeader(),
+        Authorization: getAuthorizationHeader,
       },
         });
       console.log(typeof response.data);

@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 export const logout = () => {
  
   localStorage.removeItem("token");
-
+ 
 };
 
 export const AuthContext = createContext();

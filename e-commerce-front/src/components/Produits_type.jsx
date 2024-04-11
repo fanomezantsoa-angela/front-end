@@ -13,8 +13,8 @@ function Produits_type() {
     }));
   const [typeOptions, setTypeOptions] = useState([]);
   useEffect(() => {
-    const getToken = localStorage.getItem("token"); 
-    console.log(getToken)
+   
+  
     async function fetchTypeList() {
       try {
         const types = await type_product();
@@ -29,11 +29,13 @@ function Produits_type() {
     return (
       <>
         {typeOptions.map((typeOption, index) => (
-          <Grid container spacing={3}>
-            <Grid xs key={index} value={typeOption.id}>
-              <Item>{typeOption.designation}</Item>
-            </Grid>
-          </Grid>
+          <ul key={index}>
+            <li>
+              {typeOption.designation}
+            </li>
+          </ul>
+             
+           
         ))}
       </>
     );

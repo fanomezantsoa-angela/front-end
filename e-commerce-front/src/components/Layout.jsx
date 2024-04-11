@@ -2,11 +2,12 @@
 import "./layout.css";
 import Seconnecter from "./Seconnecter";
 import Userthings from "./Userthings";
-import { useState, useEffect, useContext } from "react";
+import {useState, useEffect, useContext } from "react";
 import { AuthContext } from "../Hooks/Auth";
 function Layout() {
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-   useEffect(() => {
+  useEffect(() => {
+     
      const getToken = localStorage.getItem("token");
      console.log(getToken);
      if (getToken) {
@@ -38,10 +39,13 @@ function Layout() {
         <button>
           <img src="./src/assets/recherche.svg" alt="" className="rechercher" />
         </button>
-          </section>
-        {isLoggedIn ? <Userthings/> : <Seconnecter/>}
-      </div>
-     
+      </section>
+      {isLoggedIn ? (
+        <Userthings loggein={setIsLoggedIn} />
+      ) : (
+        <Seconnecter setIsLoggedIn={setIsLoggedIn} />
+      )}
+    </div>
   );
 }
 export default Layout;

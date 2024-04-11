@@ -18,7 +18,7 @@ function Inscription({ openlogin, closeinscrit }) {
     email: email,
     password: password,
     is_staff: true,
-    is_superuser: true,
+    is_superuser: false,
     is_active: true,
     birthdate: birthdate,
   };
