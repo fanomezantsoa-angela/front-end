@@ -5,11 +5,7 @@ const axiosInstance = axios.create({
 });
 export const Product_list = async () => {
   try {
-      const response = await axiosInstance.get("/api/product/", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Include the token in the Authorization header
-        },
-      });
+      const response = await axiosInstance.get("/api/product/");
     return response.data;
   } catch (error) {
     throw error;

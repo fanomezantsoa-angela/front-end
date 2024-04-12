@@ -2,6 +2,8 @@
 import "./layout.css";
 import Seconnecter from "./Seconnecter";
 import Userthings from "./Userthings";
+import InputBase from "@mui/material/InputBase";
+import IconButton from "@mui/material/IconButton";
 import {useState, useEffect, useContext } from "react";
 import { AuthContext } from "../Hooks/Auth";
 function Layout() {
@@ -9,7 +11,7 @@ function Layout() {
   useEffect(() => {
      
      const getToken = localStorage.getItem("token");
-     console.log(getToken);
+
      if (getToken) {
        setIsLoggedIn(true)
      }
@@ -23,7 +25,7 @@ function Layout() {
   return (
     <div className="container">
       <section className="sec-slogan">
-        <img src="./src/assets/socolait.svg" alt="" />
+        <img src="./src/assets/socolait.svg" alt="" className="logo" />
         <section>
           <p className="slogan1">
             Nous partageons <br /> le gout du vrai.
@@ -35,10 +37,14 @@ function Layout() {
         </section>
       </section>
       <section className="recherche">
-        <input type="text" />
-        <button>
-          <img src="./src/assets/recherche.svg" alt="" className="rechercher" />
-        </button>
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="chercher un produit"
+          inputProps={{ "aria-label": "chercher un produit" }}
+        />
+        <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+          <img src="./src/assets/recherche.svg" alt="" />
+        </IconButton>
       </section>
       {isLoggedIn ? (
         <Userthings loggein={setIsLoggedIn} />

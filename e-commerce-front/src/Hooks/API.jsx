@@ -16,12 +16,7 @@ export const postProduct = async (formData) => {
 };
 export const type_product = async () => {
     try {
-      const response = await axiosInstance.get("/api/type_product/", 
-        {
-      headers: {
-        Authorization: getAuthorizationHeader,
-      },
-        });
+      const response = await axiosInstance.get("/api/type_product/");
       console.log(typeof response.data);
         return response.data;
     } catch (error) {

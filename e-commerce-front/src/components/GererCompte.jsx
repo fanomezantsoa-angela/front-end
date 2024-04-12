@@ -25,7 +25,7 @@ function GererCompte() {
   };
   return (
     <div>
-      <Tooltip title="Account settings">
+      <Tooltip title="paramète-compte">
         <IconButton
           onClick={handleClick}
           size="small"
@@ -74,14 +74,14 @@ function GererCompte() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+          <Avatar /> Compte
         </MenuItem>
 
         <MenuItem onClick={Logginout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          Déconnection
         </MenuItem>
       </Menu>
     </div>

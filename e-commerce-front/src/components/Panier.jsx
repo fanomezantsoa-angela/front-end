@@ -7,6 +7,7 @@ function Panier() {
     const panierClose = () => setPanier(false);
     return (
       <div>
+        
         <Button
           action={<img src="./src/assets/panier2.svg" alt="" />}
           classname=""

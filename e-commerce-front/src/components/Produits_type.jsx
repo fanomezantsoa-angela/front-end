@@ -2,7 +2,8 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import {type_product } from "../Hooks/API";
+import { type_product } from "../Hooks/API";
+import "./produits_types.css";
 function Produits_type() {
     const Item = styled(Paper)(({ theme }) => ({
       backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -28,15 +29,13 @@ function Produits_type() {
   }, []);
     return (
       <>
-        {typeOptions.map((typeOption, index) => (
-          <ul key={index}>
-            <li>
-              {typeOption.designation}
-            </li>
-          </ul>
-             
-           
-        ))}
+        <ul className="Type-produit">
+          {typeOptions.map((typeOption, index) => (
+            <li key={index}>{typeOption.designation}</li>
+          ))}
+        </ul>
+
+        <img src="./src/assets/vague.png" alt="" className="vague" />
       </>
     );
 }
