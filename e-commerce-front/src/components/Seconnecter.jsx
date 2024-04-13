@@ -18,9 +18,10 @@ export default function Seconnecter() {
 
   return (
     <div>
+      {/* classname="seconnecter" */}
       <Button
         action="se connecter"
-        classname="seconnecter"
+        classname="p-5 bg-sky-600"
         buttonhandle={handleOpen}
       />
       <Modal
