@@ -1,11 +1,12 @@
 .Type-produit {
     display: flex;
     flex-direction: row;
-     justify-content: space-around;
+    align-items:center;
     flex-wrap: wrap;
-     margin: 0;
+   
      padding: 5px 5px;
       background-color: white;
+
 }
 
 .Type-produit li{
@@ -23,3 +24,4 @@
    height: 120px;
    background-color: white;
 }
+.

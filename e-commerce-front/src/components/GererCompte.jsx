@@ -7,7 +7,7 @@ import { logout } from "../Hooks/Auth";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { Logout } from "@mui/icons-material";
-
+import "./gerercompte.css"
 import { AuthContext } from "../Hooks/Auth";
 function GererCompte() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -34,7 +34,7 @@ function GererCompte() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <img src="./src/assets/compte.svg" alt="" />
+          <img src="./src/assets/compte.svg" alt="" className="compte" />
         </IconButton>
       </Tooltip>
 
