@@ -1,23 +1,33 @@
 import { Product_list } from "../Hooks/productAPI";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
+import { CartContext } from "../Hooks/PanierContexte";
 import "./produits_list.css"
 function Products_list() {
+  
+  const { addToCart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
   const [quantite, setQuantite] = useState(1);
    const quantitechange= (e) => {
    setQuantite(e.target.value);
    };
-  const moins_quantite = (e) => {
+  const moins_quantite = () => {
     if (quantite > 1) {
       setQuantite(quantite - 1);
     }
   };
-  const plus_quantite = (e) => {
-  
-      setQuantite(quantite + 1);
-    
+  const plus_quantite = (stock) => {
+    // Ensure valid arguments (optional, can be added for robustness)
+    if (typeof stock !== "number") {
+      console.error(
+        "plus_quantite: Invalid argument. Expected a number for stock."
+      );
+      return;
+    }
+
+    const updatedQuantite = Math.min(quantite + 1, stock);
+    setQuantite(updatedQuantite);
   };
      useEffect(() => {
        async function fetchTypeList() {
@@ -25,7 +35,7 @@ function Products_list() {
            const list_product = await Product_list();
 
            setProducts(list_product.results);
-           console.log(list_product.results);
+        
          } catch (error) {
            console.error("Error fetching type list:", error);
          }
@@ -42,7 +52,9 @@ function Products_list() {
               className="produit-img"
             />
             <p className="nom-produit">{product.name}</p>
-            <p className="desciption">{product.description}</p>
+            <p className="desciption">
+              {product.description} stock: {product.stock}
+            </p>
             <p className="price">{product.price} Ar</p>
             <section className="faire-panier">
               <IconButton
@@ -62,7 +74,8 @@ function Products_list() {
                 type="button"
                 sx={{ p: "10px" }}
                 aria-label="plus-quantite"
-                onClick={plus_quantite}
+                disabled={quantite >= product.stock} 
+                onClick={() => plus_quantite(product.stock)}
               >
                 <img src="./src/assets/plus.svg" alt="" />
               </IconButton>
@@ -70,6 +83,15 @@ function Products_list() {
                 type="button"
                 sx={{ p: "10px" }}
                 aria-label="faire-panier"
+                onClick={() =>
+                  addToCart(
+                    product.id,
+                    quantite,
+                    product.price,
+                    product.name,
+                    product.stock
+                  )
+                }
               >
                 <img src="./src/assets/panier1.svg" alt="" />
               </IconButton>
