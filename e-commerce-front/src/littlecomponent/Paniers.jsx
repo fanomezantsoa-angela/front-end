@@ -23,11 +23,11 @@ function Paniers({ panierClose }) {
       <table>
         <thead>
           <tr>
-            <th>#</th>
+            <th>Numéro</th>
 
-            <th>Item</th>
-            <th>Quantity</th>
-            <th>Unit Price</th>
+            <th>Nom du produit</th>
+            <th>Quantité</th>
+            <th>  Prix unitaire</th>
             <th>Total</th>
           </tr>
         </thead>

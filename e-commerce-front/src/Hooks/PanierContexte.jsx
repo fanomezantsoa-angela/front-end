@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-
+import Swal from "sweetalert2";
 export const CartContext = createContext({
   items: [],
   getCartItemQuantity: () => {},
@@ -47,7 +47,13 @@ export function CartProvider({ children }) {
            ? { ...item, quantity: limitedQuantity, price: price, name: name, stock: stock }
            : item
        );
-       setCartItems(updatedCart);
+      setCartItems(updatedCart);
+      Swal.fire({
+        title: "Information:",
+        text: "Vous avez atteint le stock de produit",
+        icon: "info",
+        confirmButtonText: "Oui",
+      });
       return;
     }
 
@@ -70,7 +76,7 @@ export function CartProvider({ children }) {
           quantity: 1,
           unitPrice,
           name,
-          quantity,
+       
           stock,
         },
       ]);
