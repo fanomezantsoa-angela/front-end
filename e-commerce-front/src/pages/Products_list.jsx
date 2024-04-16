@@ -43,8 +43,9 @@ function Products_list() {
        fetchTypeList();
      }, []);
     return (
-      <div className="produits">
-        {products.map((product) => (
+        // {products.map((product) => (
+      <div className="produits flex flex-row justify-around">
+        {[1,2,3].map((product) => (
           <div key={product.id} className="produit">
             <img
               src="./src/assets/yaourt-nature.jpg"

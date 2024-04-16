@@ -23,7 +23,7 @@ function Layout() {
    }, []);
 
   return (
-    <div className="container ">
+    <div className="container_header ">
       <section className="sec-slogan">
         <img src="./src/assets/socolait.svg" alt="" className="logo" />
         <section>
