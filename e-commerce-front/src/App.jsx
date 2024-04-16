@@ -2,12 +2,9 @@ import React from "react";
 import Produits_type from "./components/Produits_type";
 import Layout from "./components/Layout";
 import Products_list from "./pages/Products_list";
-<<<<<<< HEAD
 import { BrowserRouter } from "react-router-dom";
-=======
 import FormComponent from "./components/form/FormComponent";
 
->>>>>>> pywendi
 
 
 
@@ -15,12 +12,7 @@ const App = () => {
 
 
   return (
-<<<<<<< HEAD
-    
-      <div>
-=======
     <div className="w-full h-full">
->>>>>>> pywendi
       <Layout />
       <Produits_type />
       <div>
