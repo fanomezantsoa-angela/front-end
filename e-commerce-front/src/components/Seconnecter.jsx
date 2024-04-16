@@ -21,7 +21,7 @@ export default function Seconnecter() {
       {/* classname="seconnecter" */}
       <Button
         action="se connecter"
-        classname="p-5 bg-sky-600"
+        classname="px-5 py-4 bg-sky-600 rounded-md hover:bg-sky-500 hover:scale-105 duration-100 text-white"
         buttonhandle={handleOpen}
       />
       <Modal
