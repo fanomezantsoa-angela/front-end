@@ -1,9 +1,16 @@
 import { useState, useEffect, useContext } from "react";
-import { CartContext } from "../Hooks/PanierContexte";
+import { CartContext, CartProvider } from "../Hooks/PanierContexte";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
+import { validationPayement, creationpurchase, creationorders,} from "../Hooks/PayementApi";
 import { Button } from "../littlecomponent/Button";
+import Swal from "sweetalert2";
+import Formpayement from "../components/Formpayement";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 function Validationpanier() {
+
+ 
       const [payement, setPayment] = useState(false);
       const openpayement = () => setPayment(true);
       const closepayement = () => setPayment(false);
@@ -19,6 +26,33 @@ function Validationpanier() {
      
        navigate("/", { replace: true });
   };
+  const Totalmontant = getTotalCost();
+    const formData = {
+      montant: Totalmontant,
+    };
+const validerPayement = async () => {
+  // Make validerPayement an async function
+  try {
+    console.log(formData);
+    const responseData = await validationPayement(formData); // Wait for the promise to resolve
+    if (responseData.status == 200) {
+      console.log(responseData)
+     
+   
+      openpayement();
+    } else {
+      Swal.fire({
+        title: "Erreur",
+        text: "Il y a une erreur, veuillez vérifier votre solde",
+        icon: "error",
+        confirmButtonText: "Oui",
+      });
+    }
+  } catch (error) {
+    console.error("Validation Payment Error:", error);
+    // Handle error if necessary
+  }
+};
     return (
       <div>
         <button onClick={retour}>retour</button>
@@ -55,9 +89,25 @@ function Validationpanier() {
         <Button
           action="Effectuer-payement"
           classname="commander_produits"
-          buttonhandle={openpayement}
+          buttonhandle={validerPayement}
         />
-     
+        <Modal
+          open={payement}
+          onClose={closepayement}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box className="form-payement" style={{ backgroundColor: "white" }}>
+            <Button
+              action={<img src="./src/assets/fermer.svg" alt="" />}
+              buttonhandle={closepayement}
+              classname="fermer"
+            />
+            
+              <Formpayement closeform={closepayement}  />
+           
+          </Box>
+        </Modal>
       </div>
     );
 }

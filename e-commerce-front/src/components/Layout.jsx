@@ -1,26 +1,22 @@
-
+import Produits_type from "./Produits_type";
 import "./layout.css";
 import Seconnecter from "./Seconnecter";
 import Userthings from "./Userthings";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
-import {useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../Hooks/Auth";
 function Layout() {
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   useEffect(() => {
-     
-     const getToken = localStorage.getItem("token");
+    const getToken = localStorage.getItem("token");
 
-     if (getToken) {
-       setIsLoggedIn(true)
-     }
-     else {
-       setIsLoggedIn(false)
-     }
-      
-  
-   }, []);
+    if (getToken) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   return (
     <div className="container_header ">
@@ -51,6 +47,8 @@ function Layout() {
       ) : (
         <Seconnecter setIsLoggedIn={setIsLoggedIn} />
       )}
+    
+     
     </div>
   );
 }

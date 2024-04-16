@@ -58,6 +58,7 @@ function Inscription({ openlogin, closeinscrit }) {
           nomlabel="Last name"
           value={last_name}
           inputchange={last_namechange}
+          
         />
 
         <Forminput
