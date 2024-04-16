@@ -2,7 +2,12 @@ import React from "react";
 import Produits_type from "./components/Produits_type";
 import Layout from "./components/Layout";
 import Products_list from "./pages/Products_list";
-import { BrowserRouter } from "react-router-dom";
+import Validationpanier from "./pages/Validationpanier";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Profil from "./components/Profil";
+import Admin from "./pages/Admin";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
 
@@ -10,13 +15,21 @@ const App = () => {
 
 
   return (
-    
-      <div>
-      <Layout />
-      <Produits_type />
-      <div>
-        <Products_list />
-      </div>
+    <div>
+      <Router>
+        <Layout />
+        <Produits_type />
+        <div>
+          <Routes>
+            <Route path="/" element={<Products_list />} />
+            <Route path="/Validerpanier" element={<Validationpanier />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Signup" element={<Signup />} />
+            <Route path="/Profil" element={<Profil />} />
+            <Route path="/Admin" element={<Admin />} />
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 };
