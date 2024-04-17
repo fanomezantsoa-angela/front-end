@@ -12,7 +12,7 @@ function Loginform({ closeform }) {
   const [email, setEmail, emailchange] = Inputhandler("");
   const [password, setPassword, passwordchange] = Inputhandler("");
  const [showPassword, setShowPassword] = useState(false);
-
+  const [isLoading, setLoading] = useState(false);
  const handleClickShowPassword = () => setShowPassword((show) => !show);
   const formData = {
     email: email,
@@ -30,6 +30,7 @@ function Loginform({ closeform }) {
     e.preventDefault();
     try {
       const responseData = await login(formData);
+      
       const token = responseData.access;
       localStorage.setItem("token", token);
       
