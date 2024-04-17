@@ -5,8 +5,9 @@ import { Button } from "../littlecomponent/Button";
 import { useState, useEffect, useContext } from "react";
 import { login } from "../Hooks/API";
 import { AuthContext } from "../Hooks/Auth";
-import "./connexion.css"
-function Loginform({ closeform }) {
+
+import { useNavigate } from "react-router-dom";
+function Loginform({  }) {
    const { setIsLoggedIn } = useContext(AuthContext);
   const [email, setEmail, emailchange] = Inputhandler("");
   const [password, setPassword, passwordchange] = Inputhandler("");
@@ -33,7 +34,7 @@ function Loginform({ closeform }) {
       setIsLoggedIn(true);
    
       resetform();
-      closeform();
+       navigate("/");
      
       
     } catch (error) {

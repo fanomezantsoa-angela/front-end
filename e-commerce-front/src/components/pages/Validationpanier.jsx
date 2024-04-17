@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import { CartContext, CartProvider } from "../Hooks/PanierContexte";
+import { CartContext } from "../Hooks/PanierContexte";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
-import { validationPayement, creationpurchase, creationorders,} from "../Hooks/PayementApi";
+import { validationPayement} from "../Hooks/PayementApi";
 import { Button } from "../littlecomponent/Button";
 import Swal from "sweetalert2";
-import Formpayement from "../components/Formpayement";
+import Formpayement from "../form/Formpayement";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 function Validationpanier() {

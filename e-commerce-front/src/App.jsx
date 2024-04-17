@@ -1,19 +1,16 @@
 import React from "react";
-import Produits_type from "./components/Produits_type";
-import Layout from "./components/Layout";
-import Products_list from "./pages/Products_list";
-<<<<<<< HEAD
-import { BrowserRouter } from "react-router-dom";
-import FormComponent from "./components/form/FormComponent";
+import Produits_type from "./components/headerComponent/Produits_type";
+import Layout from "./components/headerComponent/Layout";
+import Products_list from "./components/pages/Products_list";
 
-=======
-import Validationpanier from "./pages/Validationpanier";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Profil from "./components/Profil";
-import Admin from "./pages/Admin";
+
+import Validationpanier from "./components/pages/Validationpanier";
+import Login from "./components/pages/Login";
+import Signup from "./components/pages/Signup";
+import Profil from "./components/pages/Profil";
+import Admin from "./components/pages/Admin";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
->>>>>>> 1fc4c0b (route et payement)
+
 
 
 
@@ -21,18 +18,8 @@ const App = () => {
 
 
   return (
-<<<<<<< HEAD
-    <div className="w-full h-full">
-      <Layout />
-      <Produits_type />
-      <div>
-        <Products_list />
-      </div>
 
-      <div className="mt-30 w-[75%] h-[120px] bg-white mx-auto">
-       
-      </div>
-=======
+
     <div>
       <Router>
         <Layout />
@@ -48,7 +35,7 @@ const App = () => {
           </Routes>
         </div>
       </Router>
->>>>>>> 1fc4c0b (route et payement)
+
     </div>
   );
 };

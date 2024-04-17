@@ -1,4 +1,4 @@
-import Panier from "./Panier";
+import Panier from "../PanierComponent/Panier";
 import GererCompte from "./GererCompte";
 function Userthings() {
     return (
