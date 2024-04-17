@@ -16,7 +16,10 @@ function Paniers({ panierClose }) {
     } = useContext(CartContext);
     const validerpanier= () => {
       panierClose();
-       navigate("/Validationpanier", { replace: true });
+
+
+       navigate("/Validerpanier");
+
   };
   return (
     <div style={{ backgroundColor: "white" }}>
@@ -55,14 +58,14 @@ function Paniers({ panierClose }) {
                   +
                 </IconButton>
               </td>
-              <td>$ {item.price}</td>
-              <td>$ {item.quantity * item.price}</td>
+              <td>{item.price} Ar</td>
+              <td> {item.quantity * item.price} Ar</td>
               <button onClick={() => deleteItemFromCart(item.id)}>X</button>
             </tr>
           ))}
           <tr>
             <td colSpan="5" className="text-end">
-              Total: $ {getTotalCost()}
+              Total: {getTotalCost()} Ar
             </td>
           </tr>
         </tbody>

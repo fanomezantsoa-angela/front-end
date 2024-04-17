@@ -45,7 +45,7 @@ function Products_list() {
     return (
         // {products.map((product) => (
       <div className="produits flex flex-row justify-around">
-        {[1,2,3].map((product) => (
+        {products.map((product) => (
           <div key={product.id} className="produit">
             <img
               src="./src/assets/yaourt-nature.jpg"
