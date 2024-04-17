@@ -1,11 +1,10 @@
 import { Forminput } from "../littlecomponent/Forminput";
 import { Formulaire } from "../littlecomponent/Formulaire";
-import { Inputhandler } from "../Hooks/Inputhandler";
+import { Inputhandler } from "../../Hooks/Inputhandler";
 import { Button } from "../littlecomponent/Button";
 import { useState, useEffect, useContext } from "react";
-import { creationpurchase } from "../Hooks/PayementApi";
-import { creationorders } from "../Hooks/PayementApi";
-import { CartContext } from "../Hooks/PanierContexte";
+import { creationpurchase, creationorders } from "../../Hooks/PayementApi";
+import { CartContext } from "../../Hooks/PanierContexte";
 import Swal from "sweetalert2";
 function Formpayement({ closepayement}) {
     const { items } = useContext(CartContext);
@@ -57,7 +56,7 @@ function Formpayement({ closepayement}) {
           console.log(formorder);
            try {
              const responseorder = await creationorders(formorder);
-             if (responseorder.status == 201) {
+             if (responseorder.status == 200) {
                console.log(responseorder);
                Swal.fire({
                  title: "Information",
@@ -89,28 +88,30 @@ function Formpayement({ closepayement}) {
   };
   return (
     <div>
-      <Formulaire classname="login-form">
+      <Formulaire classname="bg-gray-300">
+        Visa
         <input
           type="radio"
           name="payment" // Same name for all radio buttons in the group
           value="visa"
           onChange={handleChange}
         />
-        Visa
         <br />
+        Mastercard
         <input
           type="radio"
           name="payment" // Same name for all radio buttons in the group
           value="mastercard"
           onChange={handleChange}
-        />
-        Mastercard
+        />{" "}
+        <br />
         <Forminput
           typeinput="text"
           nomlabel="Adresse"
           value={adress}
           inputchange={adresschange}
         />
+        <br />
         <Forminput
           typeinput="text"
           nomlabel="numero de compte"

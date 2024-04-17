@@ -1,6 +1,6 @@
 
 import { InputBase, IconButton, InputAdornment } from "@mui/material";
-import OutlinedInput from "@mui/material/OutlinedInput";
+
 function Recherche() {
     return (
       <div>
@@ -14,7 +14,7 @@ function Recherche() {
               <IconButton
                 type="button"
                 sx={{ p: "10px" }}
-                aria-label="toggle password visibility"
+                aria-label="recherche"
               >
                 <img src="./src/assets/recherche.svg" alt="" />
               </IconButton>

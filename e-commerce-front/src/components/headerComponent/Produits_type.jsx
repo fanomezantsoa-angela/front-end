@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import { type_product } from "../Hooks/API";
+import { type_product } from "../../Hooks/API";
 import "./produits_types.css";
 function Produits_type() {
     const Item = styled(Paper)(({ theme }) => ({

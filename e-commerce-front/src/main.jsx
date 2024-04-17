@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import { AuthProvider } from "./components/Hooks/Auth.jsx";
-import { CartProvider } from "./components/Hooks/PanierContexte.jsx"
+import { AuthProvider } from "./Hooks/Auth.jsx";
+import { CartProvider } from "./Hooks/PanierContexte.jsx"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
