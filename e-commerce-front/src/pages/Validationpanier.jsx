@@ -11,6 +11,7 @@ import Formpayement from "../components/form/Formpayement";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 function Validationpanier() {
+  
   const [payement, setPayment] = useState(false);
   const openpayement = () => setPayment(true);
   const closepayement = () => setPayment(false);
@@ -23,14 +24,14 @@ function Validationpanier() {
     getTotalCost,
   } = useContext(CartContext);
   const retour = () => {
-    navigate("/", { replace: true });
+    navigate("/");
   };
   const Totalmontant = getTotalCost();
   const formData = {
     montant: Totalmontant,
   };
   const validerPayement = async () => {
-    // Make validerPayement an async function
+ 
     try {
       console.log(formData);
       const responseData = await validationPayement(formData);

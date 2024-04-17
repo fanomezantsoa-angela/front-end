@@ -2,13 +2,14 @@ import { Forminput } from "../littlecomponent/Forminput";
 import { Formulaire } from "../littlecomponent/Formulaire";
 import { Inputhandler } from "../../Hooks/Inputhandler";
 import { Button } from "../littlecomponent/Button";
+import { AuthContext } from "../../Hooks/Auth";
 import { useState, useEffect, useContext } from "react";
 import { creationpurchase, creationorders } from "../../Hooks/PayementApi";
 import { CartContext } from "../../Hooks/PanierContexte";
 import Swal from "sweetalert2";
 function Formpayement({ closepayement}) {
-    const { items } = useContext(CartContext);
-    
+    const { items, emptyCart } = useContext(CartContext);
+       const { IsLoggedIn } = useContext(AuthContext);
   const [adress, setAdresse, adresschange] = Inputhandler("");
     const [account_number, setAccount_number, numcomptechange] = Inputhandler("");
      const [payement_mode, setPayement_mode] = useState("");
@@ -29,6 +30,7 @@ function Formpayement({ closepayement}) {
   };
 
   const paymentsubmit = async (e) => {
+   
     e.preventDefault();
       try {
          
@@ -56,18 +58,22 @@ function Formpayement({ closepayement}) {
           console.log(formorder);
            try {
              const responseorder = await creationorders(formorder);
-             if (responseorder.status == 200) {
+             if (responseorder.status == 201) {
+               
                console.log(responseorder);
+
                Swal.fire({
                  title: "Information",
                  text: "Votre payement a été effectué",
                  icon: "success",
                  confirmButtonText: "Oui",
                });
-             } else if (responseorder.status == 400) {
+               closepayement();
+               emptyCart();
+             } else if (responseorder.status == 500) {
                  Swal.fire({
                    title: "Erreur 500",
-                   text: "une erreur est survenue pendant le payement ",
+                   text: "une erreur 500 est survenue pendant le payement ",
                    icon: "error",
                    confirmButtonText: "Oui",
                  });
