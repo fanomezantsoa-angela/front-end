@@ -3,12 +3,11 @@ import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import { logout } from "../Hooks/Auth";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { Logout } from "@mui/icons-material";
-
-import { AuthContext } from "../Hooks/Auth";
+import { AuthContext, logout } from "../../Hooks/Auth";
+import { useNavigate } from "react-router-dom";
 function GererCompte() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
@@ -22,6 +21,7 @@ function GererCompte() {
   const Logginout = () => {
     logout();
     setIsLoggedIn(false); 
+
   };
   return (
     <div>

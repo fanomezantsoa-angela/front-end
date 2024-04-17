@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Userthings from "./Userthings";
 import {Button} from "../littlecomponent/Button"
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../Hooks/Auth";
+import { AuthContext } from "../../Hooks/Auth";
 function Layout() {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);

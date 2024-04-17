@@ -6,7 +6,7 @@ import Badge from '@mui/material/Badge';
 import { useState, useEffect, useContext } from "react";
 import Paniers from "./Paniers";
 import "./panier.css"
-import { CartContext } from "../Hooks/PanierContexte";
+import { CartContext } from "../../Hooks/PanierContexte";
 function Panier() {
   const { items } = useContext(CartContext);
     const [panier, setPanier] = useState(false)

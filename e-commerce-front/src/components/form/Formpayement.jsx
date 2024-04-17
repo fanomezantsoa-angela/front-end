@@ -1,15 +1,15 @@
 import { Forminput } from "../littlecomponent/Forminput";
 import { Formulaire } from "../littlecomponent/Formulaire";
-import { Inputhandler } from "../Hooks/Inputhandler";
+import { Inputhandler } from "../../Hooks/Inputhandler";
 import { Button } from "../littlecomponent/Button";
+import { AuthContext } from "../../Hooks/Auth";
 import { useState, useEffect, useContext } from "react";
-import { creationpurchase } from "../Hooks/PayementApi";
-import { creationorders } from "../Hooks/PayementApi";
-import { CartContext } from "../Hooks/PanierContexte";
+import { creationpurchase, creationorders } from "../../Hooks/PayementApi";
+import { CartContext } from "../../Hooks/PanierContexte";
 import Swal from "sweetalert2";
 function Formpayement({ closepayement}) {
-    const { items } = useContext(CartContext);
-    
+    const { items, emptyCart } = useContext(CartContext);
+       const { IsLoggedIn } = useContext(AuthContext);
   const [adress, setAdresse, adresschange] = Inputhandler("");
     const [account_number, setAccount_number, numcomptechange] = Inputhandler("");
      const [payement_mode, setPayement_mode] = useState("");
@@ -30,6 +30,7 @@ function Formpayement({ closepayement}) {
   };
 
   const paymentsubmit = async (e) => {
+   
     e.preventDefault();
       try {
          
@@ -58,13 +59,24 @@ function Formpayement({ closepayement}) {
            try {
              const responseorder = await creationorders(formorder);
              if (responseorder.status == 201) {
+               
                console.log(responseorder);
+
                Swal.fire({
                  title: "Information",
                  text: "Votre payement a été effectué",
                  icon: "success",
                  confirmButtonText: "Oui",
                });
+               closepayement();
+               emptyCart();
+             } else if (responseorder.status == 500) {
+                 Swal.fire({
+                   title: "Erreur 500",
+                   text: "une erreur 500 est survenue pendant le payement ",
+                   icon: "error",
+                   confirmButtonText: "Oui",
+                 });
              } else {
                Swal.fire({
                  title: "Erreur",
@@ -72,7 +84,7 @@ function Formpayement({ closepayement}) {
                  icon: "error",
                  confirmButtonText: "Oui",
                });
-             }
+             } 
            } catch (error) {
              console.error("order error:", error);
              // Handle error if necessary
@@ -89,28 +101,30 @@ function Formpayement({ closepayement}) {
   };
   return (
     <div>
-      <Formulaire classname="login-form">
+      <Formulaire classname="bg-gray-300">
+        Visa
         <input
           type="radio"
           name="payment" // Same name for all radio buttons in the group
           value="visa"
           onChange={handleChange}
         />
-        Visa
         <br />
+        Mastercard
         <input
           type="radio"
           name="payment" // Same name for all radio buttons in the group
           value="mastercard"
           onChange={handleChange}
-        />
-        Mastercard
+        />{" "}
+        <br />
         <Forminput
           typeinput="text"
           nomlabel="Adresse"
           value={adress}
           inputchange={adresschange}
         />
+        <br />
         <Forminput
           typeinput="text"
           nomlabel="numero de compte"

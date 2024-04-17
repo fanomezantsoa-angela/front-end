@@ -1,7 +1,7 @@
 
 import { Button } from "../littlecomponent/Button";
 import { useState, useEffect, useContext } from "react";
-import { CartContext } from "../Hooks/PanierContexte";
+import { CartContext } from "../../Hooks/PanierContexte";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 function Paniers({ panierClose }) {
