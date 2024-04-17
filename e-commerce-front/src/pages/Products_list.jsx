@@ -67,6 +67,7 @@ function Products_list() {
                 <img src="./src/assets/moins.svg" alt="" />
               </IconButton>
               <TextField
+                type="number"
                 value={quantite}
                 variant="standard"
                 onChange={quantitechange}
