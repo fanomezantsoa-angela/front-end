@@ -6,6 +6,7 @@ import Userthings from "./Userthings";
 import {Button} from "../littlecomponent/Button"
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../Hooks/Auth";
+import Produits_type from "./Produits_type";
 function Layout() {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
@@ -19,7 +20,8 @@ function Layout() {
     }
   }, []);
   const dirigerLogin = () => {
-  navigate("/Login");
+    event.preventDefault(); 
+    navigate("/Login");
 }
   return (
     <div className="container_header ">
@@ -46,7 +48,9 @@ function Layout() {
           buttonhandle={dirigerLogin}
         />
       )}
+     
     </div>
+   
   );
 }
 export default Layout;

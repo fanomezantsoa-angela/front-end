@@ -9,8 +9,12 @@ function Products_list() {
   const { addToCart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
   const [quantite, setQuantite] = useState(1);
-   const quantitechange= (e) => {
-   setQuantite(e.target.value);
+  const quantitechange = (e) => {
+     const value = e.target.value;
+
+
+     // Met à jour la quantité uniquement si la validation réussit
+     setQuantite(value);
    };
   const moins_quantite = () => {
     if (quantite > 1) {
@@ -19,12 +23,7 @@ function Products_list() {
   };
   const plus_quantite = (stock) => {
     // Ensure valid arguments (optional, can be added for robustness)
-    if (typeof stock !== "number") {
-      console.error(
-        "plus_quantite: Invalid argument. Expected a number for stock."
-      );
-      return;
-    }
+    
 
     const updatedQuantite = Math.min(quantite + 1, stock);
     setQuantite(updatedQuantite);

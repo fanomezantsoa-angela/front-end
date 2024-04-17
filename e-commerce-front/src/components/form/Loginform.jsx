@@ -59,14 +59,13 @@ function Loginform() {
     <div>
       {loading && <div className="spinner">Loading...</div>}
       <form className="login-form">
-        
         <Forminput
           typeinput="email"
           nomlabel="Email"
           value={email}
           inputchange={emailchange}
         />
-
+        <br />
         <InputBase
           className="bg-slate-50"
           placeholder="Password"
@@ -85,8 +84,9 @@ function Loginform() {
               </IconButton>
             </InputAdornment>
           }
-        />
-        <Button action="Login" buttonhandle={loginsubmit} classname="login" />
+        /> <br />
+        <Button action="Login" buttonhandle={loginsubmit} classname="login" /> <br />
+        <Button action="Créer un compte" buttonhandle={  () => navigate("/Signup")} classname="s'inscrire" />
       </form>
     </div>
   );
