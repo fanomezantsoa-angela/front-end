@@ -1,6 +1,6 @@
 
 import "./layout.css";
-
+import Recherche from "./Recherche";
 import { useNavigate } from "react-router-dom";
 import Userthings from "./Userthings";
 import {Button} from "../littlecomponent/Button"
@@ -35,17 +35,17 @@ function Layout() {
           </p>
         </section>
       </section>
-  
-        {isLoggedIn ? (
-          <Userthings />
-        ) : (
-          <Button
-            action="se connecter"
-            classname="seconnecter"
-            buttonhandle={dirigerLogin}
-          />
-        )}
-     
+      <Recherche />
+
+      {isLoggedIn ? (
+        <Userthings />
+      ) : (
+        <Button
+          action="se connecter"
+          classname="seconnecter"
+          buttonhandle={dirigerLogin}
+        />
+      )}
     </div>
   );
 }

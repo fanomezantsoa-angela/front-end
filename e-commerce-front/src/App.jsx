@@ -24,7 +24,7 @@ const App = () => {
       <Router>
         <Layout />
         <Produits_type />
-        <div  className="mt-30 w-[75%] h-[120px] bg-white mx-auto">
+        <div  >
           <Routes>
             <Route path="/" element={<Products_list />} />
             <Route path="/Validerpanier" element={<Validationpanier />} />
