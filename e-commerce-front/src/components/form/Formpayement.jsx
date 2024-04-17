@@ -64,6 +64,13 @@ function Formpayement({ closepayement}) {
                  icon: "success",
                  confirmButtonText: "Oui",
                });
+             } else if (responseorder.status == 400) {
+                 Swal.fire({
+                   title: "Erreur 500",
+                   text: "une erreur est survenue pendant le payement ",
+                   icon: "error",
+                   confirmButtonText: "Oui",
+                 });
              } else {
                Swal.fire({
                  title: "Erreur",
@@ -71,7 +78,7 @@ function Formpayement({ closepayement}) {
                  icon: "error",
                  confirmButtonText: "Oui",
                });
-             }
+             } 
            } catch (error) {
              console.error("order error:", error);
              // Handle error if necessary
