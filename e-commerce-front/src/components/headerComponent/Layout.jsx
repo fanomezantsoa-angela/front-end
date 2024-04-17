@@ -1,12 +1,13 @@
-import Produits_type from "./Produits_type";
+
 import "./layout.css";
-import Seconnecter from "./Seconnecter";
+import Recherche from "./Recherche";
+import { useNavigate } from "react-router-dom";
 import Userthings from "./Userthings";
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
+import {Button} from "../littlecomponent/Button"
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../Hooks/Auth";
 function Layout() {
+  const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   useEffect(() => {
     const getToken = localStorage.getItem("token");
@@ -17,9 +18,11 @@ function Layout() {
       setIsLoggedIn(false);
     }
   }, []);
-
+  const dirigerLogin = () => {
+  navigate("/Login");
+}
   return (
-    <div className="container ">
+    <div className="container_header ">
       <section className="sec-slogan">
         <img src="./src/assets/socolait.svg" alt="" className="logo" />
         <section>
@@ -32,23 +35,17 @@ function Layout() {
           </p>
         </section>
       </section>
-      <section className="recherche">
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="chercher un produit"
-          inputProps={{ "aria-label": "chercher un produit" }}
-        />
-        <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-          <img src="./src/assets/recherche.svg" alt="" />
-        </IconButton>
-      </section>
+      <Recherche />
+
       {isLoggedIn ? (
-        <Userthings loggein={setIsLoggedIn} />
+        <Userthings />
       ) : (
-        <Seconnecter setIsLoggedIn={setIsLoggedIn} />
+        <Button
+          action="se connecter"
+          classname="seconnecter"
+          buttonhandle={dirigerLogin}
+        />
       )}
-    
-     
     </div>
   );
 }

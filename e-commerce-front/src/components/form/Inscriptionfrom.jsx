@@ -9,12 +9,12 @@ function Inscription({ openlogin, closeinscrit }) {
   const [last_name, setLast_name, last_namechange] = Inputhandler("");
   const [email, setEmail, emailchange] = Inputhandler("");
   const [birthdate, setBirthdate, birthdatechange] = Inputhandler("");
-  // const [contact, setContact, contactchange] = Inputhandler("");
+ 
   const [password, setPassword, passwordchange] = Inputhandler("");
   const formData = {
     first_name: first_name,
     last_name: last_name,
-    // contact: contact,
+  
     email: email,
     password: password,
     is_staff: true,

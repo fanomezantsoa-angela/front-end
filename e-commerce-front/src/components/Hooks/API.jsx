@@ -1,6 +1,4 @@
 import axiosInstance from "../axios/axiosConfig";
-const getToken = localStorage.getItem("token") 
-const getAuthorizationHeader = `Bearer ${getToken}`;
 
 export const postProduct = async (formData) => {
   try {

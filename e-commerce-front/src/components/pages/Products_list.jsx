@@ -43,7 +43,8 @@ function Products_list() {
        fetchTypeList();
      }, []);
     return (
-      <div className="produits">
+        // {products.map((product) => (
+      <div className="produits flex flex-row justify-around">
         {products.map((product) => (
           <div key={product.id} className="produit">
             <img

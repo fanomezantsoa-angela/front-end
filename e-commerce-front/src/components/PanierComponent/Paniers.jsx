@@ -16,7 +16,10 @@ function Paniers({ panierClose }) {
     } = useContext(CartContext);
     const validerpanier= () => {
       panierClose();
-       navigate("/Validerpanier", { replace: true });
+
+
+       navigate("/Validerpanier");
+
   };
   return (
     <div style={{ backgroundColor: "white" }}>

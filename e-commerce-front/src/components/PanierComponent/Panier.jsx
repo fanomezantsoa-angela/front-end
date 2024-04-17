@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Badge from '@mui/material/Badge';
 import { useState, useEffect, useContext } from "react";
-import Paniers from "../littlecomponent/Paniers";
+import Paniers from "./Paniers";
 import "./panier.css"
 import { CartContext } from "../Hooks/PanierContexte";
 function Panier() {
