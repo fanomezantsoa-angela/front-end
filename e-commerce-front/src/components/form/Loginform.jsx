@@ -104,15 +104,17 @@ function Loginform() {
 
         <div className="w-full justify-center items-center flex">
           <Button 
-            action={loading ? <div className="spinner">Loading...</div> : "Se connecter"} 
+            action={loading ? <Box sx={{ 
+              display: 'flex',
+              justifyContent: "center",
+              color: "#FFFFFF"
+             }}>
+              <CircularProgress sx={{
+                color: "white"
+              }}/>
+            </Box> : "Se connecter"} 
             // action={
-            //   <Box sx={{ 
-            //     display: 'flex',
-            //     justifyContent: "center",
-            //     color: "#FFFFFF"
-            //    }}>
-            //     <CircularProgress />
-            //   </Box>
+              
             // } 
             buttonhandle={loginsubmit} 
             classname="bg-sky-700 text-white w-full p-2 rounded-md
@@ -121,9 +123,13 @@ function Loginform() {
 
         {/* Setting redicrection */}
         <div className="mt-10">
-            <p>Vous n'avez pas encore de compte ?  
+            <p className="text-center mt-5 px-4">Vous n'avez pas encore de compte ?  
               <a 
-                href="/"
+                href="/signup"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate("/signup")
+                }}
                 className="text-sky-600 px-2 underline">
                 Creer ici
               </a>
