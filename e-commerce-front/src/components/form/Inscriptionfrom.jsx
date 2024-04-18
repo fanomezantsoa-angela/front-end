@@ -1,6 +1,6 @@
 import { Inputhandler } from "../../Hooks/Inputhandler";
 import { Button } from "../littlecomponent/Button";
-import {inscription} from "../../Hooks/API";
+// import {inscription} from "../../Hooks/API";
 
 import { Forminput } from "../littlecomponent/Forminput";
 import { useContext, useState } from "react";
@@ -200,10 +200,10 @@ function Inscription() {
                 href="/signup"
                 onClick={(e) => {
                   e.preventDefault()
-                  navigate("/signup")
+                  navigate("/login")
                 }}
                 className="text-sky-600 px-2 underline">
-                Connecter vous ici
+                Connectez-vous ici
               </a>
             </p>
         </div>

@@ -7,11 +7,11 @@ function Login() {
 			flex flex-row 
 		">
 			{/* Image component */}
-			<div className="w-[50%] hidden 2xl:block lg:block bg-fixed bg-no-repeat"
+			<div className="w-[50%] hidden 2xl:block lg:block bg-cover bg-fixed bg-no-repeat"
 				style={{
 					backgroundImage: "url('./src/assets/LoginSignupIllustration/Nestle Milk Splash.jpeg')",
-					backgroundSize: "50%"
-			}}
+					backgroundSize: "60%"
+				}}
 			>
 				{/* <img 
 				className="w-[100%] h-[100%]"
