@@ -19,7 +19,7 @@ function Loginform() {
   const [email, setEmail, emailchange] = Inputhandler("");
   const [password, setPassword, passwordchange] = Inputhandler("");
  const [showPassword, setShowPassword] = useState(false);
- 
+  const [errorMessage, setErrorMessage] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const navigate = useNavigate();
   const formData = {
@@ -35,29 +35,32 @@ function Loginform() {
    };
 
   const loginsubmit = async (e) => {
+    if (email == "" || password == "") {
+      setErrorMessage(true);
+    }
     e.preventDefault();
       startLoading();
     
-    try {
+  
       const responseData = await login(formData);
-       
-      const token = responseData.access;
-      localStorage.setItem("token", token);
-      
-      setIsLoggedIn(true);
-   
-      resetform();
-       navigate("/");
+    if (responseData.status == 200) {
+          const token = responseData.access;
+          localStorage.setItem("token", token);
+
+          setIsLoggedIn(true);
+
+          resetform();
+          stopLoading();
+          navigate("/");
+       }
+    else {
+      console.log(responseData);
+     }
       
      
-      
-    } catch (error) {
-      // Handle errors
-      console.error("Error:", error);
-    }
-    finally {
-      stopLoading();
-    }
+  
+     
+    
   };
   return (
     <div>

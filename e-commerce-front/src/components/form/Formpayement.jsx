@@ -29,10 +29,10 @@ function Formpayement({ closepayement}) {
     setNumcompte("");
   };
 
-  const paymentsubmit = async (e) => {
+  const paymentsubmit =  async (e) => {
    
     e.preventDefault();
-      try {
+    
          
         const responseData = await creationpurchase(formData);
        
@@ -56,8 +56,8 @@ function Formpayement({ closepayement}) {
               })),
             };
           console.log(formorder);
-           try {
-             const responseorder = await creationorders(formorder);
+          
+             const responseorder =  await creationorders(formorder);
              if (responseorder.status == 201) {
                
                console.log(responseorder);
@@ -85,16 +85,9 @@ function Formpayement({ closepayement}) {
                  confirmButtonText: "Oui",
                });
              } 
-           } catch (error) {
-             console.error("order error:", error);
-             // Handle error if necessary
-           }
+          
         }
-      } catch (error) {
-        console.error("payement error:", error);
-        
-      }
-  
+    
 
       
    

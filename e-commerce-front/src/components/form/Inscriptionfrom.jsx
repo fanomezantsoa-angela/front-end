@@ -1,6 +1,6 @@
 import { Inputhandler } from "../../Hooks/Inputhandler";
 import { Button } from "../littlecomponent/Button";
-// import {inscription} from "../../Hooks/API";
+import {inscription} from "../../Hooks/API";
 
 import { Forminput } from "../littlecomponent/Forminput";
 import { useContext, useState } from "react";
@@ -24,6 +24,7 @@ function Inscription() {
  
   const [password, setPassword, passwordchange] = Inputhandler("");
   const [password1, setPassword1, passwordchange1] = Inputhandler("");
+  const [errorMessage, setErrorMessage] = useState(false);
 
   // For email validation
   const [isEmailValid, setIsEmailValid] = useState(true)
@@ -31,7 +32,6 @@ function Inscription() {
   const handleClickShowPassword = () => setShowPassword((show) => !show); 
 
   const navigate = useNavigate()
-
   const formData = {
     first_name: first_name,
     last_name: last_name,
@@ -71,27 +71,35 @@ function Inscription() {
   const inscriptionsubmit = async (e) => {
     e.preventDefault();
     setIsEmailValid(emailValidation(email))
-    if(isEmailValid){
-      startLoading()
-  
-      console.log(formData)
-  
-      try {
-        // const responseData = await inscription(formData);
-        // console.log("Response:", responseData);
-        resetform();
-        // stopLoading()
-      } catch (error) {
-        // Handle errors
-        console.error("Error:", error);
-        stopLoading()
-      }
-
-    }
-    stopLoading()
-
-    
-  };
+    if (email == "" || password == "" || first_name =="" || last_name == "" || birthdate == "") {
+      setErrorMessage(true);
+    } else {
+		if(isEmailValid){
+			startLoading()
+			
+			console.log(formData)
+			try {
+				const responseData = await inscription(formData);
+				if (responseData.status == 201) {
+				
+					console.log("Response:", responseData);
+					resetform();
+					navigate("/Login");
+				} else {
+					// console.error(error)
+				}
+				
+				stopLoading()
+				} catch (error) {
+					// Handle errors
+					console.error("Error:", error);
+					stopLoading()
+				}
+			}
+			stopLoading()
+		}
+	stopLoading()
+	};
   return (
     <div className="inscription-container">
       <form className=" space-y-1">
