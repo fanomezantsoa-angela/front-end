@@ -17,13 +17,15 @@ function Produits_type() {
    
   
     async function fetchTypeList() {
-      try {
+     
         const types = await type_product();
-
-        setTypeOptions(types.results);
-      } catch (error) {
-        console.error("Error fetching type list:", error);
-      }
+      if (types.status == 200) {
+          setTypeOptions(types.data.results);
+        }
+      else {
+        console.log(types)
+        }
+     
     }
     fetchTypeList();
   }, []);
