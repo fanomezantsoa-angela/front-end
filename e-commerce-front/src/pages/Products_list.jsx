@@ -1,6 +1,7 @@
-import { Product_list } from "../Hooks/productAPI";
+import { Product_list, Product_rating } from "../Hooks/productAPI";
 import { useState, useEffect, useContext } from "react";
 import IconButton from "@mui/material/IconButton";
+import Rating from "@mui/material/Rating";
 import TextField from "@mui/material/TextField";
 import { CartContext } from "../Hooks/PanierContexte";
 import "./produits_list.css"
@@ -9,6 +10,12 @@ function Products_list() {
   const { addToCart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
   const [quantite, setQuantite] = useState(1);
+  const [value, setValue] = useState(2);
+  const sendingRate = (newvalue, productid) => {
+    setValue(newvalue);
+    const response = Product_rating(id)
+    console.log(response)
+  }
   const quantitechange = (e) => {
      const value = e.target.value;
 
@@ -42,7 +49,7 @@ function Products_list() {
        fetchTypeList();
      }, []);
     return (
-        // {products.map((product) => (
+      // {products.map((product) => (
       <div className="produits flex flex-row justify-around">
         {products.map((product) => (
           <div key={product.id} className="produit">
@@ -56,6 +63,7 @@ function Products_list() {
               {product.description} stock: {product.stock}
             </p>
             <p className="price">{product.price} Ar</p>
+        
             <section className="faire-panier">
               <IconButton
                 type="button"
@@ -74,7 +82,7 @@ function Products_list() {
                 type="button"
                 sx={{ p: "10px" }}
                 aria-label="plus-quantite"
-                disabled={quantite >= product.stock} 
+                disabled={quantite >= product.stock}
                 onClick={() => plus_quantite(product.stock)}
               >
                 <img src="./src/assets/plus.svg" alt="" />

@@ -15,7 +15,7 @@ function Loginform() {
   const [email, setEmail, emailchange] = Inputhandler("");
   const [password, setPassword, passwordchange] = Inputhandler("");
  const [showPassword, setShowPassword] = useState(false);
- 
+  const [errorMessage, setErrorMessage] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const navigate = useNavigate();
   const formData = {
@@ -31,6 +31,9 @@ function Loginform() {
    };
 
   const loginsubmit = async (e) => {
+    if (email == "" || password == "") {
+      setErrorMessage(true);
+    }
     e.preventDefault();
       startLoading();
     
@@ -84,9 +87,18 @@ function Loginform() {
               </IconButton>
             </InputAdornment>
           }
-        /> <br />
-        <Button action="Login" buttonhandle={loginsubmit} classname="login" /> <br />
-        <Button action="Créer un compte" buttonhandle={  () => navigate("/Signup")} classname="s'inscrire" />
+        />{" "}
+        <br />
+        {errorMessage && (
+          <div className="text-xs text-red-700">Veuiler remplir les champs </div>
+        )}
+        <Button action="Login" buttonhandle={loginsubmit} classname="login" />{" "}
+        <br />
+        <Button
+          action="Créer un compte"
+          buttonhandle={() => navigate("/Signup")}
+          classname="s'inscrire"
+        />
       </form>
     </div>
   );
