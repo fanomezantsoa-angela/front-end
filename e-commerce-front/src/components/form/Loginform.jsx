@@ -37,26 +37,26 @@ function Loginform() {
     e.preventDefault();
       startLoading();
     
-    try {
+  
       const responseData = await login(formData);
-       
-      const token = responseData.access;
-      localStorage.setItem("token", token);
-      
-      setIsLoggedIn(true);
-   
-      resetform();
-       navigate("/");
+    if (responseData.status == 200) {
+          const token = responseData.access;
+          localStorage.setItem("token", token);
+
+          setIsLoggedIn(true);
+
+          resetform();
+          stopLoading();
+          navigate("/");
+       }
+    else {
+      console.log(responseData);
+     }
       
      
-      
-    } catch (error) {
-      // Handle errors
-      console.error("Error:", error);
-    }
-    finally {
-      stopLoading();
-    }
+  
+     
+    
   };
   return (
     <div>

@@ -5,7 +5,9 @@ import { InputBase, IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Forminput } from "../littlecomponent/Forminput";
 import { Formulaire } from "../littlecomponent/Formulaire";
-function Inscription({ openlogin, closeinscrit }) {
+import { useNavigate } from "react-router-dom";
+function Inscription() {
+  const navigate = useNavigate();
   const [first_name, setFirst_name, first_namechange] = Inputhandler("");
   const [last_name, setLast_name, last_namechange] = Inputhandler("");
   const [email, setEmail, emailchange] = Inputhandler("");
@@ -33,21 +35,21 @@ function Inscription({ openlogin, closeinscrit }) {
     setPassword("");
   };
 
-  const inscriptionsubmit = async (e) => {
+  const inscriptionsubmit = async  (e) => {
     e.preventDefault();
      if (email == "" || password == "" || first_name =="" || last_name == "" || birthdate == "") {
        setErrorMessage(true);
-     }
-    try {
-      const responseData = await inscription(formData);
+    }
+    const responseData = await inscription(formData);
+    if (responseData.status == 201) {
+      
       console.log("Response:", responseData);
       resetform();
-      closeinscrit();
-      openlogin();
-    } catch (error) {
-      // Handle errors
-      console.error("Error:", error);
+      navigate("/Login");
+    } else {
+      console.error(error)
     }
+  
   };
   return (
     <div className="inscription-container">

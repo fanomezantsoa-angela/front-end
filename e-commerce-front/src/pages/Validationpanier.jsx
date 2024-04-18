@@ -7,11 +7,11 @@ import { validationPayement } from "../Hooks/PayementApi";
 import { Button } from "../components/littlecomponent/Button";
 import Swal from "sweetalert2";
 import Formpayement from "../components/form/Formpayement";
-
+import { AuthContext, logout } from "../Hooks/Auth";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 function Validationpanier() {
-  
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const [payement, setPayment] = useState(false);
   const openpayement = () => setPayment(true);
   const closepayement = () => setPayment(false);
@@ -31,25 +31,28 @@ function Validationpanier() {
     montant: Totalmontant,
   };
   const validerPayement = async () => {
- 
-    try {
-      console.log(formData);
-      const responseData = await validationPayement(formData);
-      console.log(responseData);
-      if (responseData.status == 200) {
-        openpayement();
-      } else {
-        Swal.fire({
-          title: "Erreur",
-          text: "Il y a une erreur, veuillez vérifier votre solde",
-          icon: "error",
-          confirmButtonText: "Oui",
-        });
-      }
-    } catch (error) {
-      console.error("Validation Payment Error:", error);
-      // Handle error if necessary
+
+
+    if (isLoggedIn == true) {
+        const responseData = await validationPayement(formData);
+        console.log(responseData);
+        if (responseData.status == 200) {
+          openpayement();
+        } else {
+          Swal.fire({
+            title: "Erreur",
+            text: "Il y a une erreur, veuillez vérifier votre solde",
+            icon: "error",
+            confirmButtonText: "Oui",
+          });
+        }
     }
+    else {
+      
+      navigate("/Login")
+    }
+      
+   
   };
   return (
     <div>
