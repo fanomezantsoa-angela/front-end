@@ -12,7 +12,7 @@ const App = () => {
   return (
     <div>
       <Router>
-        <Layout />
+        <Layout/>
         <Produits_type />
 
         <div>
