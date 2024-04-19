@@ -56,11 +56,9 @@ function Panier() {
           aria-describedby="modal-modal-description"
         >
           <Box className="paniers">
-            {items.length < 1 ? (
-              <p>No items in your cart</p>
-            ) : (
+          
               <Paniers panierClose={panierClose} />
-            )}
+         
           </Box>
         </Modal>
       </div>

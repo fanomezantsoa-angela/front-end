@@ -8,36 +8,31 @@ import "./produits_list.css";
 function Products_list() {
   const { addToCart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
-  const [quantite, setQuantite] = useState(1);
+  //const [quantite, setQuantite] = useState(1);
   const [value, setValue] = useState(0);
+  const [ratedProducts, setRatedProducts] = useState([]);
   const sendingRate = async (newvalue, id) => {
-   
+     if (ratedProducts.includes(id)) {
+       return;
+     }
       setValue(newvalue);
       console.log(value);
       console.log(id);
       const response = await Product_rating(id, {
         rate_value: value,
       });
-      console.log(response);
+    if (response.status == 201) {
+      console.log(response.data);
+    }
+    else {
+      console.log(response)
+    }
+      setRatedProducts([...ratedProducts, id]);
    
   };
-  const quantitechange = (e) => {
-    const value = e.target.value;
 
-    // Met à jour la quantité uniquement si la validation réussit
-    setQuantite(value);
-  };
-  const moins_quantite = () => {
-    if (quantite > 1) {
-      setQuantite(quantite - 1);
-    }
-  };
-  const plus_quantite = (stock) => {
-    // Ensure valid arguments (optional, can be added for robustness)
-
-    const updatedQuantite = Math.min(quantite + 1, stock);
-    setQuantite(updatedQuantite);
-  };
+ 
+ 
   useEffect(() => {
     async function fetchTypeList() {
      
@@ -71,6 +66,8 @@ function Products_list() {
               sendingRate(newValue, product.id);
             }}
           />
+
+
           <section className="faire-panier">
             <IconButton
               type="button"
@@ -90,52 +87,47 @@ function Products_list() {
               {product.description} stock: {product.stock}
             </p>
             <p className="price">{product.price} Ar</p>
+
             <section className="faire-panier">
+            
+             
+            
+          
+           
+              
               <IconButton
                 type="button"
-                sx={{ p: "10px" }}
-                aria-label="moins-quantite"
-                onClick={moins_quantite}
-              >
-                <img src="./src/assets/moins.svg" alt="" />
-              </IconButton>
-              <TextField
-                type="number"
-                value={quantite}
-                variant="standard"
-                onChange={quantitechange}
-              />
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
-                aria-label="plus-quantite"
-                disabled={quantite >= product.stock} 
-                onClick={() => plus_quantite(product.stock)}
-              >
-                <img src="./src/assets/plus.svg" alt="" />
-              </IconButton>
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
+               
                 aria-label="faire-panier"
                 onClick={() =>
                   addToCart(
                     product.id,
-                    quantite,
+                     1,
                     product.price,
                     product.name,
                     product.stock
                   )
                 }
               >
-                <img src="./src/assets/panier1.svg" alt="" />
+                Ajouter au panier
               </IconButton>
             </section>
+
+        
+       
+
+
+
+
+     
+     
+
             </section>
           </div>
         ))}
       </div>
     );
+
 
 
 }

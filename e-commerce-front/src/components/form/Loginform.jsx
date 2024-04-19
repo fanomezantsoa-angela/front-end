@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { LoadingContext } from "../../Hooks/LoadingContext";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-
+import Swal from "sweetalert2";
 
 
 function Loginform() {
@@ -20,6 +20,7 @@ function Loginform() {
   const [password, setPassword, passwordchange] = Inputhandler("");
  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(true);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const navigate = useNavigate();
   const formData = {
@@ -33,29 +34,54 @@ function Loginform() {
 
      setPassword("");
    };
-
-  const loginsubmit = async (e) => {
+     const emailValidation = (email) => {
+       return String(email)
+         .toLowerCase()
+         .match(
+           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+         );
+     };
+  const loginsubmit = (e) => {
     if (email == "" || password == "") {
       setErrorMessage(true);
     }
     e.preventDefault();
+    setIsEmailValid(emailValidation(email));
       startLoading();
-    
+       
   
-      const responseData = await login(formData);
-    if (responseData.status == 200) {
-          const token = responseData.access;
-          localStorage.setItem("token", token);
+      login(formData)
+     .then(response => {
+       const token = response.data.access;
+       localStorage.setItem("token", token);
 
-          setIsLoggedIn(true);
+       setIsLoggedIn(true);
 
-          resetform();
+       resetform();
+       stopLoading();
+       navigate("/");
+     })
+        .catch((response) => {
+          
           stopLoading();
-          navigate("/");
-       }
-    else {
-      console.log(responseData);
-     }
+         if(response.response.status == 401){
+           Swal.fire({
+             title: "erreur",
+             text: response.response.data.detail,
+             icon: "error",
+             showConfirmButton: true,
+           });
+         } else {
+            Swal.fire({
+              title: "erreur",
+              text: "Veuillez verifier les information que vous avez saisi",
+              icon: "error",
+              showConfirmButton: true,
+            });
+          }
+          
+     });
+    
       
      
     stopLoading()
@@ -66,7 +92,6 @@ function Loginform() {
     <div>
       {/* {loading && <div className="spinner">Loading...</div>} */}
       <form className=" space-y-2">
-        
         <div>
           <Forminput
             typeinput="email"
@@ -77,12 +102,15 @@ function Loginform() {
             isRequired={true}
           />
         </div>
-
+        {!isEmailValid && (
+          <p className="p-0 m-0 text-red-500">
+            Veuiller saisir un e-mail valide.
+          </p>
+        )}
         <div>
-          <label 
-            className="block text-sm font-medium leading-6 text-gray-900">
+          <label className="block text-sm font-medium leading-6 text-gray-900">
             Mot de passe
-          </label> 
+          </label>
           <InputBase
             className="bg-white block w-full rounded-md border-0 py-[3px] text-gray-900 shadow-sm ring-2 ring-inset ring-sky-700 
             placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-700 sm:text-sm sm:leading-6 px-2 mb-6"
@@ -104,28 +132,44 @@ function Loginform() {
             }
           />
         </div>
-
+        {errorMessage && (
+          <p className="p-0 m-0 text-red-500">
+            Veuiller remplir tous les champs.
+          </p>
+        )}
         <div className="w-full justify-center items-center flex">
-          <Button 
-            action={loading ? <Box sx={{ 
-              display: 'flex',
-              justifyContent: "center",
-              color: "#FFFFFF"
-             }}>
-              <CircularProgress sx={{
-                color: "white"
-              }}/>
-            </Box> : "Se connecter"} 
+          <Button
+            action={
+              loading ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  <CircularProgress
+                    sx={{
+                      color: "white",
+                    }}
+                  />
+                </Box>
+              ) : (
+                "Se connecter"
+              )
+            }
             // action={
-              
-            // } 
-            buttonhandle={loginsubmit} 
+
+            // }
+            buttonhandle={loginsubmit}
             classname="bg-sky-700 text-white w-full p-2 rounded-md
-            hover:bg-sky-600 ease-in-out duration-75" />
+            hover:bg-sky-600 ease-in-out duration-75"
+          />
         </div>
 
         {/* Setting redicrection */}
         <div className="mt-10">
+<<<<<<< HEAD
             <p className="text-center mt-5 px-8">Vous n'avez pas encore de compte ?  
               <a 
                 href="/signup"
@@ -148,8 +192,22 @@ function Loginform() {
                 l'acceuil
               </a>
             </p>
+=======
+          <p className="text-center mt-5 px-4">
+            Vous n'avez pas encore de compte ?
+            <a
+              href="/signup"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/signup");
+              }}
+              className="text-sky-600 px-2 underline"
+            >
+              Creer ici
+            </a>
+          </p>
+>>>>>>> 77d85a947fdb77aeb3c9f3b2e2ff5db963ff67ae
         </div>
-
       </form>
     </div>
   );

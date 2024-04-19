@@ -57,7 +57,7 @@ function Paniers({ panierClose }) {
                 >
                   +
                 </IconButton>
-              </td>
+              </td> 
               <td>{item.price} Ar</td>
               <td> {item.quantity * item.price} Ar</td>
               <button onClick={() => deleteItemFromCart(item.id)}>X</button>

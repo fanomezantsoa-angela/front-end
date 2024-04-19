@@ -19,16 +19,13 @@ export const type_product = async () => {
     }
 };
 export const login = async (formData) => {
-  try {
-    const response = await axiosInstance.post("token/", formData, {
-      "content-type": "application/json",
-    });
 
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
+  const response = await axiosInstance.post("token/", formData, {
+    "content-type": "application/json",
+  });
+
+  return response;
+}
 export const inscription = async (formData) => {
   try {
     const response = await axiosInstance.post("client/", formData);
