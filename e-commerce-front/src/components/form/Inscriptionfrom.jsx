@@ -7,7 +7,7 @@ import { Forminput } from "../littlecomponent/Forminput";
 import { Formulaire } from "../littlecomponent/Formulaire";
 import { useNavigate } from "react-router-dom";
 function Inscription() {
-  const navigate = useNavigate();
+  const navigate = useNavigate();xxx
   const [first_name, setFirst_name, first_namechange] = Inputhandler("");
   const [last_name, setLast_name, last_namechange] = Inputhandler("");
   const [email, setEmail, emailchange] = Inputhandler("");
