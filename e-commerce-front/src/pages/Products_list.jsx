@@ -85,35 +85,58 @@ function Products_list() {
               variant="standard"
               onChange={quantitechange}
             />
-            <IconButton
-              type="button"
-              sx={{ p: "10px" }}
-              aria-label="plus-quantite"
-              disabled={quantite >= product.stock}
-              onClick={() => plus_quantite(product.stock)}
-            >
-              <img src="./src/assets/plus.svg" alt="" />
-            </IconButton>
-            <IconButton
-              type="button"
-              sx={{ p: "10px" }}
-              aria-label="faire-panier"
-              onClick={() =>
-                addToCart(
-                  product.id,
-                  quantite,
-                  product.price,
-                  product.name,
-                  product.stock
-                )
-              }
-            >
-              <img src="./src/assets/panier1.svg" alt="" />
-            </IconButton>
-          </section>
-        </div>
-      ))}
-    </div>
-  );
+            <p className="nom-produit">{product.name}</p>
+            <p className="desciption">
+              {product.description} stock: {product.stock}
+            </p>
+            <p className="price">{product.price} Ar</p>
+            <section className="faire-panier">
+              <IconButton
+                type="button"
+                sx={{ p: "10px" }}
+                aria-label="moins-quantite"
+                onClick={moins_quantite}
+              >
+                <img src="./src/assets/moins.svg" alt="" />
+              </IconButton>
+              <TextField
+                type="number"
+                value={quantite}
+                variant="standard"
+                onChange={quantitechange}
+              />
+              <IconButton
+                type="button"
+                sx={{ p: "10px" }}
+                aria-label="plus-quantite"
+                disabled={quantite >= product.stock} 
+                onClick={() => plus_quantite(product.stock)}
+              >
+                <img src="./src/assets/plus.svg" alt="" />
+              </IconButton>
+              <IconButton
+                type="button"
+                sx={{ p: "10px" }}
+                aria-label="faire-panier"
+                onClick={() =>
+                  addToCart(
+                    product.id,
+                    quantite,
+                    product.price,
+                    product.name,
+                    product.stock
+                  )
+                }
+              >
+                <img src="./src/assets/panier1.svg" alt="" />
+              </IconButton>
+            </section>
+            </section>
+          </div>
+        ))}
+      </div>
+    );
+
+
 }
 export default Products_list;
