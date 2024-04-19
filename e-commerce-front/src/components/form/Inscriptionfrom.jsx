@@ -29,6 +29,8 @@ function Inscription() {
   const [validationpwd, setValidationpwd] = useState(false);
   const [errormail, setErrormail] = useState(false);
   const [confirmerpwd, setConfirmerpwd] = useState(false);
+  
+ const [errors, setErrors] = useState({});
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const navigate = useNavigate();
@@ -55,85 +57,90 @@ function Inscription() {
   };
 
   const emailValidation = (email) => {
-    const validation = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/
+    const validation =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return validation.test(email);
     
     
   };
 
-  function validerNom(nom) {
-    const nomRegex = /^[a-zA-ZÀ-ÿ\-\'\s]+$/;
-    return nomRegex.test(nom);
-  }
+ 
 
-  // Fonction de validation du mot de passe
-  function validerMotDePasse(motDePasse) {
-    const motDePasseRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/;
-
-    return motDePasseRegex.test(motDePasse);
-  }
-
-  // Fonction de validation de la confirmation du mot de passe
-  function validerConfirmationMotDePasse(motDePasse, confirmationMotDePasse) {}
-
-  const inscriptionsubmit = async (e) => {
-    e.preventDefault();
-    
-   if (emailValidation(email) == false) {
-     setErrormail(true);
-     stopLoading();
-   }
-    
-    else if (validerMotDePasse(password) == false) {
-     setValidationpwd(true);
-      stopLoading();
-    }
-    else if (validerConfirmationMotDePasse(password, password1) == false) {
-      setConfirmerpwd(true);
-      stopLoading();
-    }
-    
-    else {
-    try {
-          startLoading();
-      const responseData = await inscription(formData);
-
-      if (responseData.status == 201) {
-        console.log("Response:", responseData);
-        resetform();
-        Swal.fire({
-          title: "Inscription  effectuée",
-          text: "vous êtes inscrit dans le site",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1000,
-        });
-        navigate("/Login");
-      } else {
-        Swal.fire({
-          title: "Erreur",
-          text: responseData.response.data.detail,
-          icon: "error",
-          showConfirmButton: true,
-        });
+ 
+    const validateValues = (formData, confpwd) => {
+      let errors = {};
+      if (formData.first_name.length < 5) {
+        errors.first_name="votre nom doit au moins 5 caractère"
       }
+       if (formData.last_name.length < 5) {
+         errors.first_name = "votre prénom doit au moins 5 caractère";
+       }
+      if (emailValidation(formData.email) == false) {
+      
+        errors.email = "Email invalide";
+      }
+      if (formData.password.length < 8) {
+        errors.password = "le mot de passe doit avoir au moins 8 caractères";
+      }
+      if (formData.password !== confpwd) {
+        errors.confpwd = "veuillez ecrire le même mot de passe";
+      }
+      return errors;
+    };
 
-      stopLoading();
-    } catch (error) {
-      // Handle errors
-      console.error("Error:", error);
+
+  const inscriptionsubmit =  (e) => {
+    e.preventDefault();
+    setErrors(validateValues(formData, password1));
+    console.log(Object.keys(errors).length);
+    
+    if (Object.keys(errors).length == 0) {
+      
+        startLoading();
+       inscription(formData)
+       
+         .then(responseData => {
+          console.log(responseData.status)
+        
+         console.log("Response:", responseData);
+         
+          resetform();
+          Swal.fire({
+            title: "Inscription  effectuée",
+            text: "vous êtes inscrit dans le site",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+          navigate("/Login");
+       })
+        .catch((response) => {
+          
+    if (response.response.data.email ==
+      "Un objet custom user avec ce champ email existe déjà."
+    ) {
       Swal.fire({
-        title: "Oupss",
-        text: "Une erreur innatendu s'est produite, veuiller reessayer.",
+        title: "Erreur",
+        text: "ce champ email existe déjà",
         icon: "error",
         showConfirmButton: true,
       });
-      stopLoading();
+           
+    } else {
+      Swal.fire({
+        title: "Erreur",
+        text: "il y a une erreur innatendu",
+        icon: "error",
+        showConfirmButton: true,
+      });
     }
-      
+
     stopLoading();
-  }
-   
+     
+       
+  })
+    }
+    stopLoading();
   };
   return (
     <div className="inscription-container">
@@ -145,6 +152,7 @@ function Inscription() {
           inputchange={first_namechange}
           isRequired={true}
         />
+        <p className="p-0 m-0 text-red-500">{errors.first_name}</p>
         <Forminput
           typeinput="text"
           nomlabel="Prenom"
@@ -152,7 +160,7 @@ function Inscription() {
           inputchange={last_namechange}
           isRequired={true}
         />
-
+        <p className="p-0 m-0 text-red-500">{errors.last_name}</p>
         <Forminput
           typeinput="email"
           nomlabel="Addresse E-mail"
@@ -161,11 +169,7 @@ function Inscription() {
           inputchange={emailchange}
           isRequired={true}
         />
-        {errormail && (
-          <p className="p-0 m-0 text-red-500">
-            Veuiller saisir un e-mail valide.
-          </p>
-        )}
+        <p className="p-0 m-0 text-red-500">{errors.email}</p>
 
         <Forminput
           typeinput="date"
@@ -200,12 +204,7 @@ function Inscription() {
             }
           />
         </div>
-       {validationpwd && (
-          <p className="p-0 m-0 text-red-500">
-            Votre mot de doit être plus de 8 caractere, possède du lettre et du
-            caractère spécial .
-          </p>
-      )}
+        <p className="p-0 m-0 text-red-500">{errors.password}</p>
         <div>
           <label className="block text-sm font-medium leading-6 text-gray-900">
             Conrifmer votre mot de passe
@@ -219,12 +218,8 @@ function Inscription() {
             onChange={passwordchange1}
           />
         </div>
-       
-        {confirmerpwd && (
-          <p className="p-0 m-0 text-red-500">
-            Vous devez ecrire le même mot de passe.
-          </p>
-        )} 
+
+        <p className="p-0 m-0 text-red-500">{errors.confpwd}</p>
 
         {/* <Button
           action="Sign up"
