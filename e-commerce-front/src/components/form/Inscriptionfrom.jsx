@@ -103,20 +103,26 @@ function Inscription() {
   return (
     <div className="inscription-container">
       <form className=" space-y-1">
-        <Forminput
-          typeinput="text"
-          nomlabel="Nom"
-          value={first_name}
-          inputchange={first_namechange}
-          isRequired={true}
-        />
-        <Forminput
-          typeinput="text"
-          nomlabel="Prenom"
-          value={last_name}
-          inputchange={last_namechange}
-          isRequired={true}
-        />
+        <div className="flex flex-row justify-between items-center">
+          <div>
+            <Forminput
+              typeinput="text"
+              nomlabel="Nom"
+              value={first_name}
+              inputchange={first_namechange}
+              isRequired={true}
+            />
+          </div>
+          <div>
+            <Forminput
+              typeinput="text"
+              nomlabel="Prenom"
+              value={last_name}
+              inputchange={last_namechange}
+              isRequired={true}
+            />
+          </div>
+        </div>
 
         <Forminput
           typeinput="email"

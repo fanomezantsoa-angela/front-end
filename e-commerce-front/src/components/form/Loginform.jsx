@@ -126,7 +126,7 @@ function Loginform() {
 
         {/* Setting redicrection */}
         <div className="mt-10">
-            <p className="text-center mt-5 px-4">Vous n'avez pas encore de compte ?  
+            <p className="text-center mt-5 px-8">Vous n'avez pas encore de compte ?  
               <a 
                 href="/signup"
                 onClick={(e) => {
@@ -135,6 +135,17 @@ function Loginform() {
                 }}
                 className="text-sky-600 px-2 underline">
                 Creer ici
+              </a>
+            </p>
+            <p className="text-center px-8">Revenir a 
+              <a 
+                href="/signup"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate("/")
+                }}
+                className="text-sky-600 px-2 underline">
+                l'acceuil
               </a>
             </p>
         </div>
