@@ -6,8 +6,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { Logout } from "@mui/icons-material";
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+
+
 import { AuthContext, logout } from "../../Hooks/Auth";
 import { useNavigate } from "react-router-dom";
+import { colors } from "@mui/material";
 function GererCompte() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
@@ -25,16 +29,18 @@ function GererCompte() {
   };
   return (
     <div>
-      <Tooltip title="paramète-compte">
+      <Tooltip title="Parametre de compte">
         <IconButton
           onClick={handleClick}
-          size="small"
+          className=" m-0 hover:scale-110 hover:bg-sky-50 px-3 py-2 rounded-full duration-75"
+          color="none"
           sx={{ ml: 2 }}
           aria-controls={open ? "account-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <img src="./src/assets/compte.svg" alt="" className="compte" />
+          <AccountCircleOutlinedIcon sx={{fontSize: 40,}}
+          className="text-sky-700"/>
         </IconButton>
       </Tooltip>
 
