@@ -66,12 +66,28 @@ function Products_list() {
               sendingRate(newValue, product.id);
             }}
           />
-          
-            
-        
 
-         
-        
+
+          <section className="faire-panier">
+            <IconButton
+              type="button"
+              sx={{ p: "10px" }}
+              aria-label="moins-quantite"
+              onClick={moins_quantite}
+            >
+              <img src="./src/assets/moins.svg" alt="" />
+            </IconButton>
+            <TextField
+              value={quantite}
+              variant="standard"
+              onChange={quantitechange}
+            />
+            <p className="nom-produit">{product.name}</p>
+            <p className="desciption">
+              {product.description} stock: {product.stock}
+            </p>
+            <p className="price">{product.price} Ar</p>
+
             <section className="faire-panier">
             
              
@@ -96,16 +112,22 @@ function Products_list() {
                 Ajouter au panier
               </IconButton>
             </section>
+
         
-        </div>
-      ))}
-    </div>
-  );
+       
+
 
 
 
      
      
+
+            </section>
+          </div>
+        ))}
+      </div>
+    );
+
 
 
 }
