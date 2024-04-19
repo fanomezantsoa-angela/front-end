@@ -38,7 +38,7 @@ export function CartProvider({ children }) {
 
     return item;
   };
-  const addToCart = (productId, quantity, price, name, stock) => {
+  const addToCart = (productId, quantity =1, price, name, stock) => {
     const existingItem = cartItems.find((item) => item.id === productId);
     if (existingItem) {
        const limitedQuantity = Math.min(quantity + existingItem.quantity, stock

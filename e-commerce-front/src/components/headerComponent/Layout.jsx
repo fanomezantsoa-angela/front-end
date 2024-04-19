@@ -4,7 +4,7 @@ import Recherche from "./Recherche";
 import { useNavigate } from "react-router-dom";
 import Userthings from "./Userthings";
 import {Button} from "../littlecomponent/Button"
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { AuthContext } from "../../Hooks/Auth";
 import Produits_type from "./Produits_type";
 function Layout() {

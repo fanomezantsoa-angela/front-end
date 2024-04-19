@@ -10,7 +10,7 @@ export const Product_list = async () => {
   }
 };
 export const Product_rating = async (id, value) => {
-
+  console.log(getToken)
   try {
     
     const response =  await axiosInstance({
