@@ -9,18 +9,16 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { LoadingContext } from "../../Hooks/LoadingContext";
 import CircularProgress from '@mui/material/CircularProgress';
-// import FacebookIcon from '@mui/icons-material/Facebook';
-// import InstagramIcon from '@mui/icons-material/Instagram';
 import Box from '@mui/material/Box';
 import Swal from "sweetalert2";
 
 
 function Loginform() {
   const { loading, startLoading, stopLoading } = useContext(LoadingContext);
-   const { setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn } = useContext(AuthContext);
   const [email, setEmail, emailchange] = Inputhandler("");
   const [password, setPassword, passwordchange] = Inputhandler("");
- const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
