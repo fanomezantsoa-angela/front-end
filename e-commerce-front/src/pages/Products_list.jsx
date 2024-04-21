@@ -68,20 +68,7 @@ function Products_list() {
           />
 
 
-          <section className="faire-panier">
-            <IconButton
-              type="button"
-              sx={{ p: "10px" }}
-              aria-label="moins-quantite"
-              onClick={moins_quantite}
-            >
-              <img src="./src/assets/moins.svg" alt="" />
-            </IconButton>
-            <TextField
-              value={quantite}
-              variant="standard"
-              onChange={quantitechange}
-            />
+       
             <p className="nom-produit">{product.name}</p>
             <p className="desciption">
               {product.description} stock: {product.stock}
@@ -90,10 +77,7 @@ function Products_list() {
 
             <section className="faire-panier">
             
-             
-            
-          
-           
+
               
               <IconButton
                 type="button"
@@ -111,17 +95,6 @@ function Products_list() {
               >
                 Ajouter au panier
               </IconButton>
-            </section>
-
-        
-       
-
-
-
-
-     
-     
-
             </section>
           </div>
         ))}

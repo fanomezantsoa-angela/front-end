@@ -19,8 +19,8 @@ function Loginform() {
   const [email, setEmail, emailchange] = Inputhandler("");
   const [password, setPassword, passwordchange] = Inputhandler("");
  const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(true);
+
+   const [errors, setErrors] = useState({});
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const navigate = useNavigate();
   const formData = {
@@ -34,19 +34,27 @@ function Loginform() {
 
      setPassword("");
    };
-     const emailValidation = (email) => {
-       return String(email)
-         .toLowerCase()
-         .match(
-           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-         );
-     };
+    const emailValidation = (email) => {
+      const validation =
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return validation.test(email);
+  };
+   const validateValues = (formData, confpwd) => {
+     let errors = {};
+   
+     if (emailValidation(formData.email) == false) {
+       errors.email = "Email invalide";
+     }
+     if (formData.password.length < 8) {
+       errors.password = "le mot de passe doit avoir au moins 8 caractères";
+     }
+    
+     return errors;
+   };
   const loginsubmit = (e) => {
-    if (email == "" || password == "") {
-      setErrorMessage(true);
-    }
+ 
     e.preventDefault();
-    setIsEmailValid(emailValidation(email));
+   setErrors(validateValues(formData, password1));
       startLoading();
        
   

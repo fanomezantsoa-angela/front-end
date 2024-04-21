@@ -38,32 +38,47 @@ export function CartProvider({ children }) {
 
     return item;
   };
-  const addToCart = (productId, quantity =1, price, name, stock) => {
-    const existingItem = cartItems.find((item) => item.id === productId);
-    if (existingItem) {
-       const limitedQuantity = Math.min(quantity + existingItem.quantity, stock
-       );
-       const updatedCart = cartItems.map((item) =>
-         item.id === productId
-           ? { ...item, quantity: limitedQuantity, price: price, name: name, stock: stock }
-           : item
-       );
-      setCartItems(updatedCart);
-      Swal.fire({
-        title: "Information:",
-        text: "Vous avez atteint le stock de produit",
-        icon: "info",
-        confirmButtonText: "Oui",
-      });
-      return;
-    }
+ const addToCart = (productId, quantity, price, name, stock) => {
+   const existingItem = cartItems.find((item) => item.id === productId);
+   if (existingItem) {
+     const limitedQuantity = Math.min(quantity + existingItem.quantity, stock);
+     const updatedCart = cartItems.map((item) =>
+       item.id === productId
+         ? {
+             ...item,
+             quantity: limitedQuantity,
+             price: price,
+             name: name,
+             stock: stock,
+           }
+         : item
+     );
 
-    // Add new item to cart
-    setCartItems([
-      ...cartItems,
-      { id: productId, quantity: quantity, price: price, name: name, stock: stock },
-    ]);
-  };
+     if (quantity >= limitedQuantity) {
+       setCartItems(updatedCart);
+       Swal.fire({
+         title: "Information:",
+         text: "Vous avez atteint le stock de produit",
+         icon: "info",
+         confirmButtonText: "Oui",
+       });
+     } else {
+       setCartItems(updatedCart);
+     }
+   } else {
+     setCartItems([
+       ...cartItems,
+       {
+         id: productId,
+         quantity: quantity,
+         price: price,
+         name: name,
+         stock: stock,
+       },
+     ]);
+   }
+ };
+
   const addOneItemToCart = (id, unitPrice, name, quantity, stock) => {
     // check if the item already exists in the cart
     const item = getCartItemQuantity(id);
@@ -99,19 +114,21 @@ const emptyCart = () => {
   setCartItems([]);
 };
 
-  const removeOneItemFromCart = (id) => {
-    const item= getCartItemQuantity(id);
+const removeOneItemFromCart = (id) => {
+  const item = getCartItemQuantity(id);
 
-    if (item === 1) {
-      deleteItemFromCart(id);
-    } else {
-      setCartItems(
-        cartItems.map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
-        )
-      );
-    }
-  };
+  if (item === 1) {
+    setCartItems(cartItems.filter((item) => item.id !== id));
+  } else {
+    setCartItems(
+      cartItems.map((item) =>
+        item.id === id
+          ? { ...item, quantity: Math.max(item.quantity - 1, 0) }
+          : item
+      )
+    );
+  }
+};
 const getTotalCost = () => {
   let totalCost = 0;
 

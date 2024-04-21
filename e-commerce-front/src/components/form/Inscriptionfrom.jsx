@@ -25,10 +25,7 @@ function Inscription() {
 
   const [password, setPassword, passwordchange] = Inputhandler("");
   const [password1, setPassword1, passwordchange1] = Inputhandler("");
-  const [errorMessage, setErrorMessage] = useState(true);
-  const [validationpwd, setValidationpwd] = useState(false);
-  const [errormail, setErrormail] = useState(false);
-  const [confirmerpwd, setConfirmerpwd] = useState(false);
+ 
   
  const [errors, setErrors] = useState({});
   const handleClickShowPassword = () => setShowPassword((show) => !show);
