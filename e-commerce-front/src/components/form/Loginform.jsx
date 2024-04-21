@@ -9,6 +9,8 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { LoadingContext } from "../../Hooks/LoadingContext";
 import CircularProgress from '@mui/material/CircularProgress';
+// import FacebookIcon from '@mui/icons-material/Facebook';
+// import InstagramIcon from '@mui/icons-material/Instagram';
 import Box from '@mui/material/Box';
 import Swal from "sweetalert2";
 
@@ -47,11 +49,12 @@ function Loginform() {
     }
     e.preventDefault();
     setIsEmailValid(emailValidation(email));
-      startLoading();
-       
-  
-      login(formData)
-     .then(response => {
+    startLoading();
+    
+    
+    login(formData)
+    .then(response => {
+       console.log("is inside function")
        const token = response.data.access;
        localStorage.setItem("token", token);
 

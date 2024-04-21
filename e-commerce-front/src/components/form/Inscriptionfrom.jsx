@@ -80,7 +80,7 @@ function Inscription() {
         errors.email = "Email invalide";
       }
       if (formData.password.length < 8) {
-        errors.password = "le mot de passe doit avoir au moins 8 caractères";
+        errors.password = "le mot de passe doit avoir au moins 8 caractègit mercres";
       }
       if (formData.password !== confpwd) {
         errors.confpwd = "veuillez ecrire le même mot de passe";
