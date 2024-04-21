@@ -39,47 +39,48 @@ function Loginform() {
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return validation.test(email);
   };
-   const validateValues = (formData, confpwd) => {
+   const validateValues = (formData) => {
      let errors = {};
    
      if (emailValidation(formData.email) == false) {
        errors.email = "Email invalide";
      }
-     if (formData.password.length < 8) {
+     if (formData.password.length < 5) {
        errors.password = "le mot de passe doit avoir au moins 8 caractères";
      }
     
      return errors;
    };
   const loginsubmit = (e) => {
- 
+    startLoading();
     e.preventDefault();
-   setErrors(validateValues(formData, password1));
+    setErrors(validateValues(formData));
+    if(Object.keys(errors).length >= 1){  stopLoading()}
+     
+    else {
       startLoading();
-       
-  
       login(formData)
-     .then(response => {
-       const token = response.data.access;
-       localStorage.setItem("token", token);
+        .then(response => {
+          const token = response.data.access;
+          localStorage.setItem("token", token);
 
-       setIsLoggedIn(true);
+          setIsLoggedIn(true);
 
-       resetform();
-       stopLoading();
-       navigate("/");
-     })
+          resetform();
+          stopLoading();
+          navigate("/");
+        })
         .catch((response) => {
           
           stopLoading();
-         if(response.response.status == 401){
-           Swal.fire({
-             title: "erreur",
-             text: response.response.data.detail,
-             icon: "error",
-             showConfirmButton: true,
-           });
-         } else {
+          if (response.response.status == 401) {
+            Swal.fire({
+              title: "erreur",
+              text: response.response.data.detail,
+              icon: "error",
+              showConfirmButton: true,
+            });
+          } else {
             Swal.fire({
               title: "erreur",
               text: "Veuillez verifier les information que vous avez saisi",
@@ -88,13 +89,13 @@ function Loginform() {
             });
           }
           
-     });
+        });
     
       
      
-    stopLoading()
+      stopLoading()
      
-    
+    }
   };
   return (
     <div>
@@ -110,11 +111,7 @@ function Loginform() {
             isRequired={true}
           />
         </div>
-        {!isEmailValid && (
-          <p className="p-0 m-0 text-red-500">
-            Veuiller saisir un e-mail valide.
-          </p>
-        )}
+        <p className="p-0 m-0 text-red-500">{errors.email}</p>
         <div>
           <label className="block text-sm font-medium leading-6 text-gray-900">
             Mot de passe
@@ -140,11 +137,7 @@ function Loginform() {
             }
           />
         </div>
-        {errorMessage && (
-          <p className="p-0 m-0 text-red-500">
-            Veuiller remplir tous les champs.
-          </p>
-        )}
+        <p className="p-0 m-0 text-red-500">{errors.password}</p>
         <div className="w-full justify-center items-center flex">
           <Button
             action={
