@@ -36,7 +36,7 @@ function ContactUsComponent()  {
 
         if(emailValidationWithRegex(email)) {
             resetForm()
-            
+
             console.log("Message send successfully")
             console.log({
                 nom: name,
@@ -61,7 +61,7 @@ function ContactUsComponent()  {
 
         <div>
             <form className="w-full space-y-2">
-                <div className="flex flex-row justify-between items-center">
+                <div className="flex flex-row flex-wrap justify-between items-center">
                     <div className="w-[100%] md:w-[47%]">
                         {/* Username or company input */}
                         <Forminput
