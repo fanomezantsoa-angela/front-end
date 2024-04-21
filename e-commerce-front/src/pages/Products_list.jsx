@@ -88,6 +88,36 @@ function Products_list() {
           />
 
 
+
+       
+            <p className="nom-produit">{product.name}</p>
+            <p className="desciption">
+              {product.description} stock: {product.stock}
+            </p>
+            <p className="price">{product.price} Ar</p>
+
+            <section className="faire-panier">
+            
+
+              
+              <IconButton
+                type="button"
+               
+                aria-label="faire-panier"
+                onClick={() =>
+                  addToCart(
+                    product.id,
+                     1,
+                    product.price,
+                    product.name,
+                    product.stock
+                  )
+                }
+              >
+                Ajouter au panier
+              </IconButton>
+            </section>
+
           {/* <section className="faire-panier">
           <IconButton
             type="button"
@@ -185,7 +215,6 @@ function Products_list() {
               <img src="./src/assets/panier1.svg" alt="" />
             </IconButton>
           </section>
-
 
           </div>
         ))}

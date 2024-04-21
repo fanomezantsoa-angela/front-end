@@ -25,10 +25,7 @@ function Inscription() {
 
   const [password, setPassword, passwordchange] = Inputhandler("");
   const [password1, setPassword1, passwordchange1] = Inputhandler("");
-  const [errorMessage, setErrorMessage] = useState(true);
-  const [validationpwd, setValidationpwd] = useState(false);
-  const [errormail, setErrormail] = useState(false);
-  const [confirmerpwd, setConfirmerpwd] = useState(false);
+ 
   
  const [errors, setErrors] = useState({});
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -93,17 +90,17 @@ function Inscription() {
     e.preventDefault();
     setErrors(validateValues(formData, password1));
     console.log(Object.keys(errors).length);
-    
-    if (Object.keys(errors).length == 0) {
-      
-        startLoading();
-       inscription(formData)
-       
-         .then(responseData => {
-          console.log(responseData.status)
-        
-         console.log("Response:", responseData);
-         
+    if (Object.keys(errors).length >= 1) {
+      stopLoading();
+    }
+    else {
+      startLoading();
+      inscription(formData)
+        .then((responseData) => {
+          console.log(responseData.status);
+
+          console.log("Response:", responseData);
+
           resetform();
           Swal.fire({
             title: "Inscription  effectuée",
@@ -113,32 +110,29 @@ function Inscription() {
             timer: 1000,
           });
           navigate("/Login");
-       })
+        })
         .catch((response) => {
-          
-    if (response.response.data.email ==
-      "Un objet custom user avec ce champ email existe déjà."
-    ) {
-      Swal.fire({
-        title: "Erreur",
-        text: "ce champ email existe déjà",
-        icon: "error",
-        showConfirmButton: true,
-      });
-           
-    } else {
-      Swal.fire({
-        title: "Erreur",
-        text: "il y a une erreur innatendu",
-        icon: "error",
-        showConfirmButton: true,
-      });
-    }
+          if (
+            response.response.data.email ==
+            "Un objet custom user avec ce champ email existe déjà."
+          ) {
+            Swal.fire({
+              title: "Erreur",
+              text: "ce champ email existe déjà",
+              icon: "error",
+              showConfirmButton: true,
+            });
+          } else {
+            Swal.fire({
+              title: "Erreur",
+              text: "il y a une erreur innatendu",
+              icon: "error",
+              showConfirmButton: true,
+            });
+          }
 
-    stopLoading();
-     
-       
-  })
+          stopLoading();
+        });
     }
     stopLoading();
   };
