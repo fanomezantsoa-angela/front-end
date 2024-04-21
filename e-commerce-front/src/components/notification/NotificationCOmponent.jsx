@@ -11,7 +11,7 @@ import { useState, useEffect, useContext } from "react";
 
 function NotificationComponent() {
     // Reactive var setter
-    const [notification, setNotification] = useState([1,2,3,4,5])
+    const [notification, setNotification] = useState([])
     const openNotifModal = () => setNotification(true)
     const closeNotifModal = () => setNotification(false)
 

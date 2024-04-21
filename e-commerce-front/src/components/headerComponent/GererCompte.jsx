@@ -7,6 +7,8 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { Logout } from "@mui/icons-material";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import LockPersonIcon from '@mui/icons-material/LockPerson';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 
 import { AuthContext, logout } from "../../Hooks/Auth";
@@ -80,14 +82,24 @@ function GererCompte() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> Compte
+          <ListItemIcon>
+            <AccountBoxIcon className="text-sky-700" />
+          </ListItemIcon>
+          Profile personnel
+        </MenuItem>
+        
+        <MenuItem onClick={Logginout}>
+          <ListItemIcon>
+            <LockPersonIcon className="text-sky-700"/>
+          </ListItemIcon>
+          Panaux d'administration
         </MenuItem>
 
         <MenuItem onClick={Logginout}>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <Logout className="text-sky-700" />
           </ListItemIcon>
-          Déconnection
+          Déconnexion
         </MenuItem>
       </Menu>
     </div>

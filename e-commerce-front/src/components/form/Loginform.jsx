@@ -9,6 +9,8 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { LoadingContext } from "../../Hooks/LoadingContext";
 import CircularProgress from '@mui/material/CircularProgress';
+// import FacebookIcon from '@mui/icons-material/Facebook';
+// import InstagramIcon from '@mui/icons-material/Instagram';
 import Box from '@mui/material/Box';
 import Swal from "sweetalert2";
 
@@ -55,46 +57,48 @@ function Loginform() {
     startLoading();
     e.preventDefault();
     setErrors(validateValues(formData));
-    if(Object.keys(errors).length >= 1){  stopLoading()}
+    if (Object.keys(errors).length >= 1) { stopLoading() }
      
     else {
       startLoading();
       login(formData)
-        .then(response => {
-          const token = response.data.access;
-          localStorage.setItem("token", token);
+        .then((response )=> {
+       
+              
+              const token = response.data.access;
+              localStorage.setItem("token", token);
 
-          setIsLoggedIn(true);
+              setIsLoggedIn(true);
 
-          resetform();
-          stopLoading();
-          navigate("/");
-        })
-        .catch((response) => {
+              resetform();
+              stopLoading();
+              navigate("/");
+            })
+            .catch((response) => {
           
-          stopLoading();
-          if (response.response.status == 401) {
-            Swal.fire({
-              title: "erreur",
-              text: response.response.data.detail,
-              icon: "error",
-              showConfirmButton: true,
-            });
-          } else {
-            Swal.fire({
-              title: "erreur",
-              text: "Veuillez verifier les information que vous avez saisi",
-              icon: "error",
-              showConfirmButton: true,
-            });
-          }
+              stopLoading();
+              if (response.response.status == 401) {
+                Swal.fire({
+                  title: "erreur",
+                  text: response.response.data.detail,
+                  icon: "error",
+                  showConfirmButton: true,
+                });
+              } else {
+                Swal.fire({
+                  title: "erreur",
+                  text: "Veuillez verifier les information que vous avez saisi",
+                  icon: "error",
+                  showConfirmButton: true,
+                });
+              }
           
-        });
+            });
     
       
      
-      stopLoading()
-     
+          stopLoading()
+        
     }
   };
   return (
@@ -170,19 +174,28 @@ function Loginform() {
 
         {/* Setting redicrection */}
         <div className="mt-10">
-          <p className="text-center mt-5 px-4">
-            Vous n'avez pas encore de compte ?
-            <a
-              href="/signup"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate("/signup");
-              }}
-              className="text-sky-600 px-2 underline"
-            >
-              Creer ici
-            </a>
-          </p>
+            <p className="text-center mt-5 px-8">Vous n'avez pas encore de compte ?  
+              <a 
+                href="/signup"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate("/signup")
+                }}
+                className="text-sky-600 px-2 underline">
+                Creer ici
+              </a>
+            </p>
+            <p className="text-center px-8">Revenir a 
+              <a 
+                href="/signup"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate("/")
+                }}
+                className="text-sky-600 px-2 underline">
+                l'acceuil
+              </a>
+            </p>
         </div>
       </form>
     </div>

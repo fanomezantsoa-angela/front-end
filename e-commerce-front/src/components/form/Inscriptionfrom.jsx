@@ -77,7 +77,7 @@ function Inscription() {
         errors.email = "Email invalide";
       }
       if (formData.password.length < 8) {
-        errors.password = "le mot de passe doit avoir au moins 8 caractères";
+        errors.password = "le mot de passe doit avoir au moins 8 caractègit mercres";
       }
       if (formData.password !== confpwd) {
         errors.confpwd = "veuillez ecrire le même mot de passe";
@@ -139,22 +139,27 @@ function Inscription() {
   return (
     <div className="inscription-container">
       <form className=" space-y-1">
-        <Forminput
-          typeinput="text"
-          nomlabel="Nom"
-          value={first_name}
-          inputchange={first_namechange}
-          isRequired={true}
-        />
-        <p className="p-0 m-0 text-red-500">{errors.first_name}</p>
-        <Forminput
-          typeinput="text"
-          nomlabel="Prenom"
-          value={last_name}
-          inputchange={last_namechange}
-          isRequired={true}
-        />
-        <p className="p-0 m-0 text-red-500">{errors.last_name}</p>
+        <div className="flex flex-row justify-between items-center">
+          <div>
+            <Forminput
+              typeinput="text"
+              nomlabel="Nom"
+              value={first_name}
+              inputchange={first_namechange}
+              isRequired={true}
+            />
+          </div>
+          <div>
+            <Forminput
+              typeinput="text"
+              nomlabel="Prenom"
+              value={last_name}
+              inputchange={last_namechange}
+              isRequired={true}
+            />
+          </div>
+        </div>
+
         <Forminput
           typeinput="email"
           nomlabel="Addresse E-mail"
