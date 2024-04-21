@@ -9,8 +9,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { LoadingContext } from "../../Hooks/LoadingContext";
 import CircularProgress from '@mui/material/CircularProgress';
-// import FacebookIcon from '@mui/icons-material/Facebook';
-// import InstagramIcon from '@mui/icons-material/Instagram';
 import Box from '@mui/material/Box';
 import Swal from "sweetalert2";
 
@@ -53,54 +51,39 @@ function Loginform() {
     
      return errors;
    };
-  const loginsubmit = (e) => {
-    startLoading();
-    e.preventDefault();
-    setErrors(validateValues(formData));
-    if (Object.keys(errors).length >= 1) { stopLoading() }
-     
-    else {
-      startLoading();
-      login(formData)
-        .then((response )=> {
-       
-              
-              const token = response.data.access;
-              localStorage.setItem("token", token);
+ const loginsubmit = (e) => {
+   e.preventDefault();
+   const newErrors = validateValues(formData);
+   setErrors(newErrors);
 
-              setIsLoggedIn(true);
+   if (Object.keys(newErrors).length === 0) {
+     startLoading();
+     login(formData)
+       .then((response) => {
+         const token = response.data.access;
+         localStorage.setItem("token", token);
+         setIsLoggedIn(true);
+         resetform();
+         navigate("/");
+       })
+       .catch((error) => {
+         const errorResponse = error.response;
+         Swal.fire({
+           title: "Erreur",
+           text:
+             errorResponse && errorResponse.status === 401
+               ? errorResponse.data.detail
+               : "Veuillez vérifier les informations que vous avez saisies",
+           icon: "error",
+           confirmButtonText: "OK",
+         });
+       })
+       .finally(() => {
+         stopLoading();
+       });
+   }
+ };
 
-              resetform();
-              stopLoading();
-              navigate("/");
-            })
-            .catch((response) => {
-          
-              stopLoading();
-              if (response.response.status == 401) {
-                Swal.fire({
-                  title: "erreur",
-                  text: response.response.data.detail,
-                  icon: "error",
-                  showConfirmButton: true,
-                });
-              } else {
-                Swal.fire({
-                  title: "erreur",
-                  text: "Veuillez verifier les information que vous avez saisi",
-                  icon: "error",
-                  showConfirmButton: true,
-                });
-              }
-          
-            });
-    
-      
-     
-          stopLoading()
-        
-    }
-  };
   return (
     <div>
       {/* {loading && <div className="spinner">Loading...</div>} */}
@@ -174,28 +157,19 @@ function Loginform() {
 
         {/* Setting redicrection */}
         <div className="mt-10">
-            <p className="text-center mt-5 px-8">Vous n'avez pas encore de compte ?  
-              <a 
-                href="/signup"
-                onClick={(e) => {
-                  e.preventDefault()
-                  navigate("/signup")
-                }}
-                className="text-sky-600 px-2 underline">
-                Creer ici
-              </a>
-            </p>
-            <p className="text-center px-8">Revenir a 
-              <a 
-                href="/signup"
-                onClick={(e) => {
-                  e.preventDefault()
-                  navigate("/")
-                }}
-                className="text-sky-600 px-2 underline">
-                l'acceuil
-              </a>
-            </p>
+          <p className="text-center mt-5 px-4">
+            Vous n'avez pas encore de compte ?
+            <a
+              href="/signup"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/signup");
+              }}
+              className="text-sky-600 px-2 underline"
+            >
+              Creer ici
+            </a>
+          </p>
         </div>
       </form>
     </div>
