@@ -1,0 +1,16 @@
+.panier{
+
+    height: 50px;
+    width: 50px;
+ 
+  padding: 0;
+}
+.badge-panier{
+     position: relative; /* Make badge relative to its container */
+  top: 0px; /* Adjust vertical position slightly */
+  left: 0px;
+    
+}
+.panier-modal {
+   margin: 5px 100px 0 40px;
+}

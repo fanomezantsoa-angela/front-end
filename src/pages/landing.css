@@ -1,0 +1,49 @@
+.container{
+    display: flex;
+    flex-direction: row;
+     justify-content: space-between;
+     margin: 20px 20px;
+     align-items: center;
+}
+
+.sec-slogan{
+   display: flex;
+    flex-direction: row;
+}
+.sec-slogan section{
+    margin: 15px 20px;
+}
+.slogan1{
+    color: #27247B;
+    font-size: 25px;
+    font-weight: 600;
+}
+.slogan2{
+    color: #27247B;
+    font-size: 15px;
+    font-weight: 600;
+    margin: -15px 0;
+}
+.recherche{
+ margin: 5px -20px;
+}
+.recherche input{
+    background-color: #D6EAF8;
+    width: 370px;
+    height: 50px;
+    border: 1px solid #D6EAF8;
+    border-radius: 30px 30px;
+    padding: 5px 10px;
+    font-size: 17px;
+    
+}
+.recherche button{
+    margin: 45px -60px;
+
+    border: none;
+    background-color: #D6EAF8;
+}
+.recherche img{
+    weight: 30px;
+    width: 30px;
+}
