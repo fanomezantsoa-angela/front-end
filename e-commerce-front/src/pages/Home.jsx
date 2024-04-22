@@ -19,44 +19,39 @@ function Home() {
        
 
       <div className="w-full h-[100%] min-h-screen space-y-28">
-            {/* Header */}
-            <SearchProvider>
+        <SearchProvider>
           <ProductTypesProvider>
-        <div>
-          {/* Top section */}
-          <Layout />
+            {/* Header */}
+            <div>
+              {/* Top section */}
+              <Layout />
 
-          {/* Link of product types */}
-          <Produits_type />
-        </div>
+              {/* Link of product types */}
+              <Produits_type />
+            </div>
 
-        {/* List of product */}
-        <Products_list />
+            {/* List of product */}
+            <Products_list />
 
 
-        {/* Add section */}
-        <div className="w-full py-8">
-          <AddComponent />
-        </div>
+            {/* Add section */}
+            <div className="w-full py-8">
+              <AddComponent />
+            </div>
 
-        {/* Contact section */}
-        <div className="w-full py-8">
-            <IncitationComponent />
-        </div>
+            {/* Contact section */}
+            <div className="w-full py-8">
+                <IncitationComponent />
+            </div>
 
-        {/* Footer section */}
-        <div className="sticky top-[100vh]">
-          <FirstFooterSectionComponent  />
-          <SecondFooterSectionComponent />
-        </div>
-           </ProductTypesProvider>
+            {/* Footer section */}
+            <div className="sticky top-[100vh]">
+              <FirstFooterSectionComponent  />
+              <SecondFooterSectionComponent />
+            </div>
+
+          </ProductTypesProvider>
         </SearchProvider>
-
-
-
-
-
-
       </div>
     );
 }
