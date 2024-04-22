@@ -15,8 +15,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
 function Inscription() {
-  // const { loading, startLoading, stopLoading } = useContext(LoadingContext);
-  const [ loading, setLoading ] = useState(false);
+   const { loading, startLoading, stopLoading } = useContext(LoadingContext);
+  //const [ loading, setLoading ] = useState(false);
 
   const [first_name, setFirst_name, first_namechange] = Inputhandler("");
   const [last_name, setLast_name, last_namechange] = Inputhandler("");
@@ -89,13 +89,14 @@ function Inscription() {
 
   const inscriptionsubmit =  (e) => {
     e.preventDefault();
-    // startLoading();
-    setLoading(true)
+    
+   
     console.log(loading)
     
     setErrors(validateValues(formData, password1));
     const errorNumber = Object.keys(errors).length;
     if (errorNumber == 0) {
+      startLoading();
       inscription(formData)
         .then((responseData) => {
           console.log(responseData.status);
@@ -131,10 +132,12 @@ function Inscription() {
               showConfirmButton: true,
             });
           }
+        })
+        .finally(() => {
+          stopLoading();
         });
     }
-    // stopLoading();
-    setLoading(false)
+  
     setErrors({})
   };
   return (
