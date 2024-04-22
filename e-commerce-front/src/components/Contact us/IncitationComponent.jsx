@@ -6,7 +6,7 @@ function IncitationComponent() {
 
     return (
 
-        <div className=" w-[90%]  bg-white mx-auto p-10">
+        <div className="w-[90%] bg-white mx-auto p-10">
             <div className="text-center text-sky-800 text-2xl mb-4">
                 NOUS CONTACTER
             </div>

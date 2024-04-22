@@ -9,7 +9,7 @@ function FirstFooterSectionComponent() {
 
     return (
 
-        <div className="w-full p-8 bg-slate-300 mt-20">
+        <div className="w-full p-8 bg-slate-300 mt-20 rounded-t-3xl">
             <div className="mb-5">
                 <p className="px-10  text-xl text-slate-500">Liens utiles :</p>
             </div>

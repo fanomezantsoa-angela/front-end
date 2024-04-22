@@ -1,11 +1,13 @@
 import Layout from "../components/headerComponent/Layout";
 import Produits_type from "../components/headerComponent/Produits_type";
 import Products_list from "./Products_list";
+import AddComponent from "../components/Addvertisement/AddComponent";
+import IncitationComponent from "../components/Contact us/IncitationComponent";
 import FirstFooterSectionComponent from "../components/footer/FIrstFooterSectionComponent"
 import SecondFooterSectionComponent from "../components/footer/SecondFooterSectionComponent";
+
 import { ProductTypesProvider } from "../Hooks/Product_typesContext";
 import { SearchProvider } from "../Hooks/SearchContext";
-import IncitationComponent from "../components/Contact us/IncitationComponent";
 
 
 
@@ -33,8 +35,8 @@ function Home() {
 
 
         {/* Add section */}
-        <div >
-          <p>Add section</p>
+        <div className="w-full py-8">
+          <AddComponent />
         </div>
 
         {/* Contact section */}
