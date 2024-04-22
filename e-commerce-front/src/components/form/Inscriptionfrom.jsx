@@ -15,7 +15,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
 function Inscription() {
-  const { loading, startLoading, stopLoading } = useContext(LoadingContext);
+  // const { loading, startLoading, stopLoading } = useContext(LoadingContext);
+  const [ loading, setLoading ] = useState(false);
 
   const [first_name, setFirst_name, first_namechange] = Inputhandler("");
   const [last_name, setLast_name, last_namechange] = Inputhandler("");
@@ -88,13 +89,13 @@ function Inscription() {
 
   const inscriptionsubmit =  (e) => {
     e.preventDefault();
+    // startLoading();
+    setLoading(true)
+    console.log(loading)
+    
     setErrors(validateValues(formData, password1));
-    console.log(Object.keys(errors).length);
-    if (Object.keys(errors).length >= 1) {
-      stopLoading();
-    }
-    else {
-      startLoading();
+    const errorNumber = Object.keys(errors).length;
+    if (errorNumber == 0) {
       inscription(formData)
         .then((responseData) => {
           console.log(responseData.status);
@@ -130,11 +131,11 @@ function Inscription() {
               showConfirmButton: true,
             });
           }
-
-          stopLoading();
         });
     }
-    stopLoading();
+    // stopLoading();
+    setLoading(false)
+    setErrors({})
   };
   return (
     <div className="inscription-container">
@@ -241,7 +242,9 @@ function Inscription() {
                   }}
                 />
               </Box>
-            ) : (
+            ) 
+            
+            : (
               "Valider"
             )
           }
