@@ -11,11 +11,13 @@ import { SearchProvider } from "../Hooks/SearchContext";
 
 
 
-function Home() {
+function Home() {J
  
-    return (
 
- 
+
+
+
+    return (
        
 
       <div className="w-full h-[100%] min-h-screen space-y-28">
