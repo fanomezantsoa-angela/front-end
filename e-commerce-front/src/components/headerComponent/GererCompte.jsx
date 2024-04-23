@@ -17,6 +17,8 @@ import { colors } from "@mui/material";
 function GererCompte() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { isLoggedIn, setIsLoggedIn, isAdmin } = useContext(AuthContext);
+  const navigate = useNavigate()
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,8 +29,11 @@ function GererCompte() {
   const Logginout = () => {
     logout();
     setIsLoggedIn(false); 
-
   };
+  const goToAdminPanel = () => {
+    navigate("/Admin")
+  }
+
   return (
     <div>
       <Tooltip title="Parametre de compte">
@@ -91,7 +96,7 @@ function GererCompte() {
         </MenuItem>
 
         {isAdmin &&
-          <MenuItem onClick={Logginout}>
+          <MenuItem onClick={goToAdminPanel}>
             <ListItemIcon>
               <LockPersonIcon className="text-sky-700" />
             </ListItemIcon>

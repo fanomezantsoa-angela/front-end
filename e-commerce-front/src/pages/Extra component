@@ -1,0 +1,52 @@
+ <div className="produits flex flex-row justify-around">
+      {filteredProducts &&
+        filteredProducts.map((product) => (
+		<div key={product.id} className="produit">
+			{/* Product image */}
+			<div>
+				<img
+					src="./src/assets/yaourt-nature.jpg"
+					alt=""
+					className="produit-img"
+				/>
+			</div>
+		
+			{/* Price section */}
+            <p className="price">{product.price} Ar</p>
+            
+			{/* Product name section */}
+            <p className="nom-produit">{product.name}</p>
+           
+
+			{/* Command section */}
+			<section className="faire-panier">
+
+				<IconButton
+				type="button"
+				sx={{ p: "10px" }}
+				aria-label="faire-panier"
+				onClick={() =>
+					addToCart(
+						product.id,
+						quantities[product.id],
+						product.price,
+						product.name,
+						product.stock
+					)
+				}>
+					<img src="./src/assets/panier1.svg" alt="" />
+				</IconButton>
+            </section>
+
+			{/* Rating section */}
+			<Rating
+              name="size-small"
+              size="small"
+              value={value}
+              onChange={(event, newValue) => sendingRate(newValue, product.id)}
+            />
+          </div>
+        ))}
+    </div>
+
+{counter.map((product) => (

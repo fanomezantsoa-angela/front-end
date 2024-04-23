@@ -11,7 +11,7 @@ import { SearchProvider } from "../Hooks/SearchContext";
 
 
 
-function Home() {J
+function Home() {
  
 
 

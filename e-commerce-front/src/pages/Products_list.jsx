@@ -3,15 +3,23 @@ import {
   Product_rating,
   Product_search,
 } from "../Hooks/productAPI";
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import { useState, useEffect, useContext } from "react";
 import IconButton from "@mui/material/IconButton";
 import { SearchproductContext } from "../Hooks/SearchContext";
 import Rating from "@mui/material/Rating";
-import TextField from "@mui/material/TextField";
 import { CartContext } from "../Hooks/PanierContexte";
 import { Product_typesContext } from "../Hooks/Product_typesContext";
-import "./produits_list.css";
 import { jwtDecode } from "jwt-decode";
+// import TextField from "@mui/material/TextField";
+// import "./produits_list.css";
+
+// For slide utilities
+import { Swiper, SwiperSlide } from "swiper/react"
+import "swiper/css"
+import "swiper/css/pagination"
+import { Pagination, Navigation } from "swiper/modules"
+
 function Products_list() {
   const { searchedproduct } = useContext(SearchproductContext);
   const { addToCart } = useContext(CartContext);
@@ -21,6 +29,9 @@ function Products_list() {
   //context qui facilite l'accessibilité des données entre lee deux composants
     const [selectedType, setSelectedType] =useContext(Product_typesContext);
   const [ratedProducts, setRatedProducts] = useState([]);
+  let miniArray = [1,2,3,2,2,2,21,1,1,1,1]
+	const [counter, setCounter] = useState(miniArray)
+
   //filtre le produit par tout les produit ou par type de produit cliqué(id produit cliqué exite dans les produits )
   const filteredProducts = selectedType
     ? products.filter(
@@ -61,159 +72,129 @@ function Products_list() {
     fetchProducts();
   }, []);
 
-  const handleQuantityChange = (id, increment) => {
-    setQuantities((prevQuantities) => {
-      const stock = products.find((product) => product.id === id).stock;
-      const currentQuantity = prevQuantities[id];
-      const updatedQuantity = increment
-        ? Math.min(currentQuantity + 1, stock)
-        : Math.max(currentQuantity - 1, 1);
-      return { ...prevQuantities, [id]: updatedQuantity };
-    });
-  };
+//   const handleQuantityChange = (id, increment) => {
+//     setQuantities((prevQuantities) => {
+//       const stock = products.find((product) => product.id === id).stock;
+//       const currentQuantity = prevQuantities[id];
+//       const updatedQuantity = increment
+//         ? Math.min(currentQuantity + 1, stock)
+//         : Math.max(currentQuantity - 1, 1);
+//       return { ...prevQuantities, [id]: updatedQuantity };
+//     });
+//   };
 
-
+//   const sayHello = () => {
+// 	setCounter(miniArray.push(1))
+//   }
 
   return (
     // {products.map((product) => (
-    <div className="produits flex flex-row justify-around">
+    <Swiper 
+	slidesPerView={5}
+	spaceBetween={100}
+	navigation={true}
+	pagination={{
+		clickable: true
+	}}
+	breakpoints={{
+		'@0.00': {
+			slidesPerView: 5,
+			spaceBetween: 10,
+		},
+		'@0.75': {
+			slidesPerView: 5,
+			spaceBetween: 20,
+		},
+		'@1.00': {
+			slidesPerView: 5,
+			spaceBetween: 40,
+		},
+		'@1.50': {
+			slidesPerView: 5,
+			spaceBetween: 50,
+		},
+	}}
+	modules={[Navigation, Pagination]}
+	className="produits space-x-16 px-10"
+	>
       {filteredProducts &&
         filteredProducts.map((product) => (
-          <div key={product.id} className="produit">
-            <img
-              src="./src/assets/yaourt-nature.jpg"
-              alt=""
-              className="produit-img"
-            />
-           
-           
-            <p className="price">{product.price} Ar</p>
-            <Rating
-              name="size-small"
-              size="small"
-              value={value}
-              onChange={(event, newValue) => sendingRate(newValue, product.id)}
-            />
+		<SwiperSlide key={product.id} className="
+			flex flex-col items-start justify-start
+			bg-white rounded-lg 
+			 lg:w-[15%] md:w-[20%] sm:w-[30%] xs:w-[30%]
+			 mb-10
+		">
+			{/* Product image */}
+			<div className="w-[90%] mx-auto mt-4 border border-slate-200 rounded mb-4">
+				<img
+					src="./src/assets/yaourt-nature.jpg"
+					alt=""
+					className="produit-img"
+				/>
+			</div>
 
-            <p className="nom-produit">{product.name}</p>
-           
-        
 
-            <section className="faire-panier">
-              <IconButton
-                type="button"
-                aria-label="faire-panier"
-                onClick={() =>
-                  addToCart(
-                    product.id,
-                    quantities[product.id],
-                    product.price,
-                    product.name,
-                    product.stock
-                  )
-                }
-              >
-                Ajouter au panier
-              </IconButton>
-            </section>
 
-            {/* <section className="faire-panier">
-          <IconButton
-            type="button"
-            sx={{ p: "10px" }}
-            aria-label="moins-quantite"
-            onClick={moins_quantite}
-          >
-            <img src="./src/assets/moins.svg" alt="" />
-          </IconButton>
-          <TextField
-            value={quantite}
-            variant="standard"
-            onChange={quantitechange}
-          />
-          <p className="nom-produit">{product.name}</p>
-          <p className="desciption">
-            {product.description} stock: {product.stock}
-          </p>
-          <p className="price">{product.price} Ar</p>
-
-          <section className="faire-panier">
-          
+			{/* ***** DIvider ***** */}
+			<div className="w-full border-t border-slate-200 mb-6"></div>
             
-          
-        
-          
-            
-            <IconButton
-              type="button"
-              
-              aria-label="faire-panier"
-              onClick={() =>
-                addToCart(
-                  product.id,
-                    1,
-                  product.price,
-                  product.name,
-                  product.stock
-                )
-              }
-            >
-              Ajouter au panier
-            </IconButton>
-          </section>
-
-      
-      
 
 
+			{/* Text section */}
+			<div className="px-6 space-y-2 w-full">
+				{/* Product name section */}
+				<div className="text-left">
+					<p className="text-sky-700 font-semibold">{product.name}</p>
+				</div>
+			
+
+				{/* Rating section */}
+				<div className="">
+					<Rating
+					name="size-small"
+					size="medium"
+					value={3}
+					onChange={(event, newValue) => sendingRate(newValue, product.id)}
+					/>
+				</div>
+			
+				{/* Price section */}
+				<p className="price ">
+					<span className="text-emerald-700">{product.price} </span> <span className="text-sky-700">Ar</span>
+				</p>
+
+				{/* Command section */}
+				<section className="w-full flex justify-center items-center">
+
+					<button 
+					className="flex flex-row justify-center items-center
+					w-full text-white bg-sky-700 hover:bg-sky-600 duration-100
+					rounded p-2 mb-4
+					"
+					onClick={() =>
+						addToCart(
+							product.id,
+							quantities[product.id],
+							product.price,
+							product.name,
+							product.stock
+						)}>
+						<AddShoppingCartOutlinedIcon className=""/>
+						<span className="px-2 ubuntu-regular">
+							Ajouter au panier
+						</span>
+
+					</button>
+				</section>
+			</div>
+
+		</SwiperSlide>
 
 
-    
-    
-
-          </section> */}
-
-            <section className="faire-panier">
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
-                aria-label="moins-quantite"
-                onClick={() => handleQuantityChange(product.id, false)}
-              >
-                <img src="./src/assets/moins.svg" alt="" />
-              </IconButton>
-              <TextField value={quantities[product.id]} variant="standard" />
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
-                aria-label="plus-quantite"
-                onClick={() => handleQuantityChange(product.id, true)}
-              >
-                <img src="./src/assets/plus.svg" alt="" />
-              </IconButton>
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
-                aria-label="faire-panier"
-                onClick={() =>
-                  addToCart(
-                    product.id,
-                    quantities[product.id],
-                    product.price,
-                    product.name,
-                    product.stock
-                  )
-                }
-              >
-                <img src="./src/assets/panier1.svg" alt="" />
-              </IconButton>
-            </section>
-          </div>
         ))}
-    </div>
+    </Swiper>
   );
-
-
 
 }
 export default Products_list;
