@@ -63,7 +63,7 @@ function Loginform() {
          const token = response.data.access;
          localStorage.setItem("token", token);
       
-         console.log(decoded)
+         
          setIsLoggedIn(true);
          resetform();
          navigate("/");
