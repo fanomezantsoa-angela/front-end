@@ -11,12 +11,13 @@ import TextField from "@mui/material/TextField";
 import { CartContext } from "../Hooks/PanierContexte";
 import { Product_typesContext } from "../Hooks/Product_typesContext";
 import "./produits_list.css";
+import { jwtDecode } from "jwt-decode";
 function Products_list() {
   const { searchedproduct } = useContext(SearchproductContext);
   const { addToCart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
-  const [quantite, setQuantite] = useState(1);
-  const [value, setValue] = useState(0);
+   const [quantities, setQuantities] = useState({});
+ const [value, setValue] = useState(0);
   //context qui facilite l'accessibilité des données entre lee deux composants
     const [selectedType, setSelectedType] =useContext(Product_typesContext);
   const [ratedProducts, setRatedProducts] = useState([]);
@@ -26,58 +27,51 @@ function Products_list() {
         (product) => product.type === selectedType
       )
     : products;
-  const sendingRate = async (newvalue, id) => {
-     if (ratedProducts.includes(id)) {
-       return;
-     }
-      setValue(newvalue);
-      console.log(value);
-      console.log(id);
-      const response = await Product_rating(id, {
-        rate_value: value,
-      });
-    if (response.status == 201) {
-      console.log(response.data);
-    }
-    else {
-      console.log(response)
-    }
-      setRatedProducts([...ratedProducts, id]);
-   
-  };
+    const sendingRate = async (newValue, id) => {
+      if (!ratedProducts.includes(id)) {
+        setRatedProducts([...ratedProducts, id]);
+        setValue(newValue);
+        const response = await Product_rating(id, { rate_value: newValue });
+        if (response.status === 201) {
+          console.log(response.data);
+        } else {
+          console.log(response);
+        }
+      }
+    };
 
  useEffect(() => {
    console.log("Selected Type:", selectedType);
  }, [selectedType]);
  
   useEffect(() => {
-    async function fetchTypeList() {
-    
-        const list_product = await Product_list();
+    async function fetchProducts() {
+      const token = localStorage.getItem("token");
+      const decoded = jwtDecode(token);
 
-        setProducts(list_product.results);
-      
+      console.log(decoded);
+      const response = await Product_list();
+      setProducts(response.results);
+      const initialQuantities = {};
+      response.results.forEach((product) => {
+        initialQuantities[product.id] = 1;
+      });
+      setQuantities(initialQuantities);
     }
-    fetchTypeList();
-  }, [searchedproduct]);
+    fetchProducts();
+  }, []);
 
-  const quantitechange = (e) => {
-    const value = e.target.value;
-    setQuantite(value);
-  }
-
-  const moins_quantite = () => {
-    if (quantite > 1) {
-      setQuantite(quantite - 1);
-    }
+  const handleQuantityChange = (id, increment) => {
+    setQuantities((prevQuantities) => {
+      const stock = products.find((product) => product.id === id).stock;
+      const currentQuantity = prevQuantities[id];
+      const updatedQuantity = increment
+        ? Math.min(currentQuantity + 1, stock)
+        : Math.max(currentQuantity - 1, 1);
+      return { ...prevQuantities, [id]: updatedQuantity };
+    });
   };
 
-  const plus_quantite = (stock) => {
-    // Ensure valid arguments (optional, can be added for robustness)
-
-    const updatedQuantite = Math.min(quantite + 1, stock);
-    setQuantite(updatedQuantite);
-  };
 
 
   return (
@@ -91,25 +85,19 @@ function Products_list() {
               alt=""
               className="produit-img"
             />
-            <p className="nom-produit">{product.name}</p>
-            <p className="desciption">
-              {product.description} stock: {product.type}
-            </p>
+           
+           
             <p className="price">{product.price} Ar</p>
             <Rating
               name="size-small"
               size="small"
               value={value}
-              onChange={(event, newValue) => {
-                sendingRate(newValue, product.id);
-              }}
+              onChange={(event, newValue) => sendingRate(newValue, product.id)}
             />
 
             <p className="nom-produit">{product.name}</p>
-            <p className="desciption">
-              {product.description} stock: {product.stock}
-            </p>
-            <p className="price">{product.price} Ar</p>
+           
+        
 
             <section className="faire-panier">
               <IconButton
@@ -118,7 +106,7 @@ function Products_list() {
                 onClick={() =>
                   addToCart(
                     product.id,
-                    1,
+                    quantities[product.id],
                     product.price,
                     product.name,
                     product.stock
@@ -190,21 +178,16 @@ function Products_list() {
                 type="button"
                 sx={{ p: "10px" }}
                 aria-label="moins-quantite"
-                onClick={moins_quantite}
+                onClick={() => handleQuantityChange(product.id, false)}
               >
                 <img src="./src/assets/moins.svg" alt="" />
               </IconButton>
-              <TextField
-                value={quantite}
-                variant="standard"
-                onChange={quantitechange}
-              />
+              <TextField value={quantities[product.id]} variant="standard" />
               <IconButton
                 type="button"
                 sx={{ p: "10px" }}
                 aria-label="plus-quantite"
-                disabled={quantite >= product.stock}
-                onClick={() => plus_quantite(product.stock)}
+                onClick={() => handleQuantityChange(product.id, true)}
               >
                 <img src="./src/assets/plus.svg" alt="" />
               </IconButton>
@@ -215,7 +198,7 @@ function Products_list() {
                 onClick={() =>
                   addToCart(
                     product.id,
-                    quantite,
+                    quantities[product.id],
                     product.price,
                     product.name,
                     product.stock

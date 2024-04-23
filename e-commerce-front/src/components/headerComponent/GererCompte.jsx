@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { colors } from "@mui/material";
 function GererCompte() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn, isAdmin } = useContext(AuthContext);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -41,8 +41,10 @@ function GererCompte() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <AccountCircleOutlinedIcon sx={{fontSize: 40,}}
-          className="text-sky-700"/>
+          <AccountCircleOutlinedIcon
+            sx={{ fontSize: 40 }}
+            className="text-sky-700"
+          />
         </IconButton>
       </Tooltip>
 
@@ -87,13 +89,15 @@ function GererCompte() {
           </ListItemIcon>
           Profile personnel
         </MenuItem>
-        
-        <MenuItem onClick={Logginout}>
-          <ListItemIcon>
-            <LockPersonIcon className="text-sky-700"/>
-          </ListItemIcon>
-          Panaux d'administration
-        </MenuItem>
+
+        {isAdmin &&
+          <MenuItem onClick={Logginout}>
+            <ListItemIcon>
+              <LockPersonIcon className="text-sky-700" />
+            </ListItemIcon>
+            Panaux d'administration
+          </MenuItem>
+        }
 
         <MenuItem onClick={Logginout}>
           <ListItemIcon>
