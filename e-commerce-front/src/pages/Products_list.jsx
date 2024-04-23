@@ -13,20 +13,15 @@ import { Product_typesContext } from "../Hooks/Product_typesContext";
 import "./produits_list.css";
 import { jwtDecode } from "jwt-decode";
 function Products_list() {
-  const { searchedproduct } = useContext(SearchproductContext);
+  const { productresult } = useContext(SearchproductContext);
   const { addToCart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
    const [quantities, setQuantities] = useState({});
  const [value, setValue] = useState(0);
   //context qui facilite l'accessibilité des données entre lee deux composants
-    const [selectedType, setSelectedType] =useContext(Product_typesContext);
+    const [typeproduct, setTypeproduct] = useContext(Product_typesContext);
   const [ratedProducts, setRatedProducts] = useState([]);
-  //filtre le produit par tout les produit ou par type de produit cliqué(id produit cliqué exite dans les produits )
-  const filteredProducts = selectedType
-    ? products.filter(
-        (product) => product.type === selectedType
-      )
-    : products;
+ 
     const sendingRate = async (newValue, id) => {
       if (!ratedProducts.includes(id)) {
         setRatedProducts([...ratedProducts, id]);
@@ -40,26 +35,34 @@ function Products_list() {
       }
     };
 
- useEffect(() => {
-   console.log("Selected Type:", selectedType);
- }, [selectedType]);
+
  
   useEffect(() => {
-    async function fetchProducts() {
-      const token = localStorage.getItem("token");
-      const decoded = jwtDecode(token);
+  function fetchProducts() {
+    
 
-      console.log(decoded);
-      const response = await Product_list();
-      setProducts(response.results);
-      const initialQuantities = {};
-      response.results.forEach((product) => {
-        initialQuantities[product.id] = 1;
-      });
-      setQuantities(initialQuantities);
+   
+      if (typeproduct) {
+        console.log("produit de type", typeproduct);
+        setProducts(typeproduct);
+      }
+      else if (productresult) {
+        console.log("searched type", productresult);
+        setProducts(productresult);
+      } else {
+        setProducts([]);
+      }
+      
     }
     fetchProducts();
-  }, []);
+  }, [typeproduct, productresult]);
+   useEffect(() => {
+     const initialQuantities = {};
+     products.forEach((product) => {
+       initialQuantities[product.id] = 1;
+     });
+     setQuantities(initialQuantities);
+   }, [products]);
 
   const handleQuantityChange = (id, increment) => {
     setQuantities((prevQuantities) => {
@@ -77,47 +80,43 @@ function Products_list() {
   return (
     // {products.map((product) => (
     <div className="produits flex flex-row justify-around">
-      {filteredProducts &&
-        filteredProducts.map((product) => (
-          <div key={product.id} className="produit">
-            <img
-              src="./src/assets/yaourt-nature.jpg"
-              alt=""
-              className="produit-img"
-            />
-           
-           
-            <p className="price">{product.price} Ar</p>
-            <Rating
-              name="size-small"
-              size="small"
-              value={value}
-              onChange={(event, newValue) => sendingRate(newValue, product.id)}
-            />
+      {products.map((product) => (
+        <div key={product.id} className="produit">
+          <img
+            src="./src/assets/yaourt-nature.jpg"
+            alt=""
+            className="produit-img"
+          />
 
-            <p className="nom-produit">{product.name}</p>
-           
-        
+          <p className="price">{product.price} Ar</p>
+          <Rating
+            name="size-small"
+            size="small"
+            value={value}
+            onChange={(event, newValue) => sendingRate(newValue, product.id)}
+          />
 
-            <section className="faire-panier">
-              <IconButton
-                type="button"
-                aria-label="faire-panier"
-                onClick={() =>
-                  addToCart(
-                    product.id,
-                    quantities[product.id],
-                    product.price,
-                    product.name,
-                    product.stock
-                  )
-                }
-              >
-                Ajouter au panier
-              </IconButton>
-            </section>
+          <p className="nom-produit">{product.name}</p>
 
-            {/* <section className="faire-panier">
+          <section className="faire-panier">
+            <IconButton
+              type="button"
+              aria-label="faire-panier"
+              onClick={() =>
+                addToCart(
+                  product.id,
+                  quantities[product.id],
+                  product.price,
+                  product.name,
+                  product.stock
+                )
+              }
+            >
+              Ajouter au panier
+            </IconButton>
+          </section>
+
+          {/* <section className="faire-panier">
           <IconButton
             type="button"
             sx={{ p: "10px" }}
@@ -173,43 +172,43 @@ function Products_list() {
 
           </section> */}
 
-            <section className="faire-panier">
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
-                aria-label="moins-quantite"
-                onClick={() => handleQuantityChange(product.id, false)}
-              >
-                <img src="./src/assets/moins.svg" alt="" />
-              </IconButton>
-              <TextField value={quantities[product.id]} variant="standard" />
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
-                aria-label="plus-quantite"
-                onClick={() => handleQuantityChange(product.id, true)}
-              >
-                <img src="./src/assets/plus.svg" alt="" />
-              </IconButton>
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
-                aria-label="faire-panier"
-                onClick={() =>
-                  addToCart(
-                    product.id,
-                    quantities[product.id],
-                    product.price,
-                    product.name,
-                    product.stock
-                  )
-                }
-              >
-                <img src="./src/assets/panier1.svg" alt="" />
-              </IconButton>
-            </section>
-          </div>
-        ))}
+          <section className="faire-panier">
+            <IconButton
+              type="button"
+              sx={{ p: "10px" }}
+              aria-label="moins-quantite"
+              onClick={() => handleQuantityChange(product.id, false)}
+            >
+              <img src="./src/assets/moins.svg" alt="" />
+            </IconButton>
+            <TextField value={quantities[product.id]} variant="standard" />
+            <IconButton
+              type="button"
+              sx={{ p: "10px" }}
+              aria-label="plus-quantite"
+              onClick={() => handleQuantityChange(product.id, true)}
+            >
+              <img src="./src/assets/plus.svg" alt="" />
+            </IconButton>
+            <IconButton
+              type="button"
+              sx={{ p: "10px" }}
+              aria-label="faire-panier"
+              onClick={() =>
+                addToCart(
+                  product.id,
+                  quantities[product.id],
+                  product.price,
+                  product.name,
+                  product.stock
+                )
+              }
+            >
+              <img src="./src/assets/panier1.svg" alt="" />
+            </IconButton>
+          </section>
+        </div>
+      ))}
     </div>
   );
 
