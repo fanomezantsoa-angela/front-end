@@ -1,4 +1,5 @@
 import { Button } from "../littlecomponent/Button";
+import Tooltip from "@mui/material/Tooltip";
 import Drawer from "@mui/material/Drawer";
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
@@ -39,15 +40,17 @@ function NotificationComponent() {
 
                     <Badge color="primary" badgeContent={notification.length} max={10}>
                     {/* <MailIcon /> */}
-                    {
-                        notification.length < 1 ? 
-                        (
-                            <NotificationsNoneOutlinedIcon sx={{fontSize: 40,}} className="text-sky-700"/>
-                        ) : 
-                        (
-                            <NotificationsActiveIcon sx={{fontSize: 40,}} className="text-sky-700"/>
-                        )
-                    }
+                        <Tooltip title="Les notifications">
+                            {
+                                notification.length < 1 ? 
+                                (
+                                    <NotificationsNoneOutlinedIcon sx={{fontSize: 40,}} className="text-sky-700"/>
+                                ) : 
+                                (
+                                    <NotificationsActiveIcon sx={{fontSize: 40,}} className="text-sky-700"/>
+                                )
+                            }
+                        </Tooltip>
                     </Badge>
                     
                 }

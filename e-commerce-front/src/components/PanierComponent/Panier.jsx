@@ -1,5 +1,5 @@
 import { Button } from "../littlecomponent/Button";
-// import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Badge from '@mui/material/Badge';
@@ -35,13 +35,16 @@ function Panier() {
 
                 <Badge color="primary" badgeContent={items.length} max={10}>
                   {/* <MailIcon /> */}
-                  {
-                    items.length < 1 ? (
-                      <ShoppingCartOutlinedIcon sx={{fontSize: 40,}} className="text-sky-700"/>
-                    ) : (
-                      <ShoppingCartIcon sx={{fontSize: 40,}} className="text-sky-700"/>
-                    ) 
-                  }
+                  <Tooltip title="Panier">
+                    {
+                      items.length < 1 ? (
+                        <ShoppingCartOutlinedIcon sx={{fontSize: 40,}} className="text-sky-700"/>
+                      ) : (
+                        <ShoppingCartIcon sx={{fontSize: 40,}} className="text-sky-700"/>
+                      ) 
+                    }
+
+                  </Tooltip>
                   
                 </Badge>
                 
