@@ -5,38 +5,35 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 // import ListItemButton from "@mui/material/ListItemButton";
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemIcon from "@mui/material/ListItemIcon";
+// import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 // import InboxIcon from '@mui/icons-material/MoveToInbox';
 // import MailIcon from '@mui/icons-material/Mail';
-import CloseOutlined from '@mui/icons-material/CloseOutlined';
+// import CloseOutlined from '@mui/icons-material/CloseOutlined';
 
 
 export default function NotificationContentComponent({dataSendByChild}) {
 
-const closeDrawer = () => {
-    dataSendByChild(false)  
-}
+    const [notification, setNotif] = useState([1,1,1,1,1])
+
+    const closeDrawer = () => {
+        dataSendByChild(false)  
+    }
 
     return (
 
         <div>
-            {/* <p onClick={closeDrawer}
-            className="text-right p-4 text-2xl"
-            >
-                <CloseOutlined
-                sx={{ fontSize: 40 }}
-                className="text-red-700 hover:text-white hover:bg-red-500 duration-75 rounded-lg" />
-            </p> */}
-            {/* Content header */}
             <div >
-                <h2 className="text-center text-3xl tracking-widest text-white w-full p-3 bg-sky-700">
+                <h2 className={["text-center text-3xl tracking-widest text-white w-full p-3 bg-sky-700"]}>
                     NOTIFICATION
                 </h2>
             </div>
+
             <Divider />
+            
             <Box 
             sx={{ 
                 width: 400,
@@ -47,17 +44,20 @@ const closeDrawer = () => {
             >
                 <List>
                     {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem 
+                    <ListItem 
                     key={index} 
                     disablePadding 
                     alignItems="flex-start"
-                    className="">
-                        <ListItemAvatar>
+                    className={["border-b my-5 p-4 hover:bg-slate-100 duration-75 cursor-pointer shadow", 
+                        (notification.length > 0) ? "bg-sky-100" : "bg-white"]
+                    }>
+                        {/* <ListItemAvatar>
                             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        </ListItemAvatar>
-                        <p>{text}</p>
+                        </ListItemAvatar> */}
+                        {/* <p>{text}</p> */}
+
                         
-                        <ListItemText
+                        {/* <ListItemText
                         primary="Brunch this weekend?"
                         secondary={
                             <Fragment>
@@ -71,29 +71,37 @@ const closeDrawer = () => {
                                 </Typography>
                             {" — I'll be in your neighborhood doing errands this…"}
                             </Fragment>
-          }
-        />
+                        }/> */}
 
+                        <div className="space-y-2">
+                            {/* Date section */}
+                            <div className="flex flex-row justify-end items-center space-x-3 ">
+                                <p className="text-slate-500">24 Avril 2024 </p>
+                                <span className="text-emerald-600">
+                                    <AccessTimeIcon 
+                                    sx={{ fontSize: 25 }} 
+                                    />
+                                </span>
+                            </div>
+
+                            {/* Type of notification */}
+                            <div>
+                                <span className="bg-sky-200 text-white rounded-full px-4 py-2">
+                                Livraison
+                                </span>
+                            </div>
+
+                            {/* Information section */}
+                            <div>
+                                <p>Votre achat du <span>24 Avril 2024</span> a l'adress <span>Mahamasina VF 32</span> sera livree le <span>25 Avril 2025 a 10h30</span></p>
+                            </div>
+                        </div>
                     </ListItem>
                     ))}
                 </List>
 
 
-                {/* <Divider className="mt-10"/> */}
-                {/* <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                    ))}
-                </List> */}
             </Box>
-
         </div>
 
     )
