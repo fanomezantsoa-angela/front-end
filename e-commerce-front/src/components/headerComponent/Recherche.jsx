@@ -1,25 +1,41 @@
 import { SearchproductContext } from "../../Hooks/SearchContext";
 import { InputBase, IconButton, InputAdornment } from "@mui/material";
 import { useContext } from "react";
-
+import { Product_search } from "../../Hooks/productAPI";
+import { Inputhandler } from "../../Hooks/Inputhandler";
 function Recherche() {
-  const { updateSearchTerm } = useContext(SearchproductContext);
-   const handleInputChange = (event) => {
-    updateSearchTerm(event.target.value);
+    const [name, setName, Namechange] = Inputhandler("");
+const { productresult, setProductresult } = useContext(SearchproductContext);
+ const getsearchedproduct = (name) => {
+     Product_search(name)
+       .then((response) => {
+         console.log(response);
+         setProductresult(response);
+         console.log("product resultat", productresult)
+        
+       })
+       .catch((error) => {
+         console.log(error);
+       });
   };
 
     return (
       <div className="flex flex-center justify-center m-10">
         <InputBase
+          value={name}
+          onChange={Namechange}
           placeholder="Chercher un produit"
-          onChange={handleInputChange}
           className="bg-slate-50 block w-full rounded-full border-0 py-[7px] px-5 text-gray-900 shadow-gray-100  ring-2 ring-inset ring-slate-400 
           placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-700 sm:text-sm sm:leading-6
           hover:py-[10px]  duration-75"
           inputProps={{ "aria-label": "chercher un produit" }}
           endAdornment={
             <InputAdornment position="end">
-              <IconButton type="button" aria-label="recherche">
+              <IconButton
+                type="button"
+                aria-label="recherche"
+                onClick={() => getsearchedproduct(name)}
+              >
                 {/* <img src="./src/assets/recherche.svg" alt="" /> */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +54,6 @@ function Recherche() {
               </IconButton>
             </InputAdornment>
           }
-         
         />
       </div>
     );

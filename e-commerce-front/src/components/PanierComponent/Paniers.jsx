@@ -31,11 +31,11 @@ function Paniers({ panierClose }) {
     <div style={{ backgroundColor: "white" }} class="	w-[50%] ml-[49%]  mt-[9%] rounded-[20px] pt-[1%] pb-[1%] "  >
                {/* <img src="./src/assets/shop.gif" class="w-[80px]" /> */}
  
-      <h2 class="text-center text-lg text-[black] font-extrabold 
+      <h2 className="text-center text-lg text-[black] font-extrabold 
           ">Liste des produits dans votres panier</h2>
       <div class="mt-[5%] ml-[5%]" >
-      <table class="size-full  border-collapse none text-left 	">
-        <thead class="text-base text-[black] font-extrabold " >
+      <table className="size-full  border-collapse none text-left 	">
+        <thead className="text-base text-[black] font-extrabold " >
           <tr >
             <th>Numéro</th>
 
@@ -45,7 +45,7 @@ function Paniers({ panierClose }) {
             <th>Total</th>
           </tr>
         </thead>
-        <tbody class="mb-[5%]">
+        <tbody className="mb-[5%]">
           {items.map((item, id) => (
             <tr key={id} class="border-t-none border-solid border-b-[3px]	mb-[5%]">
               <td>{id + 1}</td>
@@ -84,13 +84,13 @@ function Paniers({ panierClose }) {
         </tbody>
       </table>
       </div>
-      <div class="text-base text-[black] font-extrabold mt-[2%] mr-[8%]">
+      <div className="text-base text-[black] font-extrabold mt-[2%] mr-[8%]">
             <p  className="text-end ">
               Total: {getTotalCost()} Ar
             </p>
           </div>
           {/* <img src="./src/assets/click.gif" className="pi" /> */}
-      <div class=" mb-[2%] border-solid border-2 border-sky-500 rounded-full w-[20%] bg-sky-500/50 ml-[40%] text-center text-[black] font-extrabold text-[18px]  ">
+      <div className=" mb-[2%] border-solid border-2 border-sky-500 rounded-full w-[20%] bg-sky-500/50 ml-[40%] text-center text-[black] font-extrabold text-[18px]  ">
         <Button
           action="Commander"
           

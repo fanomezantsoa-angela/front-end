@@ -4,10 +4,12 @@ import { useState, useEffect, useContext } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { type_product } from "../../Hooks/API";
+
+import { Product_per_type, Product_list } from "../../Hooks/productAPI";
 import "./produits_types.css";
 function Produits_type() {
   
-  const [selectedType, setSelectedType] = useContext(Product_typesContext);
+  const [typeproduct, setTypeproduct] = useContext(Product_typesContext);
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -26,15 +28,36 @@ function Produits_type() {
       }
     }
     fetchTypeList();
+    getAllproduct(); 
   }, []);
   //fonction qui recupere le produit cliqué
-    const getSelectedtype = (designation) => {
-      setSelectedType(designation);
-      console.log(selectedType);
-    };
+    const getSelectedtype = (id) => {
+      Product_per_type(id)
+      .then((response) => {
+        console.log(response.data.product);
+        setTypeproduct(response.data.product);
+        console.log("type selected", typeproduct)
+      })
+        .catch((error) => {
+      console.log(error)
+  })
+  };
+  const getAllproduct = () => {
+    Product_list()
+      .then((response) => {
+         console.log(response.results);
+         setTypeproduct(response.results);
+         console.log("type selected", typeproduct);
+       }).catch((error) => {
+         console.log(error);
+       });
+  }
   return (
     <>
       <ul className="Type-produit">
+        <button>
+          <li onClick={() => getAllproduct()}>Tous les produits</li>
+        </button>
         {typeOptions.map((typeOption, index) => (
           <button>
             <li key={index} onClick={() => getSelectedtype(typeOption.id)}>
