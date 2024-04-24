@@ -21,23 +21,21 @@ import "swiper/css/navigation"
 import { Pagination, Navigation } from "swiper/modules"
 
 function Products_list() {
-  const { searchedproduct } = useContext(SearchproductContext);
+  const { productresult } = useContext(SearchproductContext);
   const { addToCart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
    const [quantities, setQuantities] = useState({});
  const [value, setValue] = useState(0);
   //context qui facilite l'accessibilité des données entre lee deux composants
-    const [selectedType, setSelectedType] =useContext(Product_typesContext);
+    const [typeproduct, setTypeproduct] = useContext(Product_typesContext);
   const [ratedProducts, setRatedProducts] = useState([]);
+
   let miniArray = [1,2,3,2,2,2,21,1,1,1,1]
 	const [counter, setCounter] = useState(miniArray)
 
   //filtre le produit par tout les produit ou par type de produit cliqué(id produit cliqué exite dans les produits )
-  const filteredProducts = selectedType
-    ? products.filter(
-        (product) => product.type === selectedType
-      )
-    : products;
+
+
     const sendingRate = async (newValue, id) => {
       if (!ratedProducts.includes(id)) {
         setRatedProducts([...ratedProducts, id]);
@@ -51,26 +49,35 @@ function Products_list() {
       }
     };
 
- useEffect(() => {
-   console.log("Selected Type:", selectedType);
- }, [selectedType]);
- 
-  useEffect(() => {
-    async function fetchProducts() {
-      const token = localStorage.getItem("token");
-      const decoded = jwtDecode(token);
 
-      console.log(decoded);
-      const response = await Product_list();
-      setProducts(response.results);
-      const initialQuantities = {};
-      response.results.forEach((product) => {
-        initialQuantities[product.id] = 1;
-      });
-      setQuantities(initialQuantities);
+ 
+useEffect(() => {
+  function fetchProducts() {
+    // Prioritize search results if available and not empty
+    if (productresult && productresult.length > 0) {
+      console.log("Using searched products:", productresult);
+      setProducts(productresult);
+    } else if (typeproduct && typeproduct.length > 0) {
+      console.log("Using type selected products:", typeproduct);
+      setProducts(typeproduct);
+    } else {
+      console.log("No products available");
+      setProducts([]);
     }
-    fetchProducts();
-  }, []);
+  }
+  fetchProducts();
+}, [typeproduct, productresult]);
+  useEffect(() => {
+    console.log("Products to render:", products);
+  }, [products]);
+   useEffect(() => {
+     const initialQuantities = {};
+     products.forEach((product) => {
+       initialQuantities[product.id] = 1;
+     });
+     setQuantities(initialQuantities);
+   }, [products]);
+
 
 
   const sayHello = () => {
@@ -79,6 +86,7 @@ function Products_list() {
 
   return (
     // {products.map((product) => (
+
     <Swiper 
 	slidesPerView={5}
 	spaceBetween={100}
@@ -191,6 +199,10 @@ function Products_list() {
 		
 
     </Swiper>
+
+    
+    
+
   );
 
 }

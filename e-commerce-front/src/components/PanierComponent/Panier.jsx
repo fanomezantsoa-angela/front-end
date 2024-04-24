@@ -64,6 +64,7 @@ function Panier() {
          
           </Box>
         </Modal>
+       
       </div>
     );
 }
