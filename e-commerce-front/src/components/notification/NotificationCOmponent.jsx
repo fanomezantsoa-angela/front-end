@@ -1,28 +1,40 @@
-// All logical part of the application
-// MUI Stuff
 import { Button } from "../littlecomponent/Button";
-import Modal from "@mui/material/Modal";
+import Drawer from "@mui/material/Drawer";
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Badge from '@mui/material/Badge';
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
 
+import NotificationContentComponent from "./NotificationContentComponent";
 
 
 function NotificationComponent() {
     // Reactive var setter
     const [notification, setNotification] = useState([])
-    const openNotifModal = () => setNotification(true)
-    const closeNotifModal = () => setNotification(false)
+    const [notifDrawer, setDrawer] = useState(false)
+
+    // const openNotifModal = () => setNotification(true)
+    // const closeNotifModal = () => setNotification(false)
+
+    const toggleDrawer = (value) => {
+        setDrawer(value)
+    }
+
+    function handleDataFromChild() {
+        console.log("Props did work")
+        setDrawer(false);
+     }
+
+    
 
 
     return (
         <div>   
             <section>
                 <Button
-                    classname="hover:bg-sky-50 hover:bg-sky-100 hover:scale-110 px-3 py-2 rounded-full duration-75"
+                    classname="bg-sky-50 hover:bg-sky-100 hover:scale-110 px-3 py-2 rounded-full duration-75"
                     aria-label="panier"
-                    buttonhandle={openNotifModal}
+                    buttonhandle={() => toggleDrawer(true)}
                     action={
 
                     <Badge color="primary" badgeContent={notification.length} max={10}>
@@ -41,21 +53,15 @@ function NotificationComponent() {
                 }
                 ></Button>
             </section>
+                
 
-            {/* <Modal
-            open={notification}
-            onClose={closeNotifModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-            >
-                <Box className="paniers">
-                    {items.length < 1 ? (
-                    <p>No items in your cart</p>
-                    ) : (
-                    <Paniers panierClose={closeNotifModal} />
-                    )}
-                </Box>
-            </Modal> */}
+            {/* Drawer for notification modal */}
+            <Drawer 
+            anchor="right"
+            open={notifDrawer} 
+            onClose={() => toggleDrawer(false)}>
+                <NotificationContentComponent dataSendByChild={handleDataFromChild} />
+            </Drawer>
 
         </div>
     )

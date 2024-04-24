@@ -72,20 +72,10 @@ function Products_list() {
     fetchProducts();
   }, []);
 
-//   const handleQuantityChange = (id, increment) => {
-//     setQuantities((prevQuantities) => {
-//       const stock = products.find((product) => product.id === id).stock;
-//       const currentQuantity = prevQuantities[id];
-//       const updatedQuantity = increment
-//         ? Math.min(currentQuantity + 1, stock)
-//         : Math.max(currentQuantity - 1, 1);
-//       return { ...prevQuantities, [id]: updatedQuantity };
-//     });
-//   };
 
-//   const sayHello = () => {
-// 	setCounter(miniArray.push(1))
-//   }
+  const sayHello = () => {
+	setCounter(miniArray.push(1))
+  }
 
   return (
     // {products.map((product) => (
@@ -117,9 +107,8 @@ function Products_list() {
 	modules={[Navigation, Pagination]}
 	className="produits space-x-16 px-10"
 	>
-      {filteredProducts &&
-        filteredProducts.map((product) => (
-		<SwiperSlide key={product.id} className="
+      {counter.map((product) => ( 
+		<SwiperSlide key={product} className="
 			flex flex-col items-start justify-start
 			bg-white rounded-lg 
 			 lg:w-[15%] md:w-[20%] sm:w-[30%] xs:w-[30%]
@@ -145,7 +134,7 @@ function Products_list() {
 			<div className="px-6 space-y-2 w-full">
 				{/* Product name section */}
 				<div className="text-left">
-					<p className="text-sky-700 font-semibold">{product.name}</p>
+					<p className="text-sky-700 font-semibold">Nice and natural product</p>
 				</div>
 			
 
@@ -161,7 +150,7 @@ function Products_list() {
 			
 				{/* Price section */}
 				<p className="price ">
-					<span className="text-emerald-700">{product.price} </span> <span className="text-sky-700">Ar</span>
+					<span className="text-emerald-700">1000.00 </span> <span className="text-sky-700">Ar</span>
 				</p>
 
 				{/* Command section */}
@@ -172,14 +161,7 @@ function Products_list() {
 					w-full text-white bg-sky-700 hover:bg-sky-600 duration-100
 					rounded p-2 mb-4
 					"
-					onClick={() =>
-						addToCart(
-							product.id,
-							quantities[product.id],
-							product.price,
-							product.name,
-							product.stock
-						)}>
+					onClick={sayHello}>
 						<AddShoppingCartOutlinedIcon className=""/>
 						<span className="px-2 ubuntu-regular">
 							Ajouter au panier
