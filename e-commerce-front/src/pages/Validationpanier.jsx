@@ -1,7 +1,15 @@
 import { useState, useEffect, useContext } from "react";
 import { CartContext, CartProvider } from "../Hooks/PanierContexte";
-import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
+
+import { IoMdAddCircle } from "react-icons/io";
+import IconButton from "@mui/material/IconButton";
+import { TiDelete } from "react-icons/ti";
+import { AiFillMinusCircle } from "react-icons/ai";
+
+import { IoIosAddCircle } from "react-icons/io";
+import { IoArrowBackCircle } from "react-icons/io5";
+
 
 import { validationPayement } from "../Hooks/PayementApi";
 import { Button } from "../components/littlecomponent/Button";
@@ -55,21 +63,27 @@ function Validationpanier() {
    
   };
   return (
-    <div>
-      <button onClick={retour}>retour</button>
+    <div class="">
+      <IconButton onClick={retour} class="ml-[2%] mt-[2%] fixed"><IoArrowBackCircle  color="black" size={50}/></IconButton>
+               <img src="./src/assets/shop.gif" class="w-[500px] ml-[5%]" />
 
-      {items.map((item, id) => (
-        <ul key={id}>
+     <div style={{ backgroundColor: "white" }} class="h-[00%]	w-[51%] ml-[48%]  mt-[-30%] rounded-[20px] pt-[1%] pb-[1%] border-solid border-[5px]	"> 
+     <h2 class="text-center text-[30px] text-[black] font-extrabold m-[5%]  mb-[2%]mt-[-2%] ">Mon panier</h2>
+     {items.map((item, id) => (
+        <ul key={id} class="mt-[5%] ml-[2%] flex flex-row w-[100%] justify-around mb-[5%] border-t-none border-solid border-b-[3px]	 text-center text-[15px] text-[black] font-extrabold">
           <li>{id + 1}</li>
 
           <li>{item.name}</li>
-          <li className="d-flex justify-content-between">
-            <button
+          <li className="">
+          <IconButton  
+              
               onClick={() => removeOneItemFromCart(item.id)}
-              className="px-1 text-center align-middle"
-            >
-              -
-            </button>
+                  className="px-1 text-center align-middle">
+                    
+                    <AiFillMinusCircle size={20} color="#0061A8"/>
+
+
+                  </IconButton>
 
             <span className="p-2 bg-light">{item.quantity}</span>
             <IconButton
@@ -78,20 +92,23 @@ function Validationpanier() {
               disabled={item.quantity >= item.stock}
               className="px-1 text-center align-middle"
             >
-              +
+                               <IoIosAddCircle size={20}  color="#0061A8"/>
+
             </IconButton>
           </li>
-          <li>Prix: unitaire {item.price} Ar</li>
+          <li>Prix unitaire: {item.price} Ar</li>
           <li>Total {item.quantity * item.price}</li>
-          <button onClick={() => deleteItemFromCart(item.id)}>X</button>
+          <IconButton onClick={() => deleteItemFromCart(item.id)} class=" mt-[-5%]"><TiDelete size={30} color="Red"/></IconButton>
         </ul>
       ))}
-      <p>Total: $ {getTotalCost()}</p>
-      <Button
+      <p class=" text-center text-[black] font-extrabold text-[18px] ml-[68%]">Total: $ {getTotalCost()}</p>
+      <div  class=" mb-[2%] border-solid border-2 border-sky-500 rounded-full w-[25%] bg-sky-500/50 ml-[40%] text-center text-[black] font-extrabold text-[18px]  ">
+      <Button 
         action="Effectuer-payement"
         classname="commander_produits"
         buttonhandle={validerPayement}
       />
+      </div>
       <Modal
         open={payement}
         onClose={closepayement}
@@ -108,6 +125,7 @@ function Validationpanier() {
           <Formpayement closeform={closepayement} />
         </Box>
       </Modal>
+      </div>
     </div>
   );
 }

@@ -10,6 +10,9 @@ import Rating from "@mui/material/Rating";
 import TextField from "@mui/material/TextField";
 import { CartContext } from "../Hooks/PanierContexte";
 import { Product_typesContext } from "../Hooks/Product_typesContext";
+import { IoMdAddCircle } from "react-icons/io";
+import { AiFillMinusCircle } from "react-icons/ai";
+
 import "./produits_list.css";
 function Products_list() {
   const { searchedproduct } = useContext(SearchproductContext);
@@ -82,7 +85,7 @@ function Products_list() {
 
   return (
     // {products.map((product) => (
-    <div className="produits flex flex-row justify-around">
+    <div className="produits flex flex-row justify-around  ">
       {filteredProducts &&
         filteredProducts.map((product) => (
           <div key={product.id} className="produit">
@@ -95,39 +98,11 @@ function Products_list() {
             <p className="desciption">
               {product.description} stock: {product.type}
             </p>
-            <p className="price">{product.price} Ar</p>
-            <Rating
-              name="size-small"
-              size="small"
-              value={value}
-              onChange={(event, newValue) => {
-                sendingRate(newValue, product.id);
-              }}
-            />
+            <p className="price">Prix: {product.price} Ar</p>
+            
 
-            <p className="nom-produit">{product.name}</p>
-            <p className="desciption">
-              {product.description} stock: {product.stock}
-            </p>
-            <p className="price">{product.price} Ar</p>
 
-            <section className="faire-panier">
-              <IconButton
-                type="button"
-                aria-label="faire-panier"
-                onClick={() =>
-                  addToCart(
-                    product.id,
-                    1,
-                    product.price,
-                    product.name,
-                    product.stock
-                  )
-                }
-              >
-                Ajouter au panier
-              </IconButton>
-            </section>
+            
 
             {/* <section className="faire-panier">
           <IconButton
@@ -185,19 +160,22 @@ function Products_list() {
 
           </section> */}
 
-            <section className="faire-panier">
+            <section className="faire-panier"  >
               <IconButton
                 type="button"
                 sx={{ p: "10px" }}
                 aria-label="moins-quantite"
                 onClick={moins_quantite}
               >
-                <img src="./src/assets/moins.svg" alt="" />
+               <IoMdAddCircle size={20} color="#0061A8"/>
               </IconButton>
+
               <TextField
+              class="text-center	"
                 value={quantite}
                 variant="standard"
                 onChange={quantitechange}
+               
               />
               <IconButton
                 type="button"
@@ -206,25 +184,36 @@ function Products_list() {
                 disabled={quantite >= product.stock}
                 onClick={() => plus_quantite(product.stock)}
               >
-                <img src="./src/assets/plus.svg" alt="" />
+                < AiFillMinusCircle size={20} color="#0061A8"/>
               </IconButton>
+              
+            </section>
+            <section class=" mb-[5%] border-solid border-2 border-sky-500 rounded-full w-[80%] bg-sky-500/50  text-center text-[black] font-extrabold text-[18px]  mt-[2%] " >
               <IconButton
+              class="text-[15px] "
                 type="button"
-                sx={{ p: "10px" }}
                 aria-label="faire-panier"
                 onClick={() =>
                   addToCart(
                     product.id,
-                    quantite,
+                    1,
                     product.price,
                     product.name,
                     product.stock
                   )
                 }
               >
-                <img src="./src/assets/panier1.svg" alt="" />
+                Ajouter au panier
               </IconButton>
             </section>
+            <Rating
+              name="size-small"
+              size="medium"
+              value={value}
+              onChange={(event, newValue) => {
+                sendingRate(newValue, product.id);
+              }}
+            />
           </div>
         ))}
     </div>
