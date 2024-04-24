@@ -10,12 +10,6 @@ import { SearchproductContext } from "../Hooks/SearchContext";
 import Rating from "@mui/material/Rating";
 import { CartContext } from "../Hooks/PanierContexte";
 import { Product_typesContext } from "../Hooks/Product_typesContext";
-<<<<<<< HEAD
-import { IoMdAddCircle } from "react-icons/io";
-import { AiFillMinusCircle } from "react-icons/ai";
-
-import "./produits_list.css";
-=======
 import { jwtDecode } from "jwt-decode";
 // import TextField from "@mui/material/TextField";
 // import "./produits_list.css";
@@ -26,7 +20,6 @@ import "swiper/css"
 import "swiper/css/pagination"
 import { Pagination, Navigation } from "swiper/modules"
 
->>>>>>> b98d19b21597e8a6be49c16f25fd45a974171772
 function Products_list() {
   const { searchedproduct } = useContext(SearchproductContext);
   const { addToCart } = useContext(CartContext);
@@ -96,26 +89,6 @@ function Products_list() {
 
   return (
     // {products.map((product) => (
-<<<<<<< HEAD
-    <div className="produits flex flex-row justify-around  ">
-      {filteredProducts &&
-        filteredProducts.map((product) => (
-          <div key={product.id} className="produit">
-            <img
-              src="./src/assets/yaourt-nature.jpg"
-              alt=""
-              className="produit-img"
-            />
-            <p className="nom-produit">{product.name}</p>
-            <p className="desciption">
-              {product.description} stock: {product.type}
-            </p>
-            <p className="price">Prix: {product.price} Ar</p>
-            
-
-
-            
-=======
     <Swiper 
 	slidesPerView={5}
 	spaceBetween={100}
@@ -162,7 +135,6 @@ function Products_list() {
 			</div>
 
 
->>>>>>> b98d19b21597e8a6be49c16f25fd45a974171772
 
 			{/* ***** DIvider ***** */}
 			<div className="w-full border-t border-slate-200 mb-6"></div>
@@ -220,69 +192,6 @@ function Products_list() {
 		</SwiperSlide>
 
 
-<<<<<<< HEAD
-    
-    
-
-          </section> */}
-
-            <section className="faire-panier"  >
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
-                aria-label="moins-quantite"
-                onClick={moins_quantite}
-              >
-               <IoMdAddCircle size={20} color="#0061A8"/>
-              </IconButton>
-
-              <TextField
-              class="text-center	"
-                value={quantite}
-                variant="standard"
-                onChange={quantitechange}
-               
-              />
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
-                aria-label="plus-quantite"
-                disabled={quantite >= product.stock}
-                onClick={() => plus_quantite(product.stock)}
-              >
-                < AiFillMinusCircle size={20} color="#0061A8"/>
-              </IconButton>
-              
-            </section>
-            <section class=" mb-[5%] border-solid border-2 border-sky-500 rounded-full w-[80%] bg-sky-500/50  text-center text-[black] font-extrabold text-[18px]  mt-[2%] " >
-              <IconButton
-              class="text-[15px] "
-                type="button"
-                aria-label="faire-panier"
-                onClick={() =>
-                  addToCart(
-                    product.id,
-                    1,
-                    product.price,
-                    product.name,
-                    product.stock
-                  )
-                }
-              >
-                Ajouter au panier
-              </IconButton>
-            </section>
-            <Rating
-              name="size-small"
-              size="medium"
-              value={value}
-              onChange={(event, newValue) => {
-                sendingRate(newValue, product.id);
-              }}
-            />
-          </div>
-=======
->>>>>>> b98d19b21597e8a6be49c16f25fd45a974171772
         ))}
     </Swiper>
   );

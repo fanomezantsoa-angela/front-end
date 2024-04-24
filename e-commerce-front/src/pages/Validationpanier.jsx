@@ -2,15 +2,12 @@ import { useState, useEffect, useContext } from "react";
 import { CartContext, CartProvider } from "../Hooks/PanierContexte";
 import { useNavigate } from "react-router-dom";
 
-import { IoMdAddCircle } from "react-icons/io";
 import IconButton from "@mui/material/IconButton";
 import { TiDelete } from "react-icons/ti";
 import { AiFillMinusCircle } from "react-icons/ai";
 
 import { IoIosAddCircle } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
-
-
 import { validationPayement } from "../Hooks/PayementApi";
 import { Button } from "../components/littlecomponent/Button";
 import Swal from "sweetalert2";
