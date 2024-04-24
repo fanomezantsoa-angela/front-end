@@ -9,7 +9,7 @@ import Profil from "./pages/Profil";
 import Admin from "./pages/Admin";
 
 import { BrowserRouter } from "react-router-dom";
-import Routage from "./Routage";
+import Routage from "./Routes/Routage";
 
 
 

@@ -34,3 +34,12 @@ export const Product_rating = async (id, value) => {
     throw error;
   }
 };
+export const Product_per_type = async (id) => {
+   try {
+    const response = await axiosInstance.get(`/type_product/${id}/`);
+    https: return response;
+  } catch (error) {
+    throw error;
+  }
+ 
+};

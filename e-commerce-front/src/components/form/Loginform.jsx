@@ -11,7 +11,7 @@ import { LoadingContext } from "../../Hooks/LoadingContext";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Swal from "sweetalert2";
-
+import { jwtDecode } from "jwt-decode";
 
 function Loginform() {
   const { loading, startLoading, stopLoading } = useContext(LoadingContext);
@@ -62,6 +62,8 @@ function Loginform() {
        .then((response) => {
          const token = response.data.access;
          localStorage.setItem("token", token);
+      
+         
          setIsLoggedIn(true);
          resetform();
          navigate("/");
