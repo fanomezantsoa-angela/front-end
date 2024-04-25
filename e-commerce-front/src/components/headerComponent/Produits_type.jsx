@@ -4,12 +4,12 @@ import { useState, useEffect, useContext } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { type_product } from "../../Hooks/API";
-
+import { SearchproductContext } from "../../Hooks/SearchContext";
 import { Product_per_type, Product_list } from "../../Hooks/productAPI";
 import "./produits_types.css";
 function Produits_type() {
-  
-  const [typeproduct, setTypeproduct] = useContext(Product_typesContext);
+  const { setProductresult } = useContext(SearchproductContext);
+  const { typeproduct, setTypeproduct } = useContext(Product_typesContext);
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -31,17 +31,18 @@ function Produits_type() {
     getAllproduct(); 
   }, []);
   //fonction qui recupere le produit cliqué
-    const getSelectedtype = (id) => {
-      Product_per_type(id)
-      .then((response) => {
-        console.log(response.data.product);
-        setTypeproduct(response.data.product);
-        console.log("type selected", typeproduct)
-      })
-        .catch((error) => {
-      console.log(error)
-  })
-  };
+const getSelectedtype = async (id) => {
+  try {
+    const response = await Product_per_type(id);
+    if (response.data.product) {
+      console.log("Type product fetched:", response.data.product);
+      setTypeproduct(response.data.product); // Update type product context
+      setProductresult([]); // Clear search results context
+    }
+  } catch (error) {
+    console.log("Error fetching product type:", error);
+  }
+};
   const getAllproduct = () => {
     Product_list()
       .then((response) => {
