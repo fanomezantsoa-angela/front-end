@@ -1,0 +1,3 @@
+/**
+ * Set all notification actions
+ */
