@@ -13,6 +13,7 @@ function NotificationComponent() {
     // Reactive var setter
     const [notification, setNotification] = useState([])
     const [notifDrawer, setDrawer] = useState(false)
+    const [notifData, setNotifData] = useState([])
 
     // const openNotifModal = () => setNotification(true)
     // const closeNotifModal = () => setNotification(false)
@@ -63,7 +64,7 @@ function NotificationComponent() {
             anchor="right"
             open={notifDrawer} 
             onClose={() => toggleDrawer(false)}>
-                <NotificationContentComponent dataSendByChild={handleDataFromChild} />
+                <NotificationContentComponent notifData={notifData} dataSendByChild={handleDataFromChild} />
             </Drawer>
 
         </div>

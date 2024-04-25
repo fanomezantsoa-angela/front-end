@@ -6,9 +6,11 @@ import ListItem from "@mui/material/ListItem";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 
-export default function NotificationContentComponent() {
+export default function NotificationContentComponent({notifData}) {
 
     const [notification, setNotif] = useState([1,2,3])
+    const [notificationData, setNotifData] = useState(notifData)
+
 
     return (
 
