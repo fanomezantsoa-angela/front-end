@@ -21,55 +21,63 @@ import "swiper/css/navigation"
 import { Pagination, Navigation } from "swiper/modules"
 
 function Products_list() {
-  const { productresult } = useContext(SearchproductContext);
-  const { addToCart } = useContext(CartContext);
-  const [products, setProducts] = useState([]);
-   const [quantities, setQuantities] = useState({});
- const [value, setValue] = useState(0);
-  //context qui facilite l'accessibilité des données entre lee deux composants
-    const [typeproduct, setTypeproduct] = useContext(Product_typesContext);
-  const [ratedProducts, setRatedProducts] = useState([]);
+	const { productresult } = useContext(SearchproductContext);
+	const { addToCart } = useContext(CartContext);
+	const [products, setProducts] = useState([]);
+	const [quantities, setQuantities] = useState({});
+	const [value, setValue] = useState(0);
+	//context qui facilite l'accessibilité des données entre lee deux composants
+	const [typeproduct, setTypeproduct] = useContext(Product_typesContext);
+	const [ratedProducts, setRatedProducts] = useState([]);
 
-  let miniArray = [1,2,3,2,2,2,21,1,1,1,1]
-	const [counter, setCounter] = useState(miniArray)
+	
+	
+	// Swiper state
+	let miniArray = [1,2,3,2,2,2,21,1,1,1,1]
+	const [items, setItems] = useState(miniArray)
+	const [swiper, setSwiper] = useState(null)
 
   //filtre le produit par tout les produit ou par type de produit cliqué(id produit cliqué exite dans les produits )
 
 
     const sendingRate = async (newValue, id) => {
-      if (!ratedProducts.includes(id)) {
-        setRatedProducts([...ratedProducts, id]);
-        setValue(newValue);
-        const response = await Product_rating(id, { rate_value: newValue });
-        if (response.status === 201) {
-          console.log(response.data);
-        } else {
-          console.log(response);
-        }
-      }
+		if (!ratedProducts.includes(id)) {
+			
+			setRatedProducts([...ratedProducts, id]);
+			setValue(newValue);
+			const response = await Product_rating(id, { rate_value: newValue });
+			
+			if (response.status === 201) {
+				console.log(response.data);
+			} else {
+				console.log(response);
+			}
+		}
     };
 
-
  
-useEffect(() => {
-  function fetchProducts() {
-    // Prioritize search results if available and not empty
-    if (productresult && productresult.length > 0) {
-      console.log("Using searched products:", productresult);
-      setProducts(productresult);
-    } else if (typeproduct && typeproduct.length > 0) {
-      console.log("Using type selected products:", typeproduct);
-      setProducts(typeproduct);
-    } else {
-      console.log("No products available");
-      setProducts([]);
-    }
-  }
-  fetchProducts();
-}, [typeproduct, productresult]);
-  useEffect(() => {
-    console.log("Products to render:", products);
-  }, [products]);
+	useEffect(() => {
+	function fetchProducts() {
+		// Prioritize search results if available and not empty
+		if (productresult && productresult.length > 0) {
+			console.log("Using searched products:", productresult);
+			setProducts(productresult);
+		} else if (typeproduct && typeproduct.length > 0) {
+			console.log("Using type selected products:", typeproduct);
+			setProducts(typeproduct);
+		} else {
+			console.log("No products available");
+			setProducts([]);
+		}
+	}
+		fetchProducts();
+	}, [typeproduct, productresult]);
+
+
+	useEffect(() => {
+		console.log("Products to render:", products);
+	}, [products]);
+
    useEffect(() => {
      const initialQuantities = {};
      products.forEach((product) => {
@@ -80,9 +88,30 @@ useEffect(() => {
 
 
 
-  const sayHello = () => {
-	setCounter(miniArray.push(1))
-  }
+   /**
+	* 
+	* Handle swiper update
+	*
+	*/
+	useEffect(() => {
+		if (swiper) {
+			swiper.updateAutoHeight()
+		}
+	}, [items, swiper] )
+	
+	// Update the list of items to be used by the swipepr after fetching
+	const addFurtherItemsAfterFetch = () => {
+		// Fetch logic goes here .....
+		
+		
+		//Replace items.lemgth+1 by data fetched 
+		setItems([...items, items.length+1])
+	}
+
+
+	const hanldePropsEvent = () => {
+		addFurtherItemsAfterFetch()
+	}
 
   return (
     // {products.map((product) => (
@@ -120,7 +149,8 @@ useEffect(() => {
 	modules={[Navigation, Pagination]}
 	className="produits space-x-16 px-10"
 	>
-        {counter.map((product, index) => ( 
+        {products &&
+        products.map((product, index) => ( 
 		<SwiperSlide key={index}  className="bg-white rounded-lg 
 		lg:w-[15%] md:w-[20%] sm:w-[30%] xs:w-[30%]
 		mb-10 scale-90">
@@ -144,7 +174,7 @@ useEffect(() => {
 				<div className="px-6 space-y-2 w-full">
 					{/* Product name section */}
 					<div className="text-left">
-						<p className="text-sky-700 font-semibold">Nice and natural product</p>
+						<p className="text-sky-700 font-semibold">{ product.name }</p>
 					</div>
 				
 
@@ -160,7 +190,7 @@ useEffect(() => {
 				
 					{/* Price section */}
 					<p className="price ">
-						<span className="text-emerald-700">1000.00 </span> <span className="text-sky-700">Ar</span>
+						<span className="text-emerald-700">{ product.price } </span> <span className="text-sky-700">Ar</span>
 					</p>
 
 					{/* Command section */}
@@ -171,7 +201,16 @@ useEffect(() => {
 						w-full text-white bg-sky-700 hover:bg-sky-600 duration-100
 						rounded p-2 mb-4
 						"
-						onClick={sayHello}>
+						// onClick={addFurtherItemsAfterFetch}
+						onClick={() =>
+							addToCart(
+								product.id,
+								quantities[product.id],
+								product.price,
+								product.name,
+								product.stock
+							)}
+						>
 							<AddShoppingCartOutlinedIcon className=""/>
 							<span className="px-2 ubuntu-regular">
 								Ajouter au panier
@@ -187,12 +226,12 @@ useEffect(() => {
         ))}
 
 
-		{(counter.length > 10) && (
+		{(products.length > 10) && (
 		<SwiperSlide className="bg-white rounded-lg 
 		lg:w-[15%] md:w-[20%] sm:w-[30%] xs:w-[30%]
 		mb-10 scale-90 mt-28">
 
-			<SeeMoreComponent />
+			<SeeMoreComponent testProps={hanldePropsEvent} />
         </SwiperSlide>
 
 		)}

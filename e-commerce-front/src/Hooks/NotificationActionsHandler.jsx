@@ -1,10 +1,10 @@
 import axiosInstance from "../axios/axiosConfig";
 
-const token = localStorage.getItem("token")
-const bearerAuthorisation = `bearer ${token}`
+
 
 // Get all notification
 export const getClientNotification = async () => {
+    const token = localStorage.getItem("token")
     let feedback = {res:false, error:null}
     try {
         
@@ -12,7 +12,7 @@ export const getClientNotification = async () => {
             url: "notification",
             method: "GET",
             headers: {
-                Authorization: bearerAuthorisation
+                Authorization: `Bearer ${token}`
             }
         })
 
@@ -20,7 +20,8 @@ export const getClientNotification = async () => {
 
         if(response.status == 200){
             feedback.res = true
-            feedback.data = response.data
+            feedback.data = response.data.results
+            console.log(feedback)
             return feedback
         } else if (response.status == 400){
             console.log(response.data.Erreur)
@@ -38,3 +39,6 @@ export const getClientNotification = async () => {
         return feedback
     }
 }
+
+
+// Mark a notification as seen

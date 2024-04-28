@@ -14,7 +14,7 @@ export const validationPayement = async (montant) => {
     );
     return response;
   } catch (error) {
-    console.error("Validation Payement Error:", error);
+    console.error("Validation Payement Error:"+ error);
     throw error; // Re-throw the error for handling at the caller's level
   }
 };
