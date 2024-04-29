@@ -32,6 +32,7 @@ function Formpayement({ closepayement}) {
   const paymentsubmit =  async (e) => {
    
     e.preventDefault();
+  
     
          
         const responseData = await creationpurchase(formData);

@@ -6,13 +6,14 @@ import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import { TiDelete } from "react-icons/ti";
 import { AiFillMinusCircle } from "react-icons/ai";
-
+import Swal from "sweetalert2";
 import { IoIosAddCircle } from "react-icons/io";
 
-
+import { AuthContext} from "../../Hooks/Auth";
 function Paniers({ panierClose }) {
   const navigate = useNavigate();
- 
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
     const {
       items,
       addOneItemToCart,
@@ -22,18 +23,37 @@ function Paniers({ panierClose }) {
     } = useContext(CartContext);
     const validerpanier= () => {
       panierClose();
-
-
-       navigate("/Validerpanier");
-
+         if (!isLoggedIn) {
+           Swal.fire({
+             title: "Authentication Required",
+             text: "You need to log in to proceed with the payment. Do you want to log in now?",
+             icon: "warning",
+             showCancelButton: true,
+             confirmButtonText: "Yes, log in",
+             cancelButtonText: "No, cancel",
+           }).then((result) => {
+             if (result.value) {
+               // User clicked 'Yes, log in'
+               const returnURL = "/Validerpanier";
+               navigate(`/login?returnURL=${encodeURIComponent(returnURL)}`);
+             }
+           });
+         } else {
+           // Proceed with payment since token is available
+           navigate("/Validerpanier");
+         }
   };
+
+      
+
+  
   return (
-    <div style={{ backgroundColor: "white" }} class="	w-[50%] ml-[49%]  mt-[9%] rounded-[20px] pt-[1%] pb-[1%] "  >
+    <div style={{ backgroundColor: "white" }} className="	w-[50%] ml-[49%]  mt-[9%] rounded-[20px] pt-[1%] pb-[1%] "  >
                {/* <img src="./src/assets/shop.gif" class="w-[80px]" /> */}
  
       <h2 className="text-center text-lg text-[black] font-extrabold 
           ">Liste des produits dans votres panier</h2>
-      <div class="mt-[5%] ml-[5%]" >
+      <div className="mt-[5%] ml-[5%]" >
       <table className="size-full  border-collapse none text-left 	">
         <thead className="text-base text-[black] font-extrabold " >
           <tr >
