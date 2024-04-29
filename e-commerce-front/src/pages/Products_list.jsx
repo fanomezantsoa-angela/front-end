@@ -5,25 +5,13 @@ import {
 } from "../Hooks/productAPI";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 
-import { useState, useEffect, useContext, useReducer } from "react";
-// import IconButton from "@mui/material/IconButton";
-
-
-
-
+import { useState, useEffect, useContext } from "react";
 import { SearchproductContext } from "../Hooks/SearchContext";
 import Rating from "@mui/material/Rating";
 import { CartContext } from "../Hooks/PanierContexte";
 import { Product_typesContext } from "../Hooks/Product_typesContext";
-
-import ProductReducer from "../Hooks/ProductReducer"
-
-// import TextField from "@mui/material/TextField";
-// import "./produits_list.css";
-
-
+import { jwtDecode } from "jwt-decode";
 import SeeMoreComponent from "../components/MoreList/SeeMoreComponent";
-
 
 // For slide utilities
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -31,25 +19,16 @@ import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
 import { Pagination, Navigation } from "swiper/modules"
-import { type_product } from "../Hooks/API";
 
 function Products_list() {
 	const { productresult } = useContext(SearchproductContext);
 	const { addToCart } = useContext(CartContext);
-	// const [products, setProducts] = useState([]);
+	const [products, setProducts] = useState([]);
 	const [quantities, setQuantities] = useState({});
 	const [value, setValue] = useState(0);
 	//context qui facilite l'accessibilité des données entre lee deux composants
-	// const [typeproduct, setTypeproduct] = useContext(Product_typesContext);
+	const [typeproduct, setTypeproduct] = useContext(Product_typesContext);
 	const [ratedProducts, setRatedProducts] = useState([]);
-	
-	const initialstate = { products: [] };
-	const [state, dispatch] = useReducer(ProductReducer, initialstate);
-	const { products } = state;
-	
-	// context qui facilite l'accessibilité des données entre lee deux composants
-	const { typeproduct} = useContext(Product_typesContext);
-  
 
 	
 	
@@ -77,14 +56,19 @@ function Products_list() {
     };
 
  
-useEffect(() => {
-  console.log("Search Results in Products_list:", productresult);
-  console.log("Selected Product Types in Products_list:", typeproduct);
-  // Dispatching actions based on received context
-	if (productresult && productresult.length > 0) {
-		dispatch({ type: "SET_PRODUCTS", payload: productresult });
-	} else if (typeproduct && typeproduct.length > 0) {
-		dispatch({ type: "SET_PRODUCTS", payload: typeproduct });
+	useEffect(() => {
+	function fetchProducts() {
+		// Prioritize search results if available and not empty
+		if (productresult && productresult.length > 0) {
+			console.log("Using searched products:", productresult);
+			setProducts(productresult);
+		} else if (typeproduct && typeproduct.length > 0) {
+			console.log("Using type selected products:", typeproduct);
+			setProducts(typeproduct);
+		} else {
+			console.log("No products available");
+			setProducts([]);
+		}
 	}
 		fetchProducts();
 	}, [typeproduct, productresult]);
@@ -94,9 +78,6 @@ useEffect(() => {
 	// 	console.log("Products to render:", products);
 	// }, [products]);
 
-  useEffect(() => {
-    console.log("Direct use of context values:", productresult, typeproduct);
-  }, [productresult, typeproduct]);
    useEffect(() => {
      const initialQuantities = {};
      products.forEach((product) => {
