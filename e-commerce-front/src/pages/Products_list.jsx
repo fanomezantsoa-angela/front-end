@@ -86,9 +86,13 @@ useEffect(() => {
 	} else if (typeproduct && typeproduct.length > 0) {
 		dispatch({ type: "SET_PRODUCTS", payload: typeproduct });
 	}
-	console.log("products actual:", products);
-  
-}, [productresult, typeproduct, dispatch, products]);
+		fetchProducts();
+	}, [typeproduct, productresult]);
+
+
+	// useEffect(() => {
+	// 	console.log("Products to render:", products);
+	// }, [products]);
 
   useEffect(() => {
     console.log("Direct use of context values:", productresult, typeproduct);

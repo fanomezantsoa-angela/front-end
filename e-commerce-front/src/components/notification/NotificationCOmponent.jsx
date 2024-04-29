@@ -23,7 +23,7 @@ function NotificationComponent() {
             response.count = 0
 
             response.data.map(notif => {
-                if( !notif.seen ) {
+                if( !notif.seen && (notif.type == "livraison")) {
                     response.count++
                 }
             })
@@ -88,7 +88,7 @@ function NotificationComponent() {
             anchor="right"
             open={notifDrawer} 
             onClose={() => toggleDrawer(false)}>
-                <NotificationContentComponent notifData={notifData} dataSendByChild={handleDataFromChild} />
+                <NotificationContentComponent notifData={notifData} dataSendByChild={handleDataFromChild} refetch={fetchAllNotification} />
             </Drawer>
 
         </div>

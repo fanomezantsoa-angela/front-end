@@ -6,14 +6,17 @@ import ListItem from "@mui/material/ListItem";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { fr } from "date-fns/locale";
 import { formatDistanceToNow } from "date-fns";
+import { mark_as_seen } from "../../Hooks/NotificationActionsHandler";
+import { useNavigate } from "react-router-dom";
 
 
-export default function NotificationContentComponent({notifData}) {
+export default function NotificationContentComponent({notifData, refetch}) {
 
-    // const [notification, setNotif] = useState([1,2,3])
+    const navigate = useNavigate()
     const [notificationData, setNotifData] = useState(notifData)
     const [counter, setCounter] = useState(0)
     
+    // Date formating to a more human readable format
     const formatTimeDifference = (date) => {
         const formattedDate = new Date(date);
         return formatDistanceToNow(formattedDate, { locale: fr, addSuffix: true });
@@ -22,12 +25,29 @@ export default function NotificationContentComponent({notifData}) {
     // Set counters
     function countUnseen(){
         notificationData.map(notif => {
-            if( !notif.seen ) {
+            if( !notif.seen && (notif.type == "livraison") ) {
                 let number = counter
                 setCounter(number++)
             }
         })
     }
+
+    async function markThis(index) {
+        const response = await mark_as_seen(notificationData[index].id)
+        console.log(response)
+        if (response.res){
+            notificationData[index].seen = false
+            console.log("force refetch")
+
+            await refetch()
+            setNotifData(notifData)
+
+            navigate("/")
+        } else {
+            alert("Erreur de l'operation")
+        }
+    }
+
     useEffect(() => {
         countUnseen()
     })
@@ -60,10 +80,12 @@ export default function NotificationContentComponent({notifData}) {
                 >
                     <List>
                         {notificationData.map((notif, index) => (
-                        <ListItem 
+                        (notif.type == "livraison") && (
+                            <ListItem 
                         key={index} 
                         disablePadding 
                         alignItems="flex-start"
+                        onClick={() => markThis(index)}
                         className={`border-b my-5 p-4 hover:bg-slate-100 scale-95 hover:scale-100 duration-75 cursor-pointer shadow ${( !notif.seen ) ? "bg-sky-100" : "bg-slate-50"}`
                         }>
                             <div className="space-y-2">
@@ -87,11 +109,13 @@ export default function NotificationContentComponent({notifData}) {
                                 {/* Information section */}
                                 <div>
                                     <p>Votre achat <span className="text-emerald-700">{formatTimeDifference(notif.purchase_details.date)}</span>
-                                    , a l'adress <span className="text-emerald-700">{notif.purchase_details.address}</span> 
-                                    , sera livree <span className="text-emerald-700">{formatTimeDifference(notif.purchase_details.delivery_date)}</span></p>
+                                    , a l'adress <span className="text-emerald-700">{(notif.purchase_details.address != null) ? notif.purchase_details.address : "inconnu"}</span> 
+                                    , sera livree <span className="text-emerald-700">{(notif.purchase_details.delivery_date != null) ? formatTimeDifference(notif.purchase_details.delivery_date) : "a une date non precise inconnue"}</span></p>
                                 </div>
                             </div>
                         </ListItem>
+                        ) 
+                        
                         ))}
 
                         

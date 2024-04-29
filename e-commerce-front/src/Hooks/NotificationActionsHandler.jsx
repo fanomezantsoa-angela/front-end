@@ -42,3 +42,28 @@ export const getClientNotification = async () => {
 
 
 // Mark a notification as seen
+export const mark_as_seen = async (id) => {
+    let feedback = {res:false, error:null}
+    try {
+        const token = localStorage.getItem("token")
+        const response = await axiosInstance({
+            url: `notification/${id}/marked_as_seen/`,
+            method: "put",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        console.log("Before alert take place")
+        console.log(response.status)
+        if( response.status == 200 ) {
+            feedback.res = true
+            return feedback
+        }
+
+    } catch (error) {
+        console.log(error)
+        feedback.error = "Erreur lors de l'operation, veuiller reessayer utlerieurement."
+        return feedback
+    }
+}
