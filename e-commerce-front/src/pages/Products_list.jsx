@@ -74,9 +74,9 @@ function Products_list() {
 	}, [typeproduct, productresult]);
 
 
-	useEffect(() => {
-		console.log("Products to render:", products);
-	}, [products]);
+	// useEffect(() => {
+	// 	console.log("Products to render:", products);
+	// }, [products]);
 
    useEffect(() => {
      const initialQuantities = {};

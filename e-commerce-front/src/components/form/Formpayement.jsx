@@ -17,7 +17,7 @@ function Formpayement({ closepayement}) {
      setPayement_mode(e.target.value);
     }
   const formData = {
-    adress: adress,
+    address: adress,
     payement_mode: payement_mode,
     account_number: account_number,
   };
