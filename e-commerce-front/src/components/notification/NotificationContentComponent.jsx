@@ -5,7 +5,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { fr } from "date-fns/locale";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow, format } from "date-fns";
 import { mark_as_seen } from "../../Hooks/NotificationActionsHandler";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +17,12 @@ export default function NotificationContentComponent({notifData, refetch}) {
     const [counter, setCounter] = useState(0)
     
     // Date formating to a more human readable format
+
+    const regularTimeFormat = (date) => {
+        const customFormat = "d MMMM yyyy 'à' HH'h'mm";
+        return format(date, customFormat, {locale: fr})
+    }
+
     const formatTimeDifference = (date) => {
         const formattedDate = new Date(date);
         return formatDistanceToNow(formattedDate, { locale: fr, addSuffix: true });
