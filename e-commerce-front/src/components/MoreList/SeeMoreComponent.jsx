@@ -2,10 +2,10 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { SwiperSlide } from "swiper/react"
 
 
-export default function SeeMoreComponent () {
-    const fetchNextProducts = (page) => {
-        alert("Next element fetched: "+page)
-        console.log("data fetched")
+export default function SeeMoreComponent ({testProps}) {
+    const fetchNextProducts = (pageNumber) => {
+        console.log("Data now should be fetched")
+        testProps()
     } 
 
     return (
@@ -34,7 +34,7 @@ export default function SeeMoreComponent () {
                         w-full text-white bg-sky-700 hover:bg-sky-500 hover:scale-105 duration-100
                         rounded p-2 mb-4
                         "
-                        onClick={() => fetchNextProducts(2)}>
+                        onClick={() => fetchNextProducts(1)}>
                             <MoreHorizIcon className=""/>
 
                         </button>

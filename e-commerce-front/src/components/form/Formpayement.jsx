@@ -4,7 +4,11 @@ import { Inputhandler } from "../../Hooks/Inputhandler";
 import { Button } from "../littlecomponent/Button";
 import { AuthContext } from "../../Hooks/Auth";
 import { useState, useEffect, useContext } from "react";
-import { creationpurchase, creationorders } from "../../Hooks/PayementApi";
+import {
+  creationpurchase,
+  creationorders,
+  validationPayement,
+} from "../../Hooks/PayementApi";
 import { CartContext } from "../../Hooks/PanierContexte";
 import Swal from "sweetalert2";
 function Formpayement({ closepayement}) {
@@ -28,6 +32,10 @@ function Formpayement({ closepayement}) {
     setAccount_number("");
     setNumcompte("");
   };
+  const Totalmontant = getTotalCost();
+  const montant = {
+    montant: Totalmontant,
+  };
 
   const paymentsubmit =  async (e) => {
    
@@ -35,7 +43,7 @@ function Formpayement({ closepayement}) {
   
     
          
-        const responseData = await creationpurchase(formData);
+    const responseData = await creationpurchase(formData);
        
         if (responseData.status == 201) {
             const formorder = {
@@ -58,36 +66,57 @@ function Formpayement({ closepayement}) {
             };
           console.log(formorder);
           
-             const responseorder =  await creationorders(formorder);
-             if (responseorder.status == 201) {
+            const responseorder =  await creationorders(formorder);
+               if (responseorder.status == 201) {
                
                console.log(responseorder);
+                 const responseData = await validationPayement(montant);
+                console.log(responseData);
+                closepayement();
+                setTimeout(3000)
+                if (responseData.status == 200) {
+              Swal.fire({
+            title: "Information",
+            text: "Votre payement a été effectué",
+            icon: "success",
+            confirmButtonText: "Oui",
+              });
+            
+              emptyCart();
+          }
 
-               Swal.fire({
-                 title: "Information",
-                 text: "Votre payement a été effectué",
-                 icon: "success",
-                 confirmButtonText: "Oui",
-               });
-               closepayement();
-               emptyCart();
-             } else if (responseorder.status == 500) {
+               
+          } else if (responseorder.status == 500) {
+            closepayement();
+            setTimeout(3000)
                  Swal.fire({
-                   title: "Erreur 500",
-                   text: "une erreur 500 est survenue pendant le payement ",
+                   title: "Erreur",
+                   text: "une erreur est survenue pendant le payement ",
                    icon: "error",
                    confirmButtonText: "Oui",
                  });
-             } else {
+          } else {
+            closepayement();
+            setTimeout(3000)
                Swal.fire({
                  title: "Erreur",
-                 text: "une erreur est survenue pendant le payement ",
+                 text: "une erreur est survenue pendant le payement, veuillez verifier votre solde ",
                  icon: "error",
                  confirmButtonText: "Oui",
                });
-             } 
-          
-        }
+          } 
+        }else{
+          closepayement();
+          setTimeout(3000)
+          Swal.fire({
+            title: "Erreur",
+            text: "veuillez verifier les données que vous avez saisi",
+            icon: "error",
+            confirmButtonText: "Oui",
+          });
+
+        } 
+        
     
 
       

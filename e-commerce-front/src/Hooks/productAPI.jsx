@@ -24,9 +24,7 @@ export const Product_rating = async (id, value) => {
     const response =  await axiosInstance({
       method: "POST",
       url: `/product/${id}/rate/`,
-      headers: {
-        Authorization: getAuthorizationHeader,
-      },
+    
       data: value,
     });
     return response;
@@ -37,7 +35,7 @@ export const Product_rating = async (id, value) => {
 export const Product_per_type = async (id) => {
    try {
     const response = await axiosInstance.get(`/type_product/${id}/`);
-    https: return response;
+     return response;
   } catch (error) {
     throw error;
   }

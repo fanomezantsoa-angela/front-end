@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
+    console.log(!!token)
     setIsAdmin(checkIsAdmin());
     console.log(isAdmin)
   }, []);

@@ -110,10 +110,12 @@ function Paniers({ panierClose }) {
             </p>
           </div>
           {/* <img src="./src/assets/click.gif" className="pi" /> */}
-      <div className=" mb-[2%] border-solid border-2 border-sky-500 rounded-full w-[20%] bg-sky-500/50 ml-[40%] text-center text-[black] font-extrabold text-[18px]  ">
+      <div className="mx-auto flex flex-row items-center justify-center">
+        {/* <div></div> */}
         <Button
-          action="Commander"
-          
+          action="COMMANDER"
+          classname="bg-sky-700 text-white px-8 p-2 rounded-md
+          hover:bg-sky-600 ease-in-out duration-75"
           buttonhandle={validerpanier}
         
         />

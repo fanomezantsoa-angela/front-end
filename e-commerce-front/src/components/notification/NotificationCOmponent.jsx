@@ -4,8 +4,9 @@ import Drawer from "@mui/material/Drawer";
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Badge from '@mui/material/Badge';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
+import { getClientNotification } from "../../Hooks/NotificationActionsHandler";
 import NotificationContentComponent from "./NotificationContentComponent";
 
 
@@ -13,9 +14,33 @@ function NotificationComponent() {
     // Reactive var setter
     const [notification, setNotification] = useState([])
     const [notifDrawer, setDrawer] = useState(false)
+    const [notifData, setNotifData] = useState({})
 
-    // const openNotifModal = () => setNotification(true)
-    // const closeNotifModal = () => setNotification(false)
+    const fetchAllNotification = async () => {
+        let response = await getClientNotification()
+        if ( response.res ){
+            console.log("Inside notification fetcher")
+            response.count = 0
+
+            response.data.map(notif => {
+                if( !notif.seen ) {
+                    response.count++
+                }
+            })
+            setNotification(response)
+            setNotifData(response.data)
+            console.log(response)
+        } else (
+            console.log(response)
+        )
+    }
+
+
+    useEffect(() => {
+        fetchAllNotification()
+    }, [])
+
+    
 
     const toggleDrawer = (value) => {
         setDrawer(value)
@@ -38,11 +63,11 @@ function NotificationComponent() {
                     buttonhandle={() => toggleDrawer(true)}
                     action={
 
-                    <Badge color="primary" badgeContent={notification.length} max={10}>
+                    <Badge color="primary" badgeContent={notification.count} max={10}>
                     {/* <MailIcon /> */}
                         <Tooltip title="Les notifications">
                             {
-                                notification.length < 1 ? 
+                                notification.count < 1 ? 
                                 (
                                     <NotificationsNoneOutlinedIcon sx={{fontSize: 40,}} className="text-sky-700"/>
                                 ) : 
@@ -63,7 +88,7 @@ function NotificationComponent() {
             anchor="right"
             open={notifDrawer} 
             onClose={() => toggleDrawer(false)}>
-                <NotificationContentComponent dataSendByChild={handleDataFromChild} />
+                <NotificationContentComponent notifData={notifData} dataSendByChild={handleDataFromChild} />
             </Drawer>
 
         </div>
