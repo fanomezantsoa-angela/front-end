@@ -1,26 +1,5 @@
-.Type-produit {
-    display: flex;
-    flex-direction: row;
-    align-items:center;
-    flex-wrap: wrap;
-   
-     padding: 5px 5px;
-      background-color: white;
-
-}
 
 .Type-produit li{
      
     list-style-type: none; 
-    color: #000000;
-    font-family: Acme;
-    font-size: 17px;
-    font-weight: Bold;
-     margin: 5px 20px;
-     background-color: white;
-}
-.vague {
-   width: 100%;
-   height: 120px;
-   background-color: white;
 }

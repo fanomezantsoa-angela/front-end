@@ -18,11 +18,17 @@ function Produits_type() {
     color: theme.palette.text.secondary,
   }));
   const [typeOptions, setTypeOptions] = useState([]);
+
+  const [active, setActive] = useState(null)
+
+
   useEffect(() => {
     async function fetchTypeList() {
       const types = await type_product();
       if (types.status == 200) {
         setTypeOptions(types.data.results);
+        console.log("ALL TYPE OF PRODUCT")
+        console.log(types.data.results)
       } else {
         console.log(types);
       }
@@ -31,19 +37,20 @@ function Produits_type() {
     getAllproduct(); 
   }, []);
   //fonction qui recupere le produit cliqué
-const getSelectedtype = async (id) => {
-  try {
-    const response = await Product_per_type(id);
-    if (response.data.product) {
-      console.log("Type product fetched:", response.data.product);
-      setTypeproduct(response.data.product); // Update type product context
-      setProductresult([]); // Clear search results context
-    }
-  } catch (error) {
-    console.log("Error fetching product type:", error);
-  }
-};
-  const getAllproduct = () => {
+    const getSelectedtype = (id, index) => {
+      setActive(index)
+      Product_per_type(id)
+      .then((response) => {
+        console.log(response.data.product);
+        setTypeproduct(response.data.product);
+        console.log("type selected", typeproduct)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    };
+    const getAllproduct = () => {
+    setActive(null)
     Product_list()
       .then((response) => {
          console.log(response.results);
@@ -55,20 +62,25 @@ const getSelectedtype = async (id) => {
   }
   return (
     <>
-      <ul className="Type-produit">
+      <ul className="Type-produit bg-white p-5 flex flex-row justify-around items-center w-full">
         <button>
-          <li onClick={() => getAllproduct()}>Tous les produits</li>
+          <li className="text-white  ubuntu-medium bg-sky-500 px-3 py-1 rounded-lg border hover:bg-sky-400 duration-100 " 
+          onClick={() => getAllproduct()}>Tous les produits</li>
         </button>
+
         {typeOptions.map((typeOption, index) => (
-          <button>
-            <li key={index} onClick={() => getSelectedtype(typeOption.id)}>
+          <button key={index}>
+            <li key={index} onClick={() => getSelectedtype(typeOption.id, index)} 
+            className={`${"text-sky-700 ubuntu-medium bg-white hover:border hover:border-sky-500 rounded-full duration-150 px-3 py-1"} 
+            ${(index == active) && "border-sky-500 border"}`}
+            >
               {typeOption.designation}
             </li>
           </button>
         ))}
       </ul>
 
-      <img src="./src/assets/vague.png" alt="" className="vague" />
+      <img src="./src/assets/vague.png" alt="" className="w-full h-[120px] bg-white" />
     </>
   );
 }

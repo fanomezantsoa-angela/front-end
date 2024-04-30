@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -7,17 +6,15 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { Logout } from "@mui/icons-material";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import LockPersonIcon from '@mui/icons-material/LockPerson';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 
 import { AuthContext, logout } from "../../Hooks/Auth";
-import { useNavigate } from "react-router-dom";
-import { colors } from "@mui/material";
-function GererCompte() {
+
+
+function GererAdminCompte() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { isLoggedIn, setIsLoggedIn, isAdmin } = useContext(AuthContext);
-  const navigate = useNavigate()
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -30,16 +27,13 @@ function GererCompte() {
     logout();
     setIsLoggedIn(false); 
   };
-  const goToAdminPanel = () => {
-    navigate("/Admin")
-  }
 
   return (
     <div>
       <Tooltip title="Parametre de compte">
         <IconButton
           onClick={handleClick}
-          className=" m-0 hover:scale-110 hover:bg-sky-50 px-3 py-2 rounded-full duration-75"
+          className=" hover:scale-110 hover:bg-sky-50 py-2 rounded-full duration-75"
           color="none"
           sx={{ ml: 2 }}
           aria-controls={open ? "account-menu" : undefined}
@@ -95,15 +89,6 @@ function GererCompte() {
           Profile personnel
         </MenuItem>
 
-        {isAdmin &&
-          <MenuItem onClick={goToAdminPanel}>
-            <ListItemIcon>
-              <LockPersonIcon className="text-sky-700" />
-            </ListItemIcon>
-            Pannaux d'administration
-          </MenuItem>
-        }
-
         <MenuItem onClick={Logginout}>
           <ListItemIcon>
             <Logout className="text-sky-700" />
@@ -114,4 +99,4 @@ function GererCompte() {
     </div>
   );
 }
-export default GererCompte;
+export default GererAdminCompte;
