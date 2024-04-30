@@ -6,13 +6,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -23,7 +16,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 
-// import GererAdminCompte from '../components/headerComponent/GererAdminCompte';
 import AdminActionHeaderComponent from '../components/headerComponent/AdminActionheaderComponent';
 
 const drawerWidth = 240;
@@ -68,6 +60,7 @@ function Admin(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
+
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -86,41 +79,31 @@ function Admin(props) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
+    console.log(newValue)
     setValue(newValue);
   }
 
   const drawer = (
     <div>
-        <Toolbar className=''>
-            <img src="./src/assets/socolait.svg" alt="" 
-            className="w-[200px] py-2 mb-1"/>
-        </Toolbar>
+      <Toolbar sx={{margin: 0, padding: 0}} className='p-0 m-0'>
+          <img src="./src/assets/socolait.svg" alt="" 
+          className="w-[200px] py-2 mb-1"/>
+      </Toolbar>
       <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+
+      <Tabs 
+      value={value} 
+      onChange={handleChange} 
+      orientation='vertical'
+      aria-label="Handle admin navigation panel"
+      >
+        <Tab label="Types de produits" {...a11yProps(0)} />
+        <Tab label="Les produits" {...a11yProps(1)} />
+        <Tab label="Livraison" {...a11yProps(2)} />
+        <Tab label="Hello world" {...a11yProps(3)} />
+      </Tabs>
+
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
     </div>
   );
 
@@ -138,7 +121,7 @@ function Admin(props) {
         }}
       >
         {/* Header of the admin pannel component */}
-        <Toolbar className='bg-white text-black shadow-none py-5'>
+        <Toolbar className='bg-white shadow-none py-5'>
             <div className='flex flex-row items-center w-full'>
 
                 {/* Text part */}
@@ -162,9 +145,9 @@ function Admin(props) {
                         <span>
                             Pannaux d'administratrion
                         </span>
-                        <span>
+                        {/* <span>
                             <LockPersonIcon className="text-sky-700 mx-4" />
-                        </span>
+                        </span> */}
                     </Typography>
                 </div>
 
@@ -184,6 +167,7 @@ function Admin(props) {
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        {/* All navigation tabs action */}
         <Drawer
           container={container}
           variant="temporary"
@@ -211,61 +195,70 @@ function Admin(props) {
           {drawer}
         </Drawer>
       </Box>
+
+
+      {/* Main section Element */}
       <Box
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
 
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', marginTop:2 }}>
-            <Tabs value={value} onChange={handleChange} aria-label="Handle admin navigation panel">
-                <Tab label="Item One" {...a11yProps(0)} />
-                <Tab label="Item Two" {...a11yProps(1)} />
-                <Tab label="Item Three" {...a11yProps(2)} />
-            </Tabs>
-        </Box>
-
-        <div className=" w-full bg-emerald-500">
+        <div className="relative w-full h-full ">
             <CustomTabPanel value={value} index={0}>
-                Item One
+                <div className="">
+                  Type de produits
+                </div>
+
+                <div className="">
+                <Typography paragraph>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+                  enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+                  imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+                  Convallis convallis tellus id interdum velit laoreet id donec ultrices.
+                  Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+                  adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+                  nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
+                  leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
+                  feugiat vivamus at augue. At augue eget arcu dictum varius duis at
+                  consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
+                  sapien faucibus et molestie ac.
+                </Typography>
+                </div>
             </CustomTabPanel>
-            
+
             <CustomTabPanel value={value} index={1}>
-                Item Two
+                Ensemble des produits
             </CustomTabPanel>
             
             <CustomTabPanel value={value} index={2}>
-                Item Three
+                Livraison
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={3}>
+                <div className="">
+                  Prise de contacte 
+                </div>
+
+                <div className="">
+                <Typography paragraph>
+                  Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
+                  eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
+                  neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
+                  tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
+                  sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
+                  tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
+                  gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
+                  et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
+                  tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
+                  eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
+                  posuere sollicitudin aliquam ultrices sagittis orci a.
+                </Typography>
+                </div>
             </CustomTabPanel>
         </div>
 
-        {/* <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography> */}
       </Box>
     </Box>
   );
