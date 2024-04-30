@@ -19,10 +19,9 @@ function Routage() {
       
       </Route>
       {/*Route pour l'admin  */}
-      {/* <Route element={<AdminRoute />}> */}
-     
+      <Route element={<AdminRoute />}>
         <Route path="/Admin" element={<Admin />} />
-      {/* </Route> */}
+      </Route>
 
       <Route path="/" element={<Home />} />
       <Route path="*" element={<div>Page introuvable</div>} />
