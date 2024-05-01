@@ -10,6 +10,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
+import InformationComponent from '../components/AdminComponents/InformationComponent';
+import { getClientInformation } from '../actions/InformationActions';
 
 
 import Tabs from '@mui/material/Tabs';
@@ -55,6 +57,9 @@ function a11yProps(index) {
 }
 
 
+/**
+ * MAIN COMPONENT FUNCTION
+ */
 function Admin(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -83,24 +88,32 @@ function Admin(props) {
     setValue(newValue);
   }
 
+
   const drawer = (
     <div>
       <Toolbar sx={{margin: 0, padding: 0}} className='p-0 m-0'>
           <img src="./src/assets/socolait.svg" alt="" 
           className="w-[200px] py-2 mb-1"/>
       </Toolbar>
+      
       <Divider />
+      {/* Profile information for admin */}
+      <div className="py-4 px-4">
+        <InformationComponent />
+      </div>
 
+      <Divider />
+      {/* Navigation */}
       <Tabs 
       value={value} 
       onChange={handleChange} 
       orientation='vertical'
       aria-label="Handle admin navigation panel"
       >
-        <Tab label="Types de produits" {...a11yProps(0)} />
-        <Tab label="Les produits" {...a11yProps(1)} />
-        <Tab label="Livraison" {...a11yProps(2)} />
-        <Tab label="Hello world" {...a11yProps(3)} />
+        <Tab className="hover:scale-110 duration-100" label="Types de produits" {...a11yProps(0)} />
+        <Tab className="hover:scale-110 duration-100" label="Les produits" {...a11yProps(1)} />
+        <Tab className="hover:scale-110 duration-100" label="Livraison" {...a11yProps(2)} />
+        <Tab className="hover:scale-110 duration-100" label="Prise de contact" {...a11yProps(3)} />
       </Tabs>
 
       <Divider />
@@ -159,6 +172,11 @@ function Admin(props) {
             </div>
         </Toolbar>
       </AppBar>
+
+
+
+
+      {/* Navigation bar */}
       <Box
         component="nav"
         sx={{ 
@@ -195,6 +213,8 @@ function Admin(props) {
           {drawer}
         </Drawer>
       </Box>
+
+
 
 
       {/* Main section Element */}

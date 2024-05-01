@@ -16,23 +16,24 @@ export const getClientNotification = async () => {
             }
         })
 
-        console.log(response.data)
+        // console.log(response.data)
 
         if(response.status == 200){
             feedback.res = true
             feedback.data = response.data.results
-            console.log(feedback)
+            // console.log(feedback)
             return feedback
         } else if (response.status == 400){
-            console.log(response.data.Erreur)
+            // console.log(response.data.Erreur)
             feedback.error = response.data.message
         } else {
-            console.log(response)
+            // console.log(response)
             return feedback
         }
 
 
     } catch (error) {
+        console.log("Error inside notification handler | Catch;")
         console.log(error)
         feedback.res = false
         feedback.error = "Une erreur s'est produit, veuiller reessayer ulterieurement."
