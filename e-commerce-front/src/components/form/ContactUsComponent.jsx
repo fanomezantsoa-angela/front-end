@@ -8,6 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import Box from "@mui/material/Box";
 import Swal from "sweetalert2";
 import { LoadingContext } from "../../Hooks/LoadingContext";
+import { createContact } from "../../actions/ContactActions";
 
 function ContactUsComponent()  {
     // State declaration
@@ -32,23 +33,45 @@ function ContactUsComponent()  {
     }
 
 
-    const sendContact = (e) => {
+    const sendContact = async (e) => {
         e.preventDefault()
 
         if(emailValidationWithRegex(email)) {
             resetForm()
 
             console.log("Message send successfully")
-            console.log({
-                nom: name,
+            const data = {
+                name: name,
                 email: email,
-                message: message
-            })
-            Swal.fire({
-                title: "Succes!",
-                text: "Votre requete a bien ete envoye. Merci pour votre cooperation !",
-                icon: "success"
-            });
+                text: message
+            }
+            console.log(data)
+
+            const response = await createContact(data)
+            console.log(response)
+
+            if (!response.res){
+                if (response.error == null) { 
+                    Swal.fire({
+                        title: "Attention",
+                        text: "Veuiller vous authentifier avant de proceder a la soumission de la requete.",
+                        icon: "warning"
+                    });        
+                } else {
+                    Swal.fire({
+                        title: "Une erreur est survenu.",
+                        text: response.error,
+                        icon: "error"
+                    });
+                }
+            } else {
+                Swal.fire({
+                    title: "Succes!",
+                    text: "Votre requete a bien ete envoye. Merci pour votre cooperation !",
+                    icon: "success"
+                });
+            }
+
 
         } else {
 

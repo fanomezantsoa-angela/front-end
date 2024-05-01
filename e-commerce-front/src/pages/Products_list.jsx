@@ -27,7 +27,7 @@ function Products_list() {
 	const [quantities, setQuantities] = useState({});
 	const [value, setValue] = useState(0);
 	//context qui facilite l'accessibilité des données entre lee deux composants
-	const [typeproduct, setTypeproduct] = useContext(Product_typesContext);
+	const {typeproduct, setTypeproduct} = useContext(Product_typesContext);
 	const [ratedProducts, setRatedProducts] = useState([]);
 
 	
