@@ -3,6 +3,7 @@ import { Formulaire } from "../littlecomponent/Formulaire";
 import { Inputhandler } from "../../Hooks/Inputhandler";
 import { Button } from "../littlecomponent/Button";
 import { AuthContext } from "../../Hooks/Auth";
+import { LoadingContext } from "../../Hooks/LoadingContext";
 import { useState, useEffect, useContext } from "react";
 import {
   creationpurchase,
@@ -11,8 +12,11 @@ import {
 } from "../../Hooks/PayementApi";
 import { CartContext } from "../../Hooks/PanierContexte";
 import Swal from "sweetalert2";
-function Formpayement({ closepayement}) {
-    const { items, emptyCart } = useContext(CartContext);
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+function Formpayement({ closeform}) {
+  const { loading, startLoading, stopLoading } = useContext(LoadingContext);
+    const { items, emptyCart, getTotalCost } = useContext(CartContext);
        const { IsLoggedIn } = useContext(AuthContext);
   const [adress, setAdresse, adresschange] = Inputhandler("");
     const [account_number, setAccount_number, numcomptechange] = Inputhandler("");
@@ -40,7 +44,7 @@ function Formpayement({ closepayement}) {
   const paymentsubmit =  async (e) => {
    
     e.preventDefault();
-  
+    startLoading();
     
          
     const responseData = await creationpurchase(formData);
@@ -72,7 +76,7 @@ function Formpayement({ closepayement}) {
                console.log(responseorder);
                  const responseData = await validationPayement(montant);
                 console.log(responseData);
-                closepayement();
+                closeform();
                 setTimeout(3000)
                 if (responseData.status == 200) {
               Swal.fire({
@@ -114,6 +118,7 @@ function Formpayement({ closepayement}) {
             icon: "error",
             confirmButtonText: "Oui",
           });
+          stopLoading()
 
         } 
         
@@ -154,7 +159,25 @@ function Formpayement({ closepayement}) {
           value={account_number}
           inputchange={numcomptechange}
         />
-        <Button action="Payer" buttonhandle={paymentsubmit} classname="login" />
+        <Button action= {
+              loading ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  <CircularProgress
+                    sx={{
+                      color: "gray",
+                    }}
+                  />
+                </Box>
+              ) : (
+              "Payer"
+              )
+            } buttonhandle={paymentsubmit} classname="login" />
       </Formulaire>
     </div>
   );

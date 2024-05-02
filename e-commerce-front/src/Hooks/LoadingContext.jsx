@@ -7,7 +7,10 @@ export const LoadingContext = createContext();
 export const LoadingProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
-  const startLoading = () => setLoading(true);
+  const startLoading = () => {
+ 
+    setLoading(true)
+  console.log("final",loading)};
   const stopLoading = () => setLoading(false);
 
   return (

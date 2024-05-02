@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(!!token);
     console.log(!!token)
     setIsAdmin(checkIsAdmin());
-    console.log(isAdmin)
+    console.log("admin?", isAdmin)
   }, []);
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, isAdmin }}>

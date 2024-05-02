@@ -1,7 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import Snackbar from "@mui/material/Snackbar";
-
+import * as React from 'react';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Button from '@mui/material/Button';
 export const CartContext = createContext({
   items: [],
   getCartItemQuantity: () => {},
@@ -29,6 +32,7 @@ export function CartProvider({ children }) {
 
     saveCartToLocalStorage();
   }, [cartItems]);
+ 
 
   // check the number of items of the specified id in the cart
   // if the item does not exist in the cart, return 0 as the number of items of the specified id in the cart
@@ -70,7 +74,7 @@ export function CartProvider({ children }) {
        });
      } else {
        setCartItems(updatedCart);
-       setSnackbarMessage("le quantité mise à jour dans le panier");
+       setSnackbarMessage("Le quantité mise à jour dans le panier.");
        setSnackbarOpen(true);
      }
    } else {
@@ -84,7 +88,7 @@ export function CartProvider({ children }) {
          stock: stock,
        },
      ]);
-     setSnackbarMessage("le produit est ajouté au panier");
+     setSnackbarMessage("Le produit est ajouté au panier.");
      setSnackbarOpen(true);
      
    }
@@ -117,12 +121,20 @@ export function CartProvider({ children }) {
       console.log(item.name)
     }
   };
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackbarOpen(false);
+  };
 
   const deleteItemFromCart = (id) => {
     setCartItems((cartItems) => cartItems.filter((item) => item.id !== id));
   };
 const emptyCart = () => {
   setCartItems([]);
+  console.log(cartItems)
 };
 
 const removeOneItemFromCart = (id) => {
@@ -179,6 +191,27 @@ const getTotalCost = () => {
         autoHideDuration={5000}
         onClose={closeSnackbar}
         message={snackbarMessage}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        ContentProps={{
+          style: { backgroundColor: 'white', color:'black' } // Set background color using ContentProps
+        }}
+        
+action={<React.Fragment>
+  <Button color="secondary" size="small" onClick={handleClose}>
+    UNDO
+  </Button>
+  <IconButton
+    size="small"
+    aria-label="close"
+    color="inherit"
+    onClick={handleClose}
+  >
+    <CloseIcon fontSize="small" />
+  </IconButton>
+</React.Fragment>}
       />
     </CartContext.Provider>
   );

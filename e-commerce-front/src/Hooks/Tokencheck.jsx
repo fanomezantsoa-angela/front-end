@@ -3,8 +3,7 @@ export function checkTokenExpiry(token) {
  
   if (!token) return true; // Consider the token expired if not present
 
-  const { exp } = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
-  return Date.now() >= exp * 1000; // Convert exp to milliseconds and compare
+  
 }
 export const refresh_Token = async () => {
   try {

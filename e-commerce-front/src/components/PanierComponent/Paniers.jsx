@@ -67,7 +67,7 @@ function Paniers({ panierClose }) {
         </thead>
         <tbody className="mb-[5%]">
           {items.map((item, id) => (
-            <tr key={id} class="border-t-none border-solid border-b-[3px]	mb-[5%]">
+            <tr key={id} className="border-t-none border-solid border-b-[3px]	mb-[5%]">
               <td>{id + 1}</td>
 
               <td>{item.name}</td>

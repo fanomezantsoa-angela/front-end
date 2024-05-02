@@ -44,10 +44,13 @@ function Produits_type() {
         console.log(response.data.product);
         setTypeproduct(response.data.product);
         console.log("type selected", typeproduct)
+        setProductresult([])
       })
+     
       .catch((error) => {
         console.log(error)
       })
+     
     };
     const getAllproduct = () => {
     setActive(null)
@@ -56,9 +59,14 @@ function Produits_type() {
          console.log(response.results);
          setTypeproduct(response.results);
          console.log("type selected", typeproduct);
-       }).catch((error) => {
+         setProductresult([])
+
+       })
+       
+       .catch((error) => {
          console.log(error);
        });
+       
   }
   return (
     <>
