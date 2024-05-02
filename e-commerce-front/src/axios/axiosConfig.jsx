@@ -3,6 +3,7 @@ import { checkTokenExpiry, refresh_Token } from "../Hooks/Tokencheck";
 
 const axiosInstance = axios.create({
     // baseURL: process.env.BASE_API_URL,
+
     baseURL: "https://ecommerce-pm4j.onrender.com/api/"
 
 });
@@ -49,6 +50,7 @@ const axiosInstance = axios.create({
   );
 
     // baseURL: "http://localhost:8000/api/"
+
 
 
 
