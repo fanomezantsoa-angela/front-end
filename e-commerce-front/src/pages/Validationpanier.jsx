@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { TiDelete } from "react-icons/ti";
 import { AiFillMinusCircle } from "react-icons/ai";
-
+import {ExampleAlignmentButtons} from "./form_payement";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { validationPayement } from "../Hooks/PayementApi";
@@ -49,11 +49,13 @@ function Validationpanier() {
   return (
 
     <div >
-
+      
 
       <IconButton onClick={retour} className="ml-[2%] mt-[2%] fixed"><IoArrowBackCircle  color="black" size={50}/></IconButton>
-               <img src="./src/assets/shop.gif" className="w-[500px] ml-[5%]" />
-
+                   
+    <div >
+    <img src="./src/assets/barket.png" className="w-[500px] ml-[5%]" />
+    </div>
      <div style={{ backgroundColor: "white" }} className="h-[00%]	w-[51%] ml-[48%]  mt-[-30%] rounded-[20px] pt-[1%] pb-[1%] border-solid border-[5px]	"> 
 
      <h2 class="text-center text-[30px] text-[black] font-extrabold m-[5%]  mb-[2%]mt-[-2%] ">Mon panier</h2>
@@ -93,13 +95,13 @@ function Validationpanier() {
 
       <p className=" text-center text-[black] font-extrabold text-[18px] ml-[68%]">Total: {getTotalCost()} Ar</p>
       <div  className="w-full flex justify-center">
-          <button
+          {/* <button
           className="bg-sky-700 text-white px-8 p-2 rounded-md
           hover:bg-sky-600 ease-in-out duration-75"
           onClick={validerPayement}
           >
             EFFECTUER PAYEMENT
-          </button>
+          </button> */}
 
       </div>
       <Modal
