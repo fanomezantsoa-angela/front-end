@@ -9,12 +9,12 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 
-import { AuthContext, logout } from "../../Hooks/Auth";
+import { AuthContext} from "../../Hooks/Auth";
 
 
 function GererAdminCompte() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { isLoggedIn, setIsLoggedIn, isAdmin } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn, isAdmin, logout } = useContext(AuthContext);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -25,7 +25,7 @@ function GererAdminCompte() {
   };
   const Logginout = () => {
     logout();
-    setIsLoggedIn(false); 
+    
   };
 
   return (

@@ -18,6 +18,7 @@ export const isAdmin = () => {
   if (!token) return false;
 
   const decodedToken = decodeToken(token);
+ 
   
   return decodedToken && decodedToken.isAdmin;
 };

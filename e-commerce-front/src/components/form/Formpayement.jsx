@@ -17,7 +17,7 @@ import Box from '@mui/material/Box';
 function Formpayement({ closeform}) {
   const { loading, startLoading, stopLoading } = useContext(LoadingContext);
     const { items, emptyCart, getTotalCost } = useContext(CartContext);
-       const { IsLoggedIn } = useContext(AuthContext);
+       
   const [adress, setAdresse, adresschange] = Inputhandler("");
     const [account_number, setAccount_number, numcomptechange] = Inputhandler("");
      const [payement_mode, setPayement_mode] = useState("");
@@ -100,6 +100,7 @@ function Formpayement({ closeform}) {
                    confirmButtonText: "Oui",
                  });
           } else {
+            resetform();
             closepayement();
             setTimeout(3000)
                Swal.fire({
