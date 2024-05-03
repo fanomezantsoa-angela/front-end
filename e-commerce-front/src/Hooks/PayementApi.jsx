@@ -2,6 +2,7 @@ import axiosInstance from "../axios/axiosConfig";
 const getToken = localStorage.getItem("token");
 const getAuthorizationHeader = `Bearer ${getToken}`;
 export const validationPayement = async (montant) => {
+ 
   try {
     const response = await axiosInstance.put(
       "/purchase/validate_payement/",
@@ -14,7 +15,7 @@ export const validationPayement = async (montant) => {
     );
     return response;
   } catch (error) {
-    console.error("Validation Payement Error:", error);
+    console.error("Validation Payement Error:"+ error);
     throw error; // Re-throw the error for handling at the caller's level
   }
 };

@@ -12,7 +12,7 @@ import { validationPayement } from "../Hooks/PayementApi";
 import { Button } from "../components/littlecomponent/Button";
 import Swal from "sweetalert2";
 import Formpayement from "../components/form/Formpayement";
-import { AuthContext, logout } from "../Hooks/Auth";
+import { AuthContext} from "../Hooks/Auth";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 function Validationpanier() {
@@ -35,39 +35,31 @@ function Validationpanier() {
   const formData = {
     montant: Totalmontant,
   };
-  const validerPayement = async () => {
+  const validerPayement = () => {
 
-
-    if (isLoggedIn == true) {
-        const responseData = await validationPayement(formData);
-        console.log(responseData);
-        if (responseData.status == 200) {
+      if(Totalmontant !== 0){
+         
           openpayement();
-        } else {
-          Swal.fire({
-            title: "Erreur",
-            text: "Il y a une erreur, veuillez vérifier votre solde",
-            icon: "error",
-            confirmButtonText: "Oui",
-          });
         }
-    }
-    else {
       
-      navigate("/Login")
-    }
-      
+ 
+    
    
   };
   return (
-    <div class="">
-      <IconButton onClick={retour} class="ml-[2%] mt-[2%] fixed"><IoArrowBackCircle  color="black" size={50}/></IconButton>
-               <img src="./src/assets/shop.gif" class="w-[500px] ml-[5%]" />
 
-     <div style={{ backgroundColor: "white" }} class="h-[00%]	w-[51%] ml-[48%]  mt-[-30%] rounded-[20px] pt-[1%] pb-[1%] border-solid border-[5px]	"> 
+    <div >
+
+
+      <IconButton onClick={retour} className="ml-[2%] mt-[2%] fixed"><IoArrowBackCircle  color="black" size={50}/></IconButton>
+               <img src="./src/assets/shop.gif" className="w-[500px] ml-[5%]" />
+
+     <div style={{ backgroundColor: "white" }} className="h-[00%]	w-[51%] ml-[48%]  mt-[-30%] rounded-[20px] pt-[1%] pb-[1%] border-solid border-[5px]	"> 
+
      <h2 class="text-center text-[30px] text-[black] font-extrabold m-[5%]  mb-[2%]mt-[-2%] ">Mon panier</h2>
+
      {items.map((item, id) => (
-        <ul key={id} class="mt-[5%] ml-[2%] flex flex-row w-[100%] justify-around mb-[5%] border-t-none border-solid border-b-[3px]	 text-center text-[15px] text-[black] font-extrabold">
+        <ul key={id} className="mt-[5%] ml-[2%] flex flex-row w-[100%] justify-around mb-[5%] border-t-none border-solid border-b-[3px]	 text-center text-[15px] text-[black] font-extrabold">
           <li>{id + 1}</li>
 
           <li>{item.name}</li>
@@ -91,20 +83,24 @@ function Validationpanier() {
             >
                                <IoIosAddCircle size={20}  color="#0061A8"/>
 
-            </IconButton>
+            </IconButton> 
           </li>
           <li>Prix unitaire: {item.price} Ar</li>
           <li>Total {item.quantity * item.price}</li>
-          <IconButton onClick={() => deleteItemFromCart(item.id)} class=" mt-[-5%]"><TiDelete size={30} color="Red"/></IconButton>
+          <IconButton onClick={() => deleteItemFromCart(item.id)} className=" mt-[-5%]"><TiDelete size={30} color="Red"/></IconButton>
         </ul>
       ))}
-      <p class=" text-center text-[black] font-extrabold text-[18px] ml-[68%]">Total: $ {getTotalCost()}</p>
-      <div  class=" mb-[2%] border-solid border-2 border-sky-500 rounded-full w-[25%] bg-sky-500/50 ml-[40%] text-center text-[black] font-extrabold text-[18px]  ">
-      <Button 
-        action="Effectuer-payement"
-        classname="commander_produits"
-        buttonhandle={validerPayement}
-      />
+
+      <p className=" text-center text-[black] font-extrabold text-[18px] ml-[68%]">Total: {getTotalCost()} Ar</p>
+      <div  className="w-full flex justify-center">
+          <button
+          className="bg-sky-700 text-white px-8 p-2 rounded-md
+          hover:bg-sky-600 ease-in-out duration-75"
+          onClick={validerPayement}
+          >
+            EFFECTUER PAYEMENT
+          </button>
+
       </div>
       <Modal
         open={payement}

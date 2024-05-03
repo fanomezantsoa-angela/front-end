@@ -2,10 +2,10 @@ import { createContext } from "react";
 import { useState } from "react";
 export const Product_typesContext = createContext();
 export const ProductTypesProvider = ({ children }) => {
-  const [selectedType, setSelectedType] = useState("");
+  const [typeproduct, setTypeproduct] = useState([]);
 
   return (
-    <Product_typesContext.Provider value={[selectedType, setSelectedType]}>
+    <Product_typesContext.Provider value={{ typeproduct, setTypeproduct }}>
       {children}
     </Product_typesContext.Provider>
   );

@@ -20,7 +20,6 @@ function Routage() {
       </Route>
       {/*Route pour l'admin  */}
       <Route element={<AdminRoute />}>
-     
         <Route path="/Admin" element={<Admin />} />
       </Route>
 
