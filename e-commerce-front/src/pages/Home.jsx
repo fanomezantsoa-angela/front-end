@@ -14,6 +14,7 @@ import { AuthContext } from "../Hooks/Auth";
 
 function Home() {
 const {logout} = useContext(AuthContext)
+{/* 
   useEffect(() =>{
     const token = localStorage.getItem("token");
     const refreshToken= localStorage.getItem("refreshToken")
@@ -58,7 +59,7 @@ const {logout} = useContext(AuthContext)
     
   }, []);
     
-   
+   */} 
 
 
 
