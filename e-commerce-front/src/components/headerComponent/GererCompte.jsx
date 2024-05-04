@@ -90,7 +90,7 @@ function GererCompte() {
       >
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <AccountBoxIcon className="text-sky-700" />
+            <AccountBoxIcon onClick="" className="text-sky-700" />
           </ListItemIcon>
           Profile personnel
         </MenuItem>
