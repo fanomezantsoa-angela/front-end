@@ -11,12 +11,12 @@ import LockPersonIcon from '@mui/icons-material/LockPerson';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 
-import { AuthContext, logout } from "../../Hooks/Auth";
+import { AuthContext } from "../../Hooks/Auth";
 import { useNavigate } from "react-router-dom";
 import { colors } from "@mui/material";
 function GererCompte() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { isLoggedIn, setIsLoggedIn, isAdmin } = useContext(AuthContext);
+  const { isAdmin, logout } = useContext(AuthContext);
   const navigate = useNavigate()
 
   const open = Boolean(anchorEl);
@@ -28,7 +28,7 @@ function GererCompte() {
   };
   const Logginout = () => {
     logout();
-    setIsLoggedIn(false); 
+    
   };
   const goToAdminPanel = () => {
     navigate("/Admin")
