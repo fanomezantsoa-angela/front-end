@@ -15,6 +15,7 @@ import Formpayement from "../components/form/Formpayement";
 import { AuthContext} from "../Hooks/Auth";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+
 function Validationpanier() {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const [payement, setPayment] = useState(false);
@@ -49,16 +50,16 @@ function Validationpanier() {
   return (
 
     <div >
-      
+
 
       <IconButton onClick={retour} className="ml-[2%] mt-[2%] fixed"><IoArrowBackCircle  color="black" size={50}/></IconButton>
-          
+
     <div >
     <img src="./src/assets/barket.png" className="w-[500px] ml-[5%]" />
     </div>
-     <div style={{ backgroundColor: "white" }} className="h-[00%]	w-[51%] ml-[48%]  mt-[-30%] rounded-[20px] pt-[1%] pb-[1%] border-solid border-[5px]	"> 
+     <div style={{ backgroundColor: "white" }} className="h-[100%]	w-[45%] ml-[55%]  mt-[-30%] pt-[1%] pb-[1%] border-solid border-[5px]	"> 
 
-     <h2 class="text-center text-[30px] text-[black] font-extrabold m-[5%]  mb-[2%]mt-[-2%] ">Mon panier</h2>
+    <div   style={{ backgroundColor: "#0061A8" }} class="mt-[-5%] pt-[1%]"> <h2 class="text-center text-[30px] text-[black] font-extrabold m-[5%]  mb-[2%] w-[100%] ">Mon panier</h2></div>
 
      {items.map((item, id) => (
         <ul key={id} className="mt-[5%] ml-[2%] flex flex-row w-[100%] justify-around mb-[5%] border-t-none border-solid border-b-[3px]	 text-center text-[15px] text-[black] font-extrabold">
@@ -122,6 +123,7 @@ function Validationpanier() {
       </Modal>
       </div>
       <Form_payement/>    
+
     </div>
   );
 }
