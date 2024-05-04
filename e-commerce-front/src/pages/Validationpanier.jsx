@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { TiDelete } from "react-icons/ti";
 import { AiFillMinusCircle } from "react-icons/ai";
-import {ExampleAlignmentButtons} from "./form_payement";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { validationPayement } from "../Hooks/PayementApi";
 import { Button } from "../components/littlecomponent/Button";
+import Form_payement from "./form_payement";
 import Swal from "sweetalert2";
 import Formpayement from "../components/form/Formpayement";
 import { AuthContext} from "../Hooks/Auth";
@@ -52,7 +52,7 @@ function Validationpanier() {
       
 
       <IconButton onClick={retour} className="ml-[2%] mt-[2%] fixed"><IoArrowBackCircle  color="black" size={50}/></IconButton>
-                   
+          
     <div >
     <img src="./src/assets/barket.png" className="w-[500px] ml-[5%]" />
     </div>
@@ -121,6 +121,7 @@ function Validationpanier() {
         </Box>
       </Modal>
       </div>
+      <Form_payement/>    
     </div>
   );
 }
