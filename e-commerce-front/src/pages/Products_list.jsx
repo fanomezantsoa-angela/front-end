@@ -4,7 +4,8 @@ import {
   Product_search,
 } from "../Hooks/productAPI";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
-
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack'
 import { useState, useEffect, useContext } from "react";
 import { SearchproductContext } from "../Hooks/SearchContext";
 import Rating from "@mui/material/Rating";
@@ -12,7 +13,7 @@ import { CartContext } from "../Hooks/PanierContexte";
 import { Product_typesContext } from "../Hooks/Product_typesContext";
 import { jwtDecode } from "jwt-decode";
 import SeeMoreComponent from "../components/MoreList/SeeMoreComponent";
-
+import { LoadingContext } from "../Hooks/LoadingContext";
 // For slide utilities
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
@@ -21,6 +22,7 @@ import "swiper/css/navigation"
 import { Pagination, Navigation } from "swiper/modules"
 
 function Products_list() {
+	const { loading, startLoading, stopLoading } = useContext(LoadingContext);
 	const { productresult } = useContext(SearchproductContext);
 	const { addToCart } = useContext(CartContext);
 	const [products, setProducts] = useState([]);
@@ -58,7 +60,7 @@ function Products_list() {
  
 	useEffect(() => {
 	function fetchProducts() {
-		// Prioritize search results if available and not empty
+	 
 		if (productresult && productresult.length > 0) {
 			console.log("Using searched products:", productresult);
 			setProducts(productresult);
@@ -69,6 +71,8 @@ function Products_list() {
 			console.log("No products available");
 			setProducts([]);
 		}
+		
+	 console.log("loading",loading)
 	}
 		fetchProducts();
 	}, [typeproduct, productresult]);
@@ -149,7 +153,8 @@ function Products_list() {
 	modules={[Navigation, Pagination]}
 	className="produits space-x-16 px-10"
 	>
-        {products &&
+        {
+
         products.map((product, index) => ( 
 		<SwiperSlide key={index}  className="bg-white rounded-lg 
 		lg:w-[15%] md:w-[20%] sm:w-[30%] xs:w-[30%]
@@ -223,8 +228,7 @@ function Products_list() {
 			
 		</SwiperSlide>
 
-        ))}
-
+        )) }					
 
 		{(products.length > 10) && (
 		<SwiperSlide className="bg-white rounded-lg 
@@ -235,11 +239,11 @@ function Products_list() {
         </SwiperSlide>
 
 		)}
-		
+	
+    
 
     </Swiper>
-
-    
+	
     
 
   );
