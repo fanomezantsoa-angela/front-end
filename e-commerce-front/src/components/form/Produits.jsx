@@ -12,6 +12,7 @@ function Produits() {
     const [expiration_date, setExpiration_date, expirationchange] = Inputhandler("");
     const [type, setType, typechange] = Inputhandler("");
     const [typeOptions, setTypeOptions] = useState([]);
+    
     const formData = {
         name: name,
         description: description,

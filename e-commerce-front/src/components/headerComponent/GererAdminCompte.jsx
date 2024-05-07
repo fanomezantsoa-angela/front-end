@@ -16,7 +16,7 @@ function GererAdminCompte() {
 
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState(null);
-  const { isLoggedIn, setIsLoggedIn, isAdmin } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn, isAdmin, logout } = useContext(AuthContext);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

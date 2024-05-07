@@ -5,14 +5,12 @@ import AddComponent from "../components/Addvertisement/AddComponent";
 import IncitationComponent from "../components/Contact us/IncitationComponent";
 import FirstFooterSectionComponent from "../components/footer/FIrstFooterSectionComponent"
 import SecondFooterSectionComponent from "../components/footer/SecondFooterSectionComponent";
-
 import { ProductTypesProvider } from "../Hooks/Product_typesContext";
 import { SearchProvider } from "../Hooks/SearchContext";
 
 
-
 function Home() {
- 
+
 
 
 

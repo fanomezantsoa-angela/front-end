@@ -6,14 +6,18 @@ import { login } from "../../Hooks/API";
 import { AuthContext } from "../../Hooks/Auth";
 import { InputBase, IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { LoadingContext } from "../../Hooks/LoadingContext";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Swal from "sweetalert2";
-import { jwtDecode } from "jwt-decode";
+
 
 function Loginform() {
+    const location = useLocation();
+  
+    const params = new URLSearchParams(location.search);
+    const returnURL = params.get("returnURL");
   const { loading, startLoading, stopLoading } = useContext(LoadingContext);
   const { setIsLoggedIn } = useContext(AuthContext);
   const [email, setEmail, emailchange] = Inputhandler("");
@@ -61,12 +65,18 @@ function Loginform() {
      login(formData)
        .then((response) => {
          const token = response.data.access;
+         const refreshToken = response.data.refresh
+        
          localStorage.setItem("token", token);
-      
+         localStorage.setItem("refreshToken", refreshToken);
          
          setIsLoggedIn(true);
          resetform();
-         navigate("/");
+          if (returnURL) {
+           navigate(decodeURIComponent(returnURL));
+          } else {
+           navigate("/");
+          }
        })
        .catch((error) => {
          const errorResponse = error.response;

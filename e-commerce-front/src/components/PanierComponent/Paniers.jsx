@@ -6,13 +6,14 @@ import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import { TiDelete } from "react-icons/ti";
 import { AiFillMinusCircle } from "react-icons/ai";
-
+import Swal from "sweetalert2";
 import { IoIosAddCircle } from "react-icons/io";
 
-
+import { AuthContext} from "../../Hooks/Auth";
 function Paniers({ panierClose }) {
   const navigate = useNavigate();
- 
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
     const {
       items,
       addOneItemToCart,
@@ -22,18 +23,47 @@ function Paniers({ panierClose }) {
     } = useContext(CartContext);
     const validerpanier= () => {
       panierClose();
+         if (!isLoggedIn ) {
+           Swal.fire({
+             title: "il est nécessaire de se connecter",
+             text: "i est nécessaire de se connnecter pour commandes le(s) peoduit(s). Voules-vous se connecter?",
+             icon: "warning",
+             showCancelButton: true,
+             confirmButtonText: "Oui",
+             cancelButtonText: "Annuler",
+           }).then((result) => {
+             if (result.value) {
+               // User clicked 'Yes, log in'
+               const returnURL = "/Validerpanier";
+               navigate(`/login?returnURL=${encodeURIComponent(returnURL)}`);
+             }
+           });
+         } else if(items.length == 0){
+          Swal.fire({
+            title: "Panier vide",
+            text: "Veuillez ajouter au moins un produit dans le panier",
+            icon: "warning",
+            
+            confirmButtonText: "Oui",
+           
+          })
 
-
-       navigate("/Validerpanier");
-
+         } else{
+           // Proceed with payment since token is available
+           navigate("/Validerpanier");
+         }
   };
+
+      
+
+  
   return (
-    <div style={{ backgroundColor: "white" }} class="	w-[50%] ml-[49%]  mt-[9%] rounded-[20px] pt-[1%] pb-[1%] "  >
+    <div style={{ backgroundColor: "white" }} className="	w-[50%] ml-[49%]  mt-[9%] rounded-[20px] pt-[1%] pb-[1%] "  >
                {/* <img src="./src/assets/shop.gif" class="w-[80px]" /> */}
  
       <h2 className="text-center text-lg text-[black] font-extrabold 
           ">Liste des produits dans votres panier</h2>
-      <div class="mt-[5%] ml-[5%]" >
+      <div className="mt-[5%] ml-[5%]" >
       <table className="size-full  border-collapse none text-left 	">
         <thead className="text-base text-[black] font-extrabold " >
           <tr >
@@ -47,7 +77,7 @@ function Paniers({ panierClose }) {
         </thead>
         <tbody className="mb-[5%]">
           {items.map((item, id) => (
-            <tr key={id} class="border-t-none border-solid border-b-[3px]	mb-[5%]">
+            <tr key={id} className="border-t-none border-solid border-b-[3px]	mb-[5%]">
               <td>{id + 1}</td>
 
               <td>{item.name}</td>

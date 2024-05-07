@@ -5,16 +5,17 @@ import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { TiDelete } from "react-icons/ti";
 import { AiFillMinusCircle } from "react-icons/ai";
-
 import { IoIosAddCircle } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { validationPayement } from "../Hooks/PayementApi";
 import { Button } from "../components/littlecomponent/Button";
+import Form_payement from "../components/form/form_payement";
 import Swal from "sweetalert2";
 import Formpayement from "../components/form/Formpayement";
-import { AuthContext, logout } from "../Hooks/Auth";
+import { AuthContext} from "../Hooks/Auth";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+
 function Validationpanier() {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const [payement, setPayment] = useState(false);
@@ -35,39 +36,33 @@ function Validationpanier() {
   const formData = {
     montant: Totalmontant,
   };
-  const validerPayement = async () => {
+  const validerPayement = () => {
 
-
-    if (isLoggedIn == true) {
-        const responseData = await validationPayement(formData);
-        console.log(responseData);
-        if (responseData.status == 200) {
+      if(Totalmontant !== 0){
+         
           openpayement();
-        } else {
-          Swal.fire({
-            title: "Erreur",
-            text: "Il y a une erreur, veuillez vérifier votre solde",
-            icon: "error",
-            confirmButtonText: "Oui",
-          });
         }
-    }
-    else {
       
-      navigate("/Login")
-    }
-      
+ 
+    
    
   };
   return (
-    <div className="">
-      <IconButton onClick={retour} className="ml-[2%] mt-[2%] fixed"><IoArrowBackCircle  color="black" size={50}/></IconButton>
-               <img src="./src/assets/shop.gif" className="w-[500px] ml-[5%]" />
 
-     <div style={{ backgroundColor: "white" }} className="h-[00%]	w-[51%] ml-[48%]  mt-[-30%] rounded-[20px] pt-[1%] pb-[1%] border-solid border-[5px]	"> 
-     <h2 class="text-center text-[30px] text-[black] font-extrabold m-[5%]  mb-[2%]mt-[-2%] ">Mon panier</h2>
+    <div >
+
+
+      <IconButton onClick={retour} className="ml-[2%] mt-[2%] fixed"><IoArrowBackCircle  color="black" size={50}/></IconButton>
+
+    <div >
+    <img src="./src/assets/barket.png" className="w-[500px] ml-[5%]" />
+    </div>
+     <div style={{ backgroundColor: "white" }} className="h-[100%]	w-[45%] ml-[55%]  mt-[-30%] pt-[1%] pb-[1%] border-solid border-[5px]	"> 
+
+    <div   style={{ backgroundColor: "#0061A8" }} className="mt-[-5%] pt-[1%]"> <h2 className="text-center text-[30px] text-[black] font-extrabold m-[5%]  mb-[2%] w-[100%] ">Mon panier</h2></div>
+
      {items.map((item, id) => (
-        <ul key={id} class="mt-[5%] ml-[2%] flex flex-row w-[100%] justify-around mb-[5%] border-t-none border-solid border-b-[3px]	 text-center text-[15px] text-[black] font-extrabold">
+        <ul key={id} className="mt-[5%] ml-[2%] flex flex-row w-[100%] justify-around mb-[5%] border-t-none border-solid border-b-[3px]	 text-center text-[15px] text-[black] font-extrabold">
           <li>{id + 1}</li>
 
           <li>{item.name}</li>
@@ -98,33 +93,22 @@ function Validationpanier() {
           <IconButton onClick={() => deleteItemFromCart(item.id)} className=" mt-[-5%]"><TiDelete size={30} color="Red"/></IconButton>
         </ul>
       ))}
+
       <p className=" text-center text-[black] font-extrabold text-[18px] ml-[68%]">Total: {getTotalCost()} Ar</p>
       <div  className="w-full flex justify-center">
-          <button
+          {/* <button
           className="bg-sky-700 text-white px-8 p-2 rounded-md
           hover:bg-sky-600 ease-in-out duration-75"
           onClick={validerPayement}
           >
             EFFECTUER PAYEMENT
-          </button>
-      </div>
-      <Modal
-        open={payement}
-        onClose={closepayement}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box className="bg-gray-300">
-          <Button
-            action={<img src="./src/assets/fermer.svg" alt="" />}
-            buttonhandle={closepayement}
-            classname="fermer"
-          />
+          </button> */}
 
-          <Formpayement closeform={closepayement} />
-        </Box>
-      </Modal>
       </div>
+   
+      </div>
+      <Form_payement/>    
+
     </div>
   );
 }

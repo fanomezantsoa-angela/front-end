@@ -2,6 +2,7 @@ import axiosInstance from "../axios/axiosConfig";
 const getToken = localStorage.getItem("token");
 const getAuthorizationHeader = `Bearer ${getToken}`;
 export const validationPayement = async (montant) => {
+ 
   try {
     const response = await axiosInstance.put(
       "/purchase/validate_payement/",

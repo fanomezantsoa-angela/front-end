@@ -3,7 +3,9 @@ import { jwtDecode } from "jwt-decode";
 // Function to decode token
 export const decodeToken = (token) => {
   try {
+
     return jwtDecode(token);
+   
   } catch (error) {
     console.error("Failed to decode JWT:", error);
     return null;
@@ -16,5 +18,7 @@ export const isAdmin = () => {
   if (!token) return false;
 
   const decodedToken = decodeToken(token);
+ 
+  
   return decodedToken && decodedToken.isAdmin;
 };
