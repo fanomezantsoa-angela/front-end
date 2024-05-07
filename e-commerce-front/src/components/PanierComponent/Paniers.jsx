@@ -23,14 +23,14 @@ function Paniers({ panierClose }) {
     } = useContext(CartContext);
     const validerpanier= () => {
       panierClose();
-         if (!isLoggedIn) {
+         if (!isLoggedIn ) {
            Swal.fire({
-             title: "Authentication Required",
-             text: "You need to log in to proceed with the payment. Do you want to log in now?",
+             title: "il est nécessaire de se connecter",
+             text: "i est nécessaire de se connnecter pour commandes le(s) peoduit(s). Voules-vous se connecter?",
              icon: "warning",
              showCancelButton: true,
-             confirmButtonText: "Yes, log in",
-             cancelButtonText: "No, cancel",
+             confirmButtonText: "Oui",
+             cancelButtonText: "Annuler",
            }).then((result) => {
              if (result.value) {
                // User clicked 'Yes, log in'
@@ -38,7 +38,17 @@ function Paniers({ panierClose }) {
                navigate(`/login?returnURL=${encodeURIComponent(returnURL)}`);
              }
            });
-         } else {
+         } else if(items.length == 0){
+          Swal.fire({
+            title: "Panier vide",
+            text: "Veuillez ajouter au moins un produit dans le panier",
+            icon: "warning",
+            
+            confirmButtonText: "Oui",
+           
+          })
+
+         } else{
            // Proceed with payment since token is available
            navigate("/Validerpanier");
          }

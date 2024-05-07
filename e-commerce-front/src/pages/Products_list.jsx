@@ -20,7 +20,8 @@ import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
 import { Pagination, Navigation } from "swiper/modules"
-
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import { Skeleton_produit } from "../components/littlecomponent/Skeleton_product";
 function Products_list() {
 	const { loading, startLoading, stopLoading } = useContext(LoadingContext);
 	const { productresult } = useContext(SearchproductContext);
@@ -60,6 +61,7 @@ function Products_list() {
  
 	useEffect(() => {
 	function fetchProducts() {
+		startLoading()
 	 
 		if (productresult && productresult.length > 0) {
 			console.log("Using searched products:", productresult);
@@ -68,9 +70,14 @@ function Products_list() {
 			console.log("Using type selected products:", typeproduct);
 			setProducts(typeproduct);
 		} else {
-			console.log("No products available");
+			
 			setProducts([]);
+			return <div className="">
+				<ManageSearchIcon/>
+				<p> Pas de produits trouvés </p>
+				</div>;
 		}
+	stopLoading();
 		
 	 console.log("loading",loading)
 	}
@@ -153,24 +160,26 @@ function Products_list() {
 	modules={[Navigation, Pagination]}
 	className="produits space-x-16 px-10"
 	>
-        {
+		
+        {!loading ?
 
         products.map((product, index) => ( 
 		<SwiperSlide key={index}  className="bg-white rounded-lg 
 		lg:w-[15%] md:w-[20%] sm:w-[30%] xs:w-[30%]
 		mb-10 scale-90">
-
+              
 			
 			<div className="flex flex-col items-center justify-center">
 
 				{/* Image section */}
-				<div className="w-[90%] mx-auto mt-4 border border-slate-200 rounded mb-4">
+				{loading ? <Skeleton variant="rectangular" width={200} height={110} />: <div className="w-[90%] mx-auto mt-4 border border-slate-200 rounded mb-4">
 					<img
 						src="./src/assets/yaourt-nature.jpg"
 						alt="product images"
 						className="produit-img"
 					/>
-				</div>
+				</div>}
+				
 
 				{/* Divider */}
 				<div className="w-full border-t border-slate-200 mb-6"></div>
@@ -178,28 +187,32 @@ function Products_list() {
 				{/* Product information section */}
 				<div className="px-6 space-y-2 w-full">
 					{/* Product name section */}
-					<div className="text-left">
+					{loading ? <Skeleton animation="wave" height={10} width="80%" />: 	<div className="text-left">
 						<p className="text-sky-700 font-semibold">{ product.name }</p>
-					</div>
+					</div>}
+				
 				
 
 					{/* Rating section */}
-					<div className="">
+					{loading ?  <Skeleton animation="wave" height={10} width="80%" />: <div className="">
 						<Rating
 						name="size-small"
 						size="medium"
 						value={3}
 						onChange={(event, newValue) => sendingRate(newValue, product.id)}
 						/>
-					</div>
+					</div>  }
+					
 				
 					{/* Price section */}
-					<p className="price ">
+					{loading ? <Skeleton height={10} width="40%"  />: <p className="price ">
 						<span className="text-emerald-700">{ product.price } </span> <span className="text-sky-700">Ar</span>
-					</p>
+					</p> }
+					<section className="w-full flex justify-center items-center">
 
 					{/* Command section */}
-					<section className="w-full flex justify-center items-center">
+					{ loading ? <Skeleton variant="rectangular" width={200} height={60}  style={{ marginBottom: 6 }}/> :
+					
 
 						<button 
 						className="flex flex-row justify-center items-center
@@ -222,13 +235,15 @@ function Products_list() {
 							</span>
 
 						</button>
+					}
 					</section>
 				</div>
 			</div>
 			
 		</SwiperSlide>
 
-        )) }					
+        )) : <Skeleton_produit/>
+			}				
 
 		{(products.length > 10) && (
 		<SwiperSlide className="bg-white rounded-lg 

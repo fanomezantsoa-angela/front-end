@@ -9,7 +9,7 @@ import { IoIosAddCircle } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { validationPayement } from "../Hooks/PayementApi";
 import { Button } from "../components/littlecomponent/Button";
-import Form_payement from "./form_payement";
+import Form_payement from "../components/form/form_payement";
 import Swal from "sweetalert2";
 import Formpayement from "../components/form/Formpayement";
 import { AuthContext} from "../Hooks/Auth";
@@ -59,7 +59,7 @@ function Validationpanier() {
     </div>
      <div style={{ backgroundColor: "white" }} className="h-[100%]	w-[45%] ml-[55%]  mt-[-30%] pt-[1%] pb-[1%] border-solid border-[5px]	"> 
 
-    <div   style={{ backgroundColor: "#0061A8" }} class="mt-[-5%] pt-[1%]"> <h2 class="text-center text-[30px] text-[black] font-extrabold m-[5%]  mb-[2%] w-[100%] ">Mon panier</h2></div>
+    <div   style={{ backgroundColor: "#0061A8" }} className="mt-[-5%] pt-[1%]"> <h2 className="text-center text-[30px] text-[black] font-extrabold m-[5%]  mb-[2%] w-[100%] ">Mon panier</h2></div>
 
      {items.map((item, id) => (
         <ul key={id} className="mt-[5%] ml-[2%] flex flex-row w-[100%] justify-around mb-[5%] border-t-none border-solid border-b-[3px]	 text-center text-[15px] text-[black] font-extrabold">
@@ -105,22 +105,7 @@ function Validationpanier() {
           </button> */}
 
       </div>
-      <Modal
-        open={payement}
-        onClose={closepayement}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box className="bg-gray-300">
-          <Button
-            action={<img src="./src/assets/fermer.svg" alt="" />}
-            buttonhandle={closepayement}
-            classname="fermer"
-          />
-
-          <Formpayement closeform={closepayement} />
-        </Box>
-      </Modal>
+   
       </div>
       <Form_payement/>    
 

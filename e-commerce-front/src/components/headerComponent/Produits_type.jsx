@@ -42,9 +42,11 @@ function Produits_type() {
       Product_per_type(id)
       .then((response) => {
         console.log(response.data.product);
+        setProductresult([])
+        setTypeproduct([])
         setTypeproduct(response.data.product);
         console.log("type selected", typeproduct)
-        setProductresult([])
+        
       })
      
       .catch((error) => {
@@ -56,10 +58,12 @@ function Produits_type() {
     setActive(null)
     Product_list()
       .then((response) => {
+        setProductresult([])
+        setTypeproduct([])
          console.log(response.results);
          setTypeproduct(response.results);
          console.log("type selected", typeproduct);
-         setProductresult([])
+        
 
        })
        

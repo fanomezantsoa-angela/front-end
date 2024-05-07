@@ -6,7 +6,9 @@ import { LoadingContext } from "../../Hooks/LoadingContext";
 import { Inputhandler } from "../../Hooks/Inputhandler";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { Product_typesContext } from "../../Hooks/Product_typesContext";
 function Recherche() {
+  const {typeproduct, setTypeproduct} = useContext(Product_typesContext);
 const [name, setName, Namechange] = Inputhandler("");
 const { loading, startLoading, stopLoading } = useContext(LoadingContext);
 const { productresult, setProductresult } = useContext(SearchproductContext);
@@ -14,6 +16,7 @@ const { productresult, setProductresult } = useContext(SearchproductContext);
 
   startLoading();
   console.log(loading)
+   setTypeproduct([])
      Product_search(name)
        .then((response) => {
          console.log(response);
@@ -25,8 +28,10 @@ const { productresult, setProductresult } = useContext(SearchproductContext);
       
        .catch((error) => {
          console.log(error);
+
          stopLoading();
        });
+      stopLoading() 
        
   };
 
