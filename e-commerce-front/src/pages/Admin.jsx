@@ -9,9 +9,11 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import LockPersonIcon from '@mui/icons-material/LockPerson';
 import InformationComponent from '../components/AdminComponents/InformationComponent';
 import { getClientInformation } from '../actions/InformationActions';
+
+// Components import 
+import ProductSectionComponent from '../components/AdminComponents/ProductSectionComponent';
 
 
 import Tabs from '@mui/material/Tabs';
@@ -126,6 +128,8 @@ function Admin(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
+
+      {/* Header */}
       <AppBar
         position="fixed"
         sx={{
@@ -141,7 +145,7 @@ function Admin(props) {
                 <div className='basis-4/5'>
 
                     <IconButton
-                        color="inherit"
+                        color="primary"
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
@@ -224,28 +228,9 @@ function Admin(props) {
       >
         <Toolbar />
 
-        <div className="relative w-full h-full ">
+        <div className="relative w-full h-full">
             <CustomTabPanel value={value} index={0}>
-                <div className="">
-                  Type de produits
-                </div>
-
-                <div className="">
-                <Typography paragraph>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                  enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                  imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                  Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                  Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                  adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                  nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                  leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                  feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                  consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                  sapien faucibus et molestie ac.
-                </Typography>
-                </div>
+                <ProductSectionComponent />
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={1}>
