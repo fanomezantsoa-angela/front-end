@@ -35,7 +35,7 @@ export default function CreditCardForm() {
         
         bgcolor: 'transparent',
         zIndex: 2,
-        top: '-350px',
+        top: '-380px',
         right:'400px',
         // borderRadius: '10PX',
         borderColor:'transparent'
