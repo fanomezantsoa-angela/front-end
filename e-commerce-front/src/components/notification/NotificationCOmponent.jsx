@@ -19,7 +19,7 @@ function NotificationComponent() {
     const fetchAllNotification = async () => {
         let response = await getClientNotification()
         if ( response.res ){
-            console.log("Inside notification fetcher")
+            // console.log("Inside notification fetcher")
             response.count = 0
 
             response.data.map(notif => {
@@ -29,10 +29,11 @@ function NotificationComponent() {
             })
             setNotification(response)
             setNotifData(response.data)
-            console.log(response)
-        } else (
-            console.log(response)
-        )
+            // console.log(response)
+        } 
+        // else (
+        //     console.log(response)
+        // )
     }
 
 

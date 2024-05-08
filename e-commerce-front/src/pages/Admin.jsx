@@ -9,8 +9,12 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import LockPersonIcon from '@mui/icons-material/LockPerson';
-import { useState} from "react";
+import InformationComponent from '../components/AdminComponents/InformationComponent';
+import { getClientInformation } from '../actions/InformationActions';
+
+// Components import 
+import ProductSectionComponent from '../components/AdminComponents/ProductSectionComponent';
+
 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -55,6 +59,9 @@ function a11yProps(index) {
 }
 
 
+/**
+ * MAIN COMPONENT FUNCTION
+ */
 function Admin(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -83,24 +90,32 @@ function Admin(props) {
     setValue(newValue);
   }
 
+
   const drawer = (
     <div>
       <Toolbar sx={{margin: 0, padding: 0}} className='p-0 m-0'>
           <img src="./src/assets/socolait.svg" alt="" 
           className="w-[200px] py-2 mb-1"/>
       </Toolbar>
+      
       <Divider />
+      {/* Profile information for admin */}
+      <div className="py-4 px-4">
+        <InformationComponent />
+      </div>
 
+      <Divider />
+      {/* Navigation */}
       <Tabs 
       value={value} 
       onChange={handleChange} 
       orientation='vertical'
       aria-label="Handle admin navigation panel"
       >
-        <Tab label="Types de produits" {...a11yProps(0)} />
-        <Tab label="Les produits" {...a11yProps(1)} />
-        <Tab label="Livraison" {...a11yProps(2)} />
-        <Tab label="Hello world" {...a11yProps(3)} />
+        <Tab className="hover:scale-110 duration-100" label="Types de produits" {...a11yProps(0)} />
+        <Tab className="hover:scale-110 duration-100" label="Les produits" {...a11yProps(1)} />
+        <Tab className="hover:scale-110 duration-100" label="Livraison" {...a11yProps(2)} />
+        <Tab className="hover:scale-110 duration-100" label="Prise de contact" {...a11yProps(3)} />
       </Tabs>
 
       <Divider />
@@ -113,6 +128,8 @@ function Admin(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
+
+      {/* Header */}
       <AppBar
         position="fixed"
         sx={{
@@ -128,7 +145,7 @@ function Admin(props) {
                 <div className='basis-4/5'>
 
                     <IconButton
-                        color="inherit"
+                        color="primary"
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
@@ -159,6 +176,11 @@ function Admin(props) {
             </div>
         </Toolbar>
       </AppBar>
+
+
+
+
+      {/* Navigation bar */}
       <Box
         component="nav"
         sx={{ 
@@ -197,6 +219,8 @@ function Admin(props) {
       </Box>
 
 
+
+
       {/* Main section Element */}
       <Box
         component="main"
@@ -204,28 +228,9 @@ function Admin(props) {
       >
         <Toolbar />
 
-        <div className="relative w-full h-full ">
+        <div className="relative w-full h-full">
             <CustomTabPanel value={value} index={0}>
-                <div className="">
-                  Type de produits
-                </div>
-
-                <div className="">
-                <Typography paragraph>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                  enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                  imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                  Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                  Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                  adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                  nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                  leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                  feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                  consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                  sapien faucibus et molestie ac.
-                </Typography>
-                </div>
+                <ProductSectionComponent />
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={1}>

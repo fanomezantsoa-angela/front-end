@@ -9,10 +9,12 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 
-import { AuthContext} from "../../Hooks/Auth";
-
+import { AuthContext, logout } from "../../Hooks/Auth";
+import { useNavigate } from "react-router-dom";
 
 function GererAdminCompte() {
+
+  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState(null);
   const { isLoggedIn, setIsLoggedIn, isAdmin, logout } = useContext(AuthContext);
 
@@ -25,7 +27,8 @@ function GererAdminCompte() {
   };
   const Logginout = () => {
     logout();
-    
+    setIsLoggedIn(false); 
+    navigate("/")
   };
 
   return (
