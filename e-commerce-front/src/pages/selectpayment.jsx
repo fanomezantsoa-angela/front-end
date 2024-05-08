@@ -55,7 +55,7 @@ export default function IconsRadio() {
             alignItems: 'center',
             gap: 1.5,
             p: 2,
-            minWidth: 120,
+            minWidth: 180,
             border: '3px solid',
             borderColor: '#0061A8',
             bgcolor: 'transparent',

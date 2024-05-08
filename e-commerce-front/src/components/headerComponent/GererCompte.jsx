@@ -30,6 +30,10 @@ function GererCompte() {
     logout();
     
   };
+  const goTopersonalPanel = () => {
+    navigate("/Profil")
+  }
+
   const goToAdminPanel = () => {
     navigate("/Admin")
   }
@@ -88,7 +92,7 @@ function GererCompte() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={ goTopersonalPanel}>
           <ListItemIcon>
             <AccountBoxIcon onClick="" className="text-sky-700" />
           </ListItemIcon>
