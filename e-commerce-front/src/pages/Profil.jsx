@@ -1,7 +1,12 @@
+import ProfilComp from "../components/profilConent/ProfilComp";
+import { useState, useEffect, useContext } from "react";
+import Form_payement from "./form_payement";
+
 function Profil() {
   return (
     <div>
-      <h1>Profil pagebcahbvchgzz</h1>
+bdjbxnbxbxmnxnxn
+
     </div>
   );
 }

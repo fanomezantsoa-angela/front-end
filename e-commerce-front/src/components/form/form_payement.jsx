@@ -1,8 +1,8 @@
-
+import InputMask from 'react-input-mask';
 import Card from '@mui/joy/Card';
 import CardActions from '@mui/joy/CardActions';
 import CardContent from '@mui/joy/CardContent';
-import Checkbox from '@mui/joy/Checkbox';
+
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
@@ -14,7 +14,6 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import Radio, { radioClasses } from '@mui/joy/Radio';
 import RadioGroup from '@mui/joy/RadioGroup';
 import Sheet from '@mui/joy/Sheet';
-import IconsRadio from './selectpayment';
 import Select, { selectClasses } from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
@@ -43,6 +42,11 @@ export default function CreditCardForm() {
     const handlevile = (event, newValue) => {
       setVille(newValue);
     };
+    const villes =[
+      "Ambatondrazaka", "Antananarivo", "Antsiranana", "Antsohihy", "Farafangana",
+      "Fianarantsoa", "Mahajanga", "Maintirano", "Manakara", "Mananjary", "Moramanga",
+      "Morondava", "Nosy Be", "Sainte Marie", "Sambava", "Tolagnaro", "Toliary", "Toamasina"
+    ]
     const handlepays = (event, newValue) => {
       setPays(newValue);
     };
@@ -68,7 +72,7 @@ export default function CreditCardForm() {
    
       e.preventDefault();
       startLoading();
-      
+      if(adress && payement_mode && account_number && pays && ville ){
            
       const responseData = await creationpurchase(formData);
          
@@ -124,6 +128,7 @@ export default function CreditCardForm() {
                      icon: "error",
                      confirmButtonText: "Oui",
                    });
+                   stopLoading();
             } else {
               resetform();
             
@@ -148,9 +153,19 @@ export default function CreditCardForm() {
   
           } 
           
-      stopLoading();
+     
   
+        } 
+        else{
+          stopLoading()
+          Swal.fire({
+            title: "Erreur",
+            text: "veuillez remplir les données que vous avez saisi",
+            icon: "error",
+            confirmButtonText: "Oui",
+          });
         
+        }
      
     };
   return (
@@ -226,8 +241,9 @@ export default function CreditCardForm() {
     
      onChange={handlevile}
     >
-      <Option value="Fianarantsoa" >Fianarantsoa</Option>
-     
+      {villes.map((ville, index)=>(
+      <Option key= {index} value={ville} >{ville}</Option>
+      ))}
     </Select>
      
          <FormControl sx={{ gridColumn: '1/-1' }}>
@@ -307,7 +323,20 @@ Choisir le mode de payement      </Typography>
     </RadioGroup>
         <FormControl sx={{ gridColumn: '1/-1' }}>
           <FormLabel>Numéros de carte crédit</FormLabel>
-          <Input endDecorator={<CreditCardIcon  />}  placeholder="#### #### #### ####" value={account_number} onChange={numcomptechange}/>
+          <InputMask
+                mask="9999 9999 9999 9999"
+                value={account_number}
+                onChange={numcomptechange}
+                disabled={false}
+                maskChar=" "
+            >
+                {() => (
+                    <Input
+                        endDecorator={<CreditCardIcon />}
+                        placeholder="#### #### #### ####"
+                    />
+                )}
+            </InputMask>
         </FormControl>
         <FormControl>
           <FormLabel>Date d'expiration</FormLabel>
@@ -324,7 +353,16 @@ Choisir le mode de payement      </Typography>
         </FormControl>
         <FormControl>
           <FormLabel>CVC/CVV</FormLabel>
-          <Input endDecorator={<InfoOutlined/>} />
+          <InputMask
+                mask="9999"
+
+                disabled={false}
+                maskChar=" "
+            >
+                {() => (
+          <Input endDecorator={<InfoOutlined/>} placeholder='1234' />
+          )}
+          </InputMask>
         </FormControl>
         <FormControl sx={{ gridColumn: '1/-1' }}>
           <FormLabel>Nom du propietraire</FormLabel>
@@ -333,7 +371,7 @@ Choisir le mode de payement      </Typography>
       
       
         
-        <Checkbox label="Enregistrer" sx={{ gridColumn: '1/-1', my: 1 }} />
+       
         <CardActions sx={{ gridColumn: '1/-1' }}>
           <Button variant="solid"  sx={{borderRadius: '10px'}} onClick={paymentsubmit}>
           {
