@@ -27,18 +27,18 @@ export default function CreditCardForm() {
     <Card
       variant="outlined"
       sx={{
-        maxHeight: '20%',
-        maxWidth: '30%',
+        maxHeight: '100%',
+        maxWidth: '40%',
         mx: 'auto',
         // to make the demo resizable
         overflow: 'auto',
         
         bgcolor: 'transparent',
         zIndex: 2,
-        top: '-380px',
-        right:'400px',
+        top: '-650px',
+        right:'350px',
         // borderRadius: '10PX',
-        borderColor:'transparent'
+        borderColor:'black'
         
       
       }}
@@ -60,7 +60,7 @@ export default function CreditCardForm() {
       placeholder="Pays"
       indicator={<KeyboardArrowDown />}
       sx={{
-        width: 180,
+        width: 260,
         [`& .${selectClasses.indicator}`]: {
           transition: '0.2s',
           [`&.${selectClasses.expanded}`]: {
@@ -78,7 +78,7 @@ export default function CreditCardForm() {
       placeholder="Ville"
       indicator={<KeyboardArrowDown />}
       sx={{
-        width:180,
+        width:260,
         [`& .${selectClasses.indicator}`]: {
           transition: '0.2s',
           [`&.${selectClasses.expanded}`]: {

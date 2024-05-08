@@ -31,6 +31,8 @@ function GererCompte() {
     setIsLoggedIn(false); 
     navigate("/")
   };
+  
+
   const goToAdminPanel = () => {
     navigate("/Admin")
   }

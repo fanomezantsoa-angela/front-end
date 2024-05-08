@@ -1,9 +1,12 @@
-import GererCompte from "../components/headerComponent/GererCompte";
+import ProfilComp from "../components/profilConent/ProfilComp";
+import { useState, useEffect, useContext } from "react";
+import Form_payement from "./form_payement";
+
 function Profil() {
   return (
     <div>
-      <GererCompte/>
-      <h1>Profil page</h1>
+bdjbxnbxbxmnxnxn
+
     </div>
   );
 }

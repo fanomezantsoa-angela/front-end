@@ -15,13 +15,14 @@ function Routage() {
       {/*Route qui a besoin de token */}
       <Route element={<PrivateRoute />}>
         <Route path="/Validerpanier" element={<Validationpanier />} />
+          {/*ROute pour le profil*/}
         <Route path="/Profil" element={<Profil />} />
       
       </Route>
       {/*Route pour l'admin  */}
       {/* <Route element={<AdminRoute />}> */}
         <Route path="/Admin" element={<Admin />} />
-      {/* </Route> */}
+    
 
       <Route path="/" element={<Home />} />
       <Route path="*" element={<div>Page introuvable</div>} />
