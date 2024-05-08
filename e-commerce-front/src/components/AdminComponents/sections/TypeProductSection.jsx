@@ -1,10 +1,37 @@
-import SearchBar from './SearchBar';
-import FilterComponent from './FilterComponent';
+import SearchBar from './sub_component/SearchBar';
+import FilterComponent from './sub_component/FilterComponent';
 import TypeProductComponent from './TypeProductComponent';
+// import Snackbar from '@mui/material/Snackbar';
+// import Alert from '@mui/material/Alert';
+import { useState, useEffect } from 'react';
+
+// Action import
+import { getAllType } from '../../../actions/TypeProductAction';
 
 export default function TypeProductSection() {
   
-  
+    const [categories, setCategories] = useState([])
+
+    const fetchAllType = async () => {
+        const response = await getAllType()
+        if (response.res) {
+            let data = []
+            response.data.results.map((type) => {
+                data.push({
+                    data: type,
+                    active: false
+                })
+            })
+            data[0].active = true
+            setCategories(data)
+            // console.log(data)
+        } else(
+            // Handle Error
+            console.log(response.error)
+        )
+        console.log(response)
+    }
+    
     const getOrder = (data) => {
         console.log(data)
     }
@@ -13,6 +40,15 @@ export default function TypeProductSection() {
         console.log("Data from action props")
         console.log(data)
     }
+
+    useEffect(() => {
+        fetchAllType()
+    }, [])
+
+    useEffect(() => {
+        console.log("calling useEffect after updating data")
+        console.log(categories)
+    }, [categories])
 
     return (
 
@@ -39,16 +75,23 @@ export default function TypeProductSection() {
 
             {/* Category elements */}
             <div className='overflow-y-scroll no-scrollbar h-[60vh]'>
-                {/* <p>Hello world</p> */}
-                <TypeProductComponent 
-                action={handleAction}
-                isActive={true}
-                data={{
-                    designation: "Yaourt",
-                    index: 0
-                }} />
+                {(categories.length != 0) ? 
+                categories.map((data, index) => (
+                    <div key={index}>
+                        <TypeProductComponent 
+                        action={handleAction}
+                        isActive={data.active}
+                        data={{
+                            data: data.data,
+                            index: index
+                        }} />
 
-                <TypeProductComponent 
+                    </div>
+                )) : (
+                    <div>Hello world</div>
+                )}
+
+                {/* <TypeProductComponent 
                 action={handleAction}
                 isActive={false}
                 data={{
@@ -76,7 +119,7 @@ export default function TypeProductSection() {
                 data={{
                     designation: "Jus Laitier",
                     index: 4
-                }} />
+                }} /> */}
                 
             </div>
             

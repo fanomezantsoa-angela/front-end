@@ -14,7 +14,6 @@ export default function InformationComponent() {
                 first_name: adminData.data.first_name,
                 last_name: adminData.data.last_name
             }
-            console.log(data)
             setAdminInformation(data)
         } else {
             setAdminInformation({first_name:"Inconnue", last_name:"Inconnue"})
@@ -23,13 +22,10 @@ export default function InformationComponent() {
 
 
 	useEffect(() => {
-		// console.log("Inside use Effect")
 		getAdminInformation()
 	}, [])
 
     useEffect(() => {
-        console.log("new admin data value: ")
-        // console.log(adminInformation)
     }, [adminInformation])
 
     return (

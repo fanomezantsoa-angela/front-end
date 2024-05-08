@@ -10,9 +10,9 @@ export const AuthProvider = ({ children }) => {
   useEffect( () => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
-    console.log(!!token)
+    // console.log(!!token)
     setIsAdmin(checkIsAdmin());
-    console.log("admin?", checkIsAdmin())
+    // console.log("admin?", checkIsAdmin())
   }, []);
   const refreshToken = async () => {
     try{

@@ -5,10 +5,10 @@ export const apiRequest = async (sub_url, method, token=null, data=null) => {
         url: sub_url,
         method: method
     }
-
     if (data != null) parameter.data = data
     if (token != null) parameter.headers = {Authorization: `Bearer ${token}`}
-
+    
+    // console.log(parameter)
     let requestResult = {response: null, error:null}
 
     try {
