@@ -23,15 +23,15 @@ const { productresult, setProductresult } = useContext(SearchproductContext);
          setProductresult(response);
          console.log("product resultat", productresult)
          setName("")
-         stopLoading();
+         stopLoading() 
        })
       
        .catch((error) => {
          console.log(error);
-
-         stopLoading();
+         stopLoading() 
+         
        });
-      stopLoading() 
+     
        
   };
 

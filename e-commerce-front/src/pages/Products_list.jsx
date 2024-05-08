@@ -23,7 +23,7 @@ import { Pagination, Navigation } from "swiper/modules"
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import { Skeleton_produit } from "../components/littlecomponent/Skeleton_product";
 function Products_list() {
-	const { loading, startLoading, stopLoading } = useContext(LoadingContext);
+	const [loadingproduct, setLoadingproduct] = useState(false);
 	const { productresult } = useContext(SearchproductContext);
 	const { addToCart } = useContext(CartContext);
 	const [products, setProducts] = useState([]);
@@ -60,27 +60,34 @@ function Products_list() {
 
  
 	useEffect(() => {
+		
+		
 	function fetchProducts() {
-		startLoading()
+		
+		setLoadingproduct(true);
+		console.log("loadingstart",loadingproduct)
 	 
 		if (productresult && productresult.length > 0) {
 			console.log("Using searched products:", productresult);
 			setProducts(productresult);
+			setLoadingproduct(false);
 		} else if (typeproduct && typeproduct.length > 0) {
 			console.log("Using type selected products:", typeproduct);
 			setProducts(typeproduct);
+			setLoadingproduct(false);
+			
 		} else {
 			
 			setProducts([]);
-			return <div className="">
-				<ManageSearchIcon/>
-				<p> Pas de produits trouvés </p>
-				</div>;
-		}
-	stopLoading();
 		
-	 console.log("loading",loading)
+			setLoadingproduct(false);
+		}
+		
+		
 	}
+	
+
+	 
 		fetchProducts();
 	}, [typeproduct, productresult]);
 
@@ -160,8 +167,8 @@ function Products_list() {
 	modules={[Navigation, Pagination]}
 	className="produits space-x-16 px-10"
 	>
-		
-        {!loading ?
+	
+        {products.length==0 ?  <Skeleton_produit/>:
 
         products.map((product, index) => ( 
 		<SwiperSlide key={index}  className="bg-white rounded-lg 
@@ -172,13 +179,13 @@ function Products_list() {
 			<div className="flex flex-col items-center justify-center">
 
 				{/* Image section */}
-				{loading ? <Skeleton variant="rectangular" width={200} height={110} />: <div className="w-[90%] mx-auto mt-4 border border-slate-200 rounded mb-4">
+				<div className="w-[90%] mx-auto mt-4 border border-slate-200 rounded mb-4">
 					<img
 						src="./src/assets/yaourt-nature.jpg"
 						alt="product images"
 						className="produit-img"
 					/>
-				</div>}
+				</div>
 				
 
 				{/* Divider */}
@@ -187,34 +194,34 @@ function Products_list() {
 				{/* Product information section */}
 				<div className="px-6 space-y-2 w-full">
 					{/* Product name section */}
-					{loading ? <Skeleton animation="wave" height={10} width="80%" />: 	<div className="text-left">
+					<div className="text-left">
 						<p className="text-sky-700 font-semibold">{ product.name }</p>
-					</div>}
+					</div>
 				
 				
 
 					{/* Rating section */}
-					{loading ?  <Skeleton animation="wave" height={10} width="80%" />: <div className="">
+					
 						<Rating
 						name="size-small"
 						size="medium"
 						value={3}
 						onChange={(event, newValue) => sendingRate(newValue, product.id)}
 						/>
-					</div>  }
+					</div>  
 					
 				
 					{/* Price section */}
-					{loading ? <Skeleton height={10} width="40%"  />: <p className="price ">
+					<p className="price ">
 						<span className="text-emerald-700">{ product.price } </span> <span className="text-sky-700">Ar</span>
-					</p> }
+					</p> 
 					<section className="w-full flex justify-center items-center">
 
 					{/* Command section */}
-					{ loading ? <Skeleton variant="rectangular" width={200} height={60}  style={{ marginBottom: 6 }}/> :
+				
 					
 
-						<button 
+					<button 
 						className="flex flex-row justify-center items-center
 						w-full text-white bg-sky-700 hover:bg-sky-600 duration-100
 						rounded p-2 mb-4
@@ -235,15 +242,14 @@ function Products_list() {
 							</span>
 
 						</button>
-					}
+					
 					</section>
 				</div>
-			</div>
+	
 			
 		</SwiperSlide>
 
-        )) : <Skeleton_produit/>
-			}				
+        )) }			
 
 		{(products.length > 10) && (
 		<SwiperSlide className="bg-white rounded-lg 
