@@ -1,7 +1,9 @@
+import GererCompte from "../components/headerComponent/GererCompte";
 function Profil() {
   return (
     <div>
-      <h1>Profil pagebcahbvchgzz</h1>
+      <GererCompte/>
+      <h1>Profil page</h1>
     </div>
   );
 }

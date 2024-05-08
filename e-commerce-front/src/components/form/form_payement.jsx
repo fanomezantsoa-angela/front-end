@@ -128,6 +128,7 @@ export default function CreditCardForm() {
                      icon: "error",
                      confirmButtonText: "Oui",
                    });
+                   stopLoading();
             } else {
               resetform();
             
@@ -152,16 +153,18 @@ export default function CreditCardForm() {
   
           } 
           
-      stopLoading();
+     
   
         } 
         else{
+          stopLoading()
           Swal.fire({
             title: "Erreur",
             text: "veuillez remplir les données que vous avez saisi",
             icon: "error",
             confirmButtonText: "Oui",
           });
+        
         }
      
     };
