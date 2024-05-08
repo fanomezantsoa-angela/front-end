@@ -57,7 +57,7 @@ function Validationpanier() {
     <div >
     <img src="./src/assets/barket.png" className="w-[500px] ml-[5%]" />
     </div>
-     <div style={{ backgroundColor: "white" }} className="h-[100%]	w-[45%] ml-[55%]  mt-[-30%] pt-[1%] pb-[1%] border-solid border-[5px]	"> 
+     <div style={{ backgroundColor: "white" }} className="h-[100%]	w-[51%] ml-[49%]  mt-[-30%] rounded-[20px] pt-[1%] pb-[1%] border-solid border-[5px]	"> 
 
     <div   style={{ backgroundColor: "#0061A8" }} className="mt-[-5%] pt-[1%]"> <h2 className="text-center text-[30px] text-[black] font-extrabold m-[5%]  mb-[2%] w-[100%] ">Mon panier</h2></div>
 
@@ -107,7 +107,7 @@ function Validationpanier() {
       </div>
    
       </div>
-      <Form_payement/>    
+            <Form_payement/>    
 
     </div>
   );
