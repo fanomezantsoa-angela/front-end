@@ -14,7 +14,7 @@ import { getClientInformation } from '../actions/InformationActions';
 
 // Components import 
 import ProductSectionComponent from '../components/AdminComponents/ProductSectionComponent';
-
+import { useState } from 'react';
 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
