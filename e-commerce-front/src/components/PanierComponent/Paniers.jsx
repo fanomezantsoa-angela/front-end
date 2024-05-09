@@ -23,7 +23,8 @@ function Paniers({ panierClose }) {
     } = useContext(CartContext);
     const validerpanier= () => {
       panierClose();
-         if (!isLoggedIn ) {
+
+         if (!(localStorage.getItem("token")) ) {
            Swal.fire({
              title: "il est nécessaire de se connecter",
              text: "i est nécessaire de se connnecter pour commandes le(s) peoduit(s). Voules-vous se connecter?",

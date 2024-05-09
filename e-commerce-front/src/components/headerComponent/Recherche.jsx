@@ -8,7 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { Product_typesContext } from "../../Hooks/Product_typesContext";
 function Recherche() {
-  const [typeproduct, setTypeproduct] = useContext(Product_typesContext);
+  const {typeproduct, setTypeproduct} = useContext(Product_typesContext);
 const [name, setName, Namechange] = Inputhandler("");
 const { loading, startLoading, stopLoading } = useContext(LoadingContext);
 const { productresult, setProductresult } = useContext(SearchproductContext);

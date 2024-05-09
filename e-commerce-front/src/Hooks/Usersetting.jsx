@@ -18,7 +18,27 @@ export const isAdmin = () => {
   if (!token) return false;
 
   const decodedToken = decodeToken(token);
- 
+ console.log(decodedToken)
   
   return decodedToken && decodedToken.isAdmin;
 };
+export function isTokenExpired(token) {
+ 
+  if(token){
+  const decodedToken = decodeToken(token);
+
+  // Check if the token has an expiration claim (exp)
+  if (!decodedToken || !decodedToken.exp || !decodedToken.iat) {
+    return true; // Consider token invalid if no expiration claim
+  }
+
+  // Convert expiration time from seconds to milliseconds
+  const expirationTimeMs = (decodedToken.exp - decodedToken.iat) * 1000;
+
+  // Get the current time in milliseconds
+  const currentTimeMs = Date.now();
+
+  // Check if the expiration time has passed
+  return expirationTimeMs < currentTimeMs;
+}
+}
