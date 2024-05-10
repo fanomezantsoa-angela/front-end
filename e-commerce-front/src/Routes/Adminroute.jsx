@@ -1,11 +1,11 @@
-
+import Cookies from "js-cookie"
 import { Navigate, Outlet } from "react-router-dom";
 
 
 const AdminRoute = () => {
  
  
-  if (!(localStorage.getItem("token")) ) {
+  if (!(Cookies.get("token")) ) {
     return <Navigate to="/Login" />;
   }
 

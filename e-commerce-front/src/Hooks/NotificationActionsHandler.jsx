@@ -1,10 +1,10 @@
 import axiosInstance from "../axios/axiosConfig";
-
+import Cookies from "js-cookie"
 
 
 // Get all notification
 export const getClientNotification = async () => {
-    const token = localStorage.getItem("token")
+    const token = Cookies.get("token")
     let feedback = {res:false, error:null}
     try {
         
@@ -41,7 +41,7 @@ export const getClientNotification = async () => {
 }
 
 export const getAdminNotification = async () => {
-    const token = localStorage.getItem("token")
+    const token = Cookies.get("token")
     let feedback = {res:false, error:null}
     try {
         
@@ -83,7 +83,7 @@ export const getAdminNotification = async () => {
 export const mark_as_seen = async (id) => {
     let feedback = {res:false, error:null}
     try {
-        const token = localStorage.getItem("token")
+        const token = Cookies.get("token")
         const response = await axiosInstance({
             url: `notification/${id}/marked_as_seen/`,
             method: "put",

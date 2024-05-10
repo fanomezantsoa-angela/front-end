@@ -1,4 +1,5 @@
 import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie"
 
 // Function to decode token
 export const decodeToken = (token) => {
@@ -14,7 +15,7 @@ export const decodeToken = (token) => {
 
 // Function to check if the user is admin
 export const isAdmin = () => {
-  const token = localStorage.getItem("token");
+  const token = Cookies.get("token");
   if (!token) return false;
 
   const decodedToken = decodeToken(token);

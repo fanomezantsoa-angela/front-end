@@ -1,5 +1,6 @@
 import axiosInstance from "../axios/axiosConfig";
-const getToken = localStorage.getItem("token");
+import Cookies from "js-cookie"
+const getToken = Cookies.get("token");
 const getAuthorizationHeader = `Bearer ${getToken}`;
 export const validationPayement = async (montant) => {
  

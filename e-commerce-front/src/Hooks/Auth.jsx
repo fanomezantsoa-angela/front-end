@@ -2,6 +2,9 @@ import { createContext, useState, useEffect } from "react";
 import { isAdmin as checkIsAdmin, isTokenExpired } from "./Usersetting";
 import Swal from "sweetalert2";
 import {refresh_Token} from "../Hooks/Tokencheck"
+import Cookies from "js-cookie"
+
+
 export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -10,61 +13,81 @@ export const AuthProvider = ({ children }) => {
 
 
 
-  useEffect( () => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
-
-   
-    
-    if(isLoggedIn==false){
-      logout();
-    }
-
-  }, []);
   const refreshingToken = async () => {
+  console.log("Insidde refresh token")
     
+	const request = await refresh_Token();
+	await console.log(request)
     
-      const response = await refresh_Token();
-     
-     if(response.status == 200){
-      
-     const newtoken = response.data.access
-     const newrefresh = response.data.refresh
-     localStorage.setItem("token", newtoken)
-     localStorage.setItem("refreshToken", newrefresh)
-     setIsLoggedIn(true)
-     }else{
-   
-      Swal.fire({
-        title: "Erreur",
-        text: "renouvellement de token echoué, veuillez vous connecter",
-        icon: "error",
-      
-      });
-      localStorage.removeItem("refreshToken")
-      logout();
-    }
+	if(request.res){
+    console.log("*********************")
+		let response = request.response
+		const newtoken = response.data.access
+		const newrefresh = response.data.refresh
+
+    Cookies.set("token", newtoken, {expires: 1/24})
+    Cookies.set("refreshToken", newrefresh, {expires: 7})
+		setIsLoggedIn(true)
+	}else{
+		
+		Swal.fire({
+			title: "Erreur",
+			text: "renouvellement de token echoué, veuillez vous connecter",
+			icon: "error",
+		});
+    console.log("removing refresh")
+		// Cookies.remove("refreshToken")
+		// logout();
+	}
   };
 
-  useEffect(() => {
-    const refreshToken =  localStorage.getItem("refreshToken") ;  
-    const token= localStorage.getItem("token") 
-    if(isTokenExpired(token) && refreshToken || (!token) && refreshToken){
+const checkCookievalidation = () => {
+    const refreshToken =  Cookies.get("refreshToken") ;  
+    const token = Cookies.get("token") 
+    console.log("Checking from local storage expiration")
+    // console.log(token)
     
-      refreshingToken();
-      
-     
-  }
+    return ((token) && refreshToken) ? true : false
   
-    
-  }, []);
+}
+
+
  const logout = () => {
-  
-    localStorage.removeItem("token");
+    console.log("INSIFDE LOGOUT FUNCTUIONS")
+    Cookies.remove("token");
+    // Cookies.remove("refreshToken")
     setIsLoggedIn(false)
    
   };
  
+
+  useEffect(() => {
+    const existence = checkCookievalidation()
+    console.log(existence)
+    // const unpronoucedFunction = ((!existence) && refreshingToken())
+    if(!existence){ 
+      const refresh = Cookies.get("refreshToken")
+      console.log(refresh)
+      if (refresh) {
+        refreshingToken()
+      } else (
+        setIsLoggedIn(false)
+      )
+    }
+    
+  }, []);
+
+  useEffect( () => {
+    const token = Cookies.get("token");
+    setIsLoggedIn(!!token);
+
+   
+    
+    // if(isLoggedIn==false){
+    //   logout();
+    // }
+
+  }, []);
 
   
   

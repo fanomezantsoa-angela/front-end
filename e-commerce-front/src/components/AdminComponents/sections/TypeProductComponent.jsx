@@ -1,9 +1,34 @@
 import { useEffect } from "react"
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { useState } from "react";
+import EditIcon from '@mui/icons-material/Edit';
 
 
 
 export default function TypeProductComponent({action, isActive, data}) {
     
+
+    const [menu, setMenu] = useState(null);
+    const open = Boolean(menu);
+    const handleClick = (event) => {
+        setMenu(event.currentTarget);
+    };
+    const handleClose = () => {
+        setMenu(null);
+    };
+
+    const handleAscendingOrder = () => {
+        // order("asc")
+        handleClose()
+    }
+
+    const handleDescendingOrder = () => {
+        // order("desc")
+        handleClose()
+    }
+
+
     const performAction = () => {
         alert("Clicked an action button: "+data.index)
         action({
@@ -29,8 +54,25 @@ export default function TypeProductComponent({action, isActive, data}) {
 
             {/* Action section */}
             <button 
-            onClick={performAction}
+            onClick={handleClick}
             className="w-full flex justify-center bg-slate-100 p-1 rounded-md hover:bg-slate-200">Action</button>
+            <Menu
+                id="basic-menu"
+                anchorEl={menu}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                'aria-labelledby': 'basic-button',
+                }}
+            >
+                <MenuItem onClick={handleAscendingOrder}>
+                    <div>
+                        <span><EditIcon className="text-sky-500"/></span>
+                        <span>Modififer</span>
+                    </div>
+                </MenuItem>
+                <MenuItem onClick={handleDescendingOrder}>Par ordre decroissant</MenuItem>
+            </Menu>
         </div>
 
     )

@@ -220,11 +220,11 @@ function Products_list() {
 					{/* Command section */}
 				
 					
-
-					<button 
+					<div className="w-full px-4">
+						<button 
 						className="flex flex-row justify-center items-center
 						w-full text-white bg-sky-700 hover:bg-sky-600 duration-100
-						rounded p-2 mb-4
+						rounded p-2 mb-4 w-full
 						"
 						// onClick={addFurtherItemsAfterFetch}
 						onClick={() =>
@@ -242,6 +242,7 @@ function Products_list() {
 							</span>
 
 						</button>
+					</div>
 					
 					</section>
 				</div>
