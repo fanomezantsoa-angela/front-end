@@ -18,7 +18,7 @@ export const isAdmin = () => {
   if (!token) return false;
 
   const decodedToken = decodeToken(token);
- console.log(decodedToken)
+ 
   
   return decodedToken && decodedToken.isAdmin;
 };

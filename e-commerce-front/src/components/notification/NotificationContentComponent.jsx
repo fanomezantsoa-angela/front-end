@@ -36,6 +36,8 @@ export default function NotificationContentComponent({notifData, refetch}) {
                 setCounter(number++)
             }
         })
+        // console.log("Count notif data*********")
+        // console.log(notificationData.length)
     }
 
     async function markThis(index) {
@@ -53,6 +55,20 @@ export default function NotificationContentComponent({notifData, refetch}) {
             alert("Erreur de l'operation")
         }
     }
+
+
+    function formatMessage(date) {
+        if(date != null){
+            const today = new Date()
+            const delivery = new Date(date)
+            const todayInMilisec = today.getTime()
+    
+            return (delivery > todayInMilisec) ? "sera livrée" : "a été livrée"
+        } 
+
+        return "à une date non précisée inconnue"
+    }
+
 
     useEffect(() => {
         countUnseen()
@@ -115,8 +131,9 @@ export default function NotificationContentComponent({notifData, refetch}) {
                                 {/* Information section */}
                                 <div>
                                     <p>Votre achat <span className="text-emerald-700">{formatTimeDifference(notif.purchase_details.date)}</span>
+                                    , dans la ville <span className="text-emerald-700">{(notif.purchase_details.ville != null) ? notif.purchase_details.ville : "inconnu"}</span> 
                                     , a l'adress <span className="text-emerald-700">{(notif.purchase_details.address != null) ? notif.purchase_details.address : "inconnu"}</span> 
-                                    , sera livree <span className="text-emerald-700">{(notif.purchase_details.delivery_date != null) ? formatTimeDifference(notif.purchase_details.delivery_date) : "a une date non precise inconnue"}</span></p>
+                                    , {formatMessage(notif.purchase_details.delivery_date)} <span className="text-emerald-700">{(notif.purchase_details.delivery_date != null) && formatTimeDifference(notif.purchase_details.delivery_date)}</span></p>
                                 </div>
                             </div>
                         </ListItem>

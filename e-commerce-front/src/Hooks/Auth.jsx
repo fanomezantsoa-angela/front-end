@@ -13,12 +13,13 @@ export const AuthProvider = ({ children }) => {
   useEffect( () => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
+
    
-    setIsAdmin(checkIsAdmin());
-    console.log("admin?", checkIsAdmin())
+    
     if(isLoggedIn==false){
       logout();
     }
+
   }, []);
   const refreshingToken = async () => {
     
@@ -68,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   
   
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, isAdmin, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, isAdmin, logout, setIsAdmin }}>
       {children}
   
     

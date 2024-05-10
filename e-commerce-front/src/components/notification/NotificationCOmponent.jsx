@@ -19,7 +19,6 @@ function NotificationComponent() {
     const fetchAllNotification = async () => {
         let response = await getClientNotification()
         if ( response.res ){
-            // console.log("Inside notification fetcher")
             response.count = 0
 
             response.data.map(notif => {
@@ -38,6 +37,7 @@ function NotificationComponent() {
 
 
     useEffect(() => {
+        // console.log("Fetch all notification *******")
         fetchAllNotification()
     }, [])
 
@@ -48,7 +48,7 @@ function NotificationComponent() {
     }
 
     function handleDataFromChild() {
-        console.log("Props did work")
+        // console.log("Props did work")
         setDrawer(false);
      }
 

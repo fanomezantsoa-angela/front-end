@@ -21,17 +21,22 @@ function GererCompte() {
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
+    console.log(isAdmin)
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    
     setAnchorEl(null);
   };
   const Logginout = () => {
     logout();
-    setIsLoggedIn(false); 
+   
     navigate("/")
   };
+  
+
   const goToAdminPanel = () => {
+    
     navigate("/Admin")
   }
   const goToProfil = () => {
