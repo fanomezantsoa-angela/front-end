@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import InformationComponent from '../components/AdminComponents/InformationComponent';
 import { getClientInformation } from '../actions/InformationActions';
 import { useState } from 'react';
+
 // Components import 
 import ProductSectionComponent from '../components/AdminComponents/ProductSectionComponent';
 import { useState } from 'react';
