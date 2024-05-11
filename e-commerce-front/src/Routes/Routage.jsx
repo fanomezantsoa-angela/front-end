@@ -18,13 +18,13 @@ function Routage() {
           {/*ROute pour le profil*/}
         <Route path="/Profil" element={<Profil />} />
       
+        <Route path="/Admin" element={<Admin />} />
       </Route>
       {/*Route pour l'admin  */}
       {/* <Route element={<AdminRoute />}> */}
-        <Route path="/Admin" element={<Admin />} />
+        <Route path="/" element={<Home />} />
     
 
-      <Route path="/" element={<Home />} />
       <Route path="*" element={<div>Page introuvable</div>} />
     </Routes>
   );

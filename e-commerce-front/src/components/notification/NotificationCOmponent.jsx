@@ -28,7 +28,7 @@ function NotificationComponent() {
             })
             setNotification(response)
             setNotifData(response.data)
-            // console.log(response)
+            console.log(response)
         } 
         // else (
         //     console.log(response)

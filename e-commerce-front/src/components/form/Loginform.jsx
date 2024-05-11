@@ -12,6 +12,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Swal from "sweetalert2";
 import { isAdmin as checkIsAdmin } from "../../Hooks/Usersetting";
+import Cookies from "js-cookie"
 function Loginform() {
     const location = useLocation();
   
@@ -66,8 +67,8 @@ function Loginform() {
          const token = response.data.access;
          const refreshToken = response.data.refresh
         
-         localStorage.setItem("token", token);
-         localStorage.setItem("refreshToken", refreshToken);
+         Cookies.set("token", token, {expires: 1/24})
+         Cookies.set("refreshToken", refreshToken, {expires: 7})
          
          setIsLoggedIn(true);
          setIsAdmin(checkIsAdmin());
