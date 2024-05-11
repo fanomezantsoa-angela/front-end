@@ -9,7 +9,9 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 
-import { AuthContext} from "../../Hooks/Auth";
+
+import { AuthContext } from "../../Hooks/Auth";
+
 import { useNavigate } from "react-router-dom";
 
 function GererAdminCompte() {

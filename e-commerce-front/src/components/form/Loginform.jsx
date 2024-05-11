@@ -11,15 +11,14 @@ import { LoadingContext } from "../../Hooks/LoadingContext";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Swal from "sweetalert2";
-
-
+import { isAdmin as checkIsAdmin } from "../../Hooks/Usersetting";
 function Loginform() {
     const location = useLocation();
   
     const params = new URLSearchParams(location.search);
     const returnURL = params.get("returnURL");
   const { loading, startLoading, stopLoading } = useContext(LoadingContext);
-  const { setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn, setIsAdmin } = useContext(AuthContext);
   const [email, setEmail, emailchange] = Inputhandler("");
   const [password, setPassword, passwordchange] = Inputhandler("");
  const [showPassword, setShowPassword] = useState(false);
@@ -71,6 +70,8 @@ function Loginform() {
          localStorage.setItem("refreshToken", refreshToken);
          
          setIsLoggedIn(true);
+         setIsAdmin(checkIsAdmin());
+          console.log("admin?", checkIsAdmin())
          resetform();
           if (returnURL) {
            navigate(decodeURIComponent(returnURL));

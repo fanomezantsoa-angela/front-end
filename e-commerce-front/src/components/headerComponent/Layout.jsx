@@ -11,15 +11,7 @@ import { AuthContext } from "../../Hooks/Auth";
 function Layout() {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  useEffect(() => {
-    const getToken = localStorage.getItem("token");
 
-    if (getToken) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
   const dirigerLogin = (event) => {
     event.preventDefault(); 
     navigate("/Login");

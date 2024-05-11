@@ -10,11 +10,6 @@ import { SearchProvider } from "../Hooks/SearchContext";
 
 
 function Home() {
-
-
-
-
-
     return (
        
 

@@ -8,10 +8,10 @@ export const refresh_Token = async () => {
       "https://ecommerce-pm4j.onrender.com/api/token/refresh/",
       {refresh: refreshToken }
     );
-    console.log(response.data);
-    return response.data; // should return new tokens
+    console.log(response);
+    return response; // should return new tokens
   } catch (error) {
     console.error("Failed to refresh token:", error);
-    throw error;
+   
   }
 };

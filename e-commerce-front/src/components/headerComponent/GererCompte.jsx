@@ -21,18 +21,26 @@ function GererCompte() {
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
+    console.log(isAdmin)
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    
     setAnchorEl(null);
   };
   const Logginout = () => {
     logout();
-    setIsLoggedIn(false); 
+   
     navigate("/")
   };
+  
+
   const goToAdminPanel = () => {
+    
     navigate("/Admin")
+  }
+  const goToProfil = () => {
+    navigate("/Profil")
   }
 
   return (
@@ -43,9 +51,9 @@ function GererCompte() {
           className=" m-0 hover:scale-110 hover:bg-sky-50 px-3 py-2 rounded-full duration-75"
           color="none"
           sx={{ ml: 2 }}
-          aria-controls={open ? "account-menu" : undefined}
+      
           aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
+        
         >
           <AccountCircleOutlinedIcon
             sx={{ fontSize: 40 }}
@@ -89,7 +97,7 @@ function GererCompte() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={goToProfil}>
           <ListItemIcon>
             <AccountBoxIcon onClick="" className="text-sky-700" />
           </ListItemIcon>

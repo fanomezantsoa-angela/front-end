@@ -3,8 +3,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import { AuthContext } from "../Hooks/Auth";
 
 const PrivateRoute = () => {
-  const { isLoggedIn } = useContext(AuthContext);
-  return isLoggedIn && <Outlet /> ;
+ 
+  return (localStorage.getItem("token")) ? <Outlet /> : Navigate("/login") ;
 };
 
 export default PrivateRoute;

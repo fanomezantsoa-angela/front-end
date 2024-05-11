@@ -23,7 +23,8 @@ function Paniers({ panierClose }) {
     } = useContext(CartContext);
     const validerpanier= () => {
       panierClose();
-         if (!isLoggedIn ) {
+
+         if (!(localStorage.getItem("token")) ) {
            Swal.fire({
              title: "il est nécessaire de se connecter",
              text: "i est nécessaire de se connnecter pour commandes le(s) peoduit(s). Voules-vous se connecter?",
@@ -58,10 +59,10 @@ function Paniers({ panierClose }) {
 
   
   return (
-    <div style={{ backgroundColor: "white" }} className="	w-[50%] ml-[49%]  mt-[9%] rounded-[20px] pt-[1%] pb-[1%] "  >
+    <div style={{ backgroundColor: "white" }} className="	w-[40%] ml-[60%] h-[200%] mt-[0%] rounded-[20px] pt-[10%] pb-[10%] "  >
                {/* <img src="./src/assets/shop.gif" class="w-[80px]" /> */}
  
-      <h2 className="text-center text-lg text-[black] font-extrabold 
+      <h2 className="text-center text-lg text-[black] font-extrabold mt-[-18%]
           ">Liste des produits dans votres panier</h2>
       <div className="mt-[5%] ml-[5%]" >
       <table className="size-full  border-collapse none text-left 	">
