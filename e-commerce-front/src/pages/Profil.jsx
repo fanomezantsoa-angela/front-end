@@ -67,7 +67,7 @@ function Profil(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-
+ 
 
   const handleDrawerClose = () => {
     setIsClosing(true);

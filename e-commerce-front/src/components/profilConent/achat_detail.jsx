@@ -14,14 +14,14 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-function Achat_detail(props) {
-    const { row } = props;
+function Achat_detail({orders}) {
+  
     const [open, setOpen] = React.useState(false);
        const formatTimeDifference = (date) => {
         const formattedDate = new Date(date);
         return formatDistanceToNow(formattedDate, { locale: fr, addSuffix: true });
       };
-
+      console.log("detail", orders)
   
   return (
     <div>
@@ -45,11 +45,15 @@ function Achat_detail(props) {
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableCell>Yaourt</TableCell>
+                            
+                        {Array && orders.map((order, index)=>(
+                            <TableRow key={index} >
+                            <TableCell>Yaourt{order.product} </TableCell>
                             <TableCell align="left">2500</TableCell>
-                            <TableCell align="left">20</TableCell>
+                            <TableCell align="left">{order.quantity}</TableCell>
                             <TableCell align="left">4500</TableCell>
-
+                            </TableRow>
+                        ))}
                         </TableBody>
                     </Table>
                     </TableContainer>
