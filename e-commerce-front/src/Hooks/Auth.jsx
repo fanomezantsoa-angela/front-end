@@ -55,7 +55,7 @@ const checkCookievalidation = () => {
  const logout = () => {
     console.log("INSIFDE LOGOUT FUNCTUIONS")
     Cookies.remove("token");
-    // Cookies.remove("refreshToken")
+    Cookies.remove("refreshToken")
     setIsLoggedIn(false)
    
   };

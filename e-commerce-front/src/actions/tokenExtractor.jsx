@@ -1,5 +1,6 @@
+import Cookies from "js-cookie"
 
 export const tokenExtractor = () => {
-    const token = localStorage.getItem("token")
+    const token = Cookies.get("token")
     return (token) ? token : null
 }

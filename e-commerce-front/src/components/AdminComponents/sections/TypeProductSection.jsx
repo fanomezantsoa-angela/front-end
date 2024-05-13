@@ -88,7 +88,9 @@ export default function TypeProductSection() {
 
                     </div>
                 )) : (
-                    <div>Hello world</div>
+                    <div className='mt-10 text-slate-400 text-center text-xl p-4'>
+                        Aucun categorie pour l'instant...
+                    </div>
                 )}
 
                 {/* <TypeProductComponent 
