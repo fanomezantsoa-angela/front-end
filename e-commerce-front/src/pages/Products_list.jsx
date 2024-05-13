@@ -23,7 +23,7 @@ import { Pagination, Navigation } from "swiper/modules"
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import { Skeleton_produit } from "../components/littlecomponent/Skeleton_product";
 function Products_list() {
-	const [loadingproduct, setLoadingproduct] = useState(false);
+	const [loadingproduct, setLoadingproduct] = useState(true);
 	const { productresult } = useContext(SearchproductContext);
 	const { addToCart } = useContext(CartContext);
 	const [products, setProducts] = useState([]);
@@ -59,38 +59,41 @@ function Products_list() {
     };
 
  
-	useEffect(() => {
-		
-		
-	function fetchProducts() {
-		
-		setLoadingproduct(true);
-		console.log("loadingstart",loadingproduct)
-	 
-		if (productresult && productresult.length > 0) {
-			console.log("Using searched products:", productresult);
-			setProducts(productresult);
-			setLoadingproduct(false);
-		} else if (typeproduct && typeproduct.length > 0) {
-			console.log("Using type selected products:", typeproduct);
-			setProducts(typeproduct);
-			setLoadingproduct(false);
-			
-		} else {
-			
-			setProducts([]);
-		
-			setLoadingproduct(false);
-		}
-		
-		
-	}
 	
-
-	 
+	useEffect(() => {
+		async function fetchProducts() {
+			try {
+				setLoadingproduct(true);
+				console.log("after setting true", loadingproduct);
+	
+				console.log("Fetching products...");
+				console.log("loading fetch", loadingproduct);
+	
+				let fetchedProducts = [];
+	
+				if (productresult && productresult.length > 0) {
+					console.log("Using searched products:", productresult);
+					fetchedProducts = productresult;
+					console.log("pendant fetch", loadingproduct);
+				} else if (typeproduct && typeproduct.length > 0) {
+					console.log("Using type selected products:", typeproduct);
+					fetchedProducts = typeproduct;
+					console.log("pendant fetch", loadingproduct);
+				}
+	
+				setProducts(fetchedProducts);
+				console.log("after setting products", products);
+			} catch (error) {
+				console.error("Error fetching products:", error);
+			} finally{
+				setLoadingproduct(false)
+			}
+			
+		}
+	
 		fetchProducts();
-	}, [typeproduct, productresult]);
-
+	
+	}, [productresult, typeproduct]);
 
 	// useEffect(() => {
 	// 	console.log("Products to render:", products);
@@ -168,9 +171,11 @@ function Products_list() {
 	className="produits space-x-16 px-10"
 	>
 	
-        {products.length==0 ?  <Skeleton_produit/>:
-
-        products.map((product, index) => ( 
+        {loadingproduct ? (
+        <Skeleton_produit />
+      )  :
+		
+        products.length > 0 && products.map((product, index) => ( 
 		<SwiperSlide key={index}  className="bg-white rounded-lg 
 		lg:w-[15%] md:w-[20%] sm:w-[30%] xs:w-[30%]
 		mb-10 scale-90">
@@ -250,7 +255,7 @@ function Products_list() {
 			
 		</SwiperSlide>
 
-        )) }			
+        ))} 	
 
 		{(products.length > 10) && (
 		<SwiperSlide className="bg-white rounded-lg 
