@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { isAdmin as checkIsAdmin, isTokenExpired } from "./Usersetting";
+import { isAdmin as checkIsAdmin} from "./Usersetting";
 import Swal from "sweetalert2";
 import {refresh_Token} from "../Hooks/Tokencheck"
 import Cookies from "js-cookie"
@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   console.log("Insidde refresh token")
     
 	const request = await refresh_Token();
-	await console.log(request)
+	console.log(request)
     
 	if(request.res){
     console.log("*********************")
@@ -80,8 +80,8 @@ const checkCookievalidation = () => {
   useEffect( () => {
     const token = Cookies.get("token");
     setIsLoggedIn(!!token);
-
-   
+    setIsAdmin(checkIsAdmin())
+   console.log(isAdmin)
     
     // if(isLoggedIn==false){
     //   logout();

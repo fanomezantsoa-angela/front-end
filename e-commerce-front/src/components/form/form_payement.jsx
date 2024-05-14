@@ -53,7 +53,9 @@ export default function CreditCardForm() {
     const resetform = () => {
       setAdresse("");
       setAccount_number("");
-      setNumcompte("");
+      setPayement_mode("");
+      setPays("")
+      setVille("")
     };
     const Totalmontant = getTotalCost();
     const montant = {
@@ -106,16 +108,16 @@ export default function CreditCardForm() {
                  
                   setTimeout(3000)
                   if (responseData.status == 200) {
-                    resetform()
+                    stopLoading()
                 Swal.fire({
               title: "Information",
               text: "Votre payement a été effectué",
               icon: "success",
               confirmButtonText: "Oui",
                 });
-              
+                resetform()
                 emptyCart();
-                stopLoading()
+                
             }
   
                  

@@ -6,7 +6,7 @@ export default function ProductReducer(state, action) {
         console.log("Received identical state update, ignoring.");
         return state; // Ignore the update if it's identical to the current state
       }
-      return { ...state, products: action.payload };
+      return { ...state, historique: action.payload };
 
     default:
       return state;

@@ -34,3 +34,36 @@ export const createContact = async (data) => {
         return feedback
     }
 }
+export const GetContact = async () => {
+    let feedback = {res: false, error: null, response:null} 
+    const token = tokenExtractor()
+    if (tokenExtractor() != null) {
+        
+        try {
+            const responsecontact = await axiosInstance({
+                url: "contact/",
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${tokenExtractor()}`
+                }
+            })
+            console.log(responsecontact)
+            if (responsecontact.status == 200){
+                feedback.res = true
+                feedback.response= responsecontact.data.results
+                console.log(responsecontact)
+                return feedback
+            } else if(responsecontact.status == 401) {
+                feedback.error = "Operation non autorise, veuiller d'abord vous connecter."
+                return feedback
+            }
+            
+        } catch (error) {
+            console.log(error)
+            feedback.error = "Erreur lors de  du contact"
+            return feedback
+        }
+    } else {
+        return feedback
+    }
+}
