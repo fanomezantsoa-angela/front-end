@@ -20,8 +20,8 @@ export const isAdmin = () => {
 
   const decodedToken = decodeToken(token);
  
-  
-  return decodedToken && decodedToken.isAdmin;
+  console.log(decodedToken)
+  return decodedToken ? decodedToken.isAdmin : false;
 };
 export function isTokenExpired(token) {
  
