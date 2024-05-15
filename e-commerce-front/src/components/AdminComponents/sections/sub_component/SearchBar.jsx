@@ -1,20 +1,22 @@
 import { IconButton, InputAdornment, InputBase } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from "react";
+import { Inputhandler } from "../../../../Hooks/Inputhandler";
 
 
-export default function SearchBar() {
+export default function SearchBar({searchAction}) {
 
-    const [value, setValue, changeValue] = useState("")
+    const [value, setValue, changeValue] = Inputhandler("")
 
     const submitSearch = (e) => {
         e.preventDefault()
-        console.log("Search submited ")
+        searchAction(value)
     }
+
 
     return (
 
-        <div className="flex flex-center justify-center pl-3">
+        <div className="flex flex-col flex-center justify-center pl-3">
             <InputBase
             value={value}
             onChange={changeValue}
