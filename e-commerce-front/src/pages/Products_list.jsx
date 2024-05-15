@@ -1,8 +1,4 @@
-import {
-  Product_list,
-  Product_rating,
-  Product_search,
-} from "../Hooks/productAPI";
+import {Product_rating} from "../Hooks/productAPI";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack'
@@ -11,7 +7,7 @@ import { SearchproductContext } from "../Hooks/SearchContext";
 import Rating from "@mui/material/Rating";
 import { CartContext } from "../Hooks/PanierContexte";
 import { Product_typesContext } from "../Hooks/Product_typesContext";
-import { jwtDecode } from "jwt-decode";
+
 import SeeMoreComponent from "../components/MoreList/SeeMoreComponent";
 import { LoadingContext } from "../Hooks/LoadingContext";
 // For slide utilities
@@ -44,18 +40,21 @@ function Products_list() {
 
 
     const sendingRate = async (newValue, id) => {
-		if (!ratedProducts.includes(id)) {
+		
 			
 			setRatedProducts([...ratedProducts, id]);
-			setValue(newValue);
-			const response = await Product_rating(id, { rate_value: newValue });
+		setValue(newValue);
+		console.log(value)
+			const response = await Product_rating(id, { rate_value: value });
 			
 			if (response.status === 201) {
 				console.log(response.data);
 			} else {
 				console.log(response);
 			}
-		}
+	
+		console.log(ratedProducts)
+
     };
 
  
@@ -137,142 +136,121 @@ function Products_list() {
   return (
     // {products.map((product) => (
 
-    <Swiper 
-	slidesPerView={5}
-	spaceBetween={100}
-	navigation={true}
-	pagination={{
-		clickable: true
-	}}
-	breakpoints={{
-		'320': {
-			slidesPerView: 2,
-			spaceBetween: 20,
-		},
-		'480': {
-			slidesPerView: 3,
-			spaceBetween: 30,
-		},
-		'640': {
-			slidesPerView: 4,
-			spaceBetween: 30,
-		},
-		'940': {
-			slidesPerView: 5,
-			spaceBetween: 50
-		},
-		'1480': {
-			slidesPerView: 6,
-			spaceBetween: 50
-		}
-
-	}}
-	modules={[Navigation, Pagination]}
-	className="produits space-x-16 px-10"
-	>
-	
-        {loadingproduct ? (
+    <Swiper
+      slidesPerView={5}
+      spaceBetween={100}
+      navigation={true}
+      pagination={{
+        clickable: true,
+      }}
+      breakpoints={{
+        320: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        480: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+        640: {
+          slidesPerView: 4,
+          spaceBetween: 30,
+        },
+        940: {
+          slidesPerView: 5,
+          spaceBetween: 50,
+        },
+        1480: {
+          slidesPerView: 6,
+          spaceBetween: 50,
+        },
+      }}
+      modules={[Navigation, Pagination]}
+      className="produits space-x-16 px-10"
+    >
+      {loadingproduct ? (
         <Skeleton_produit />
-      )  :
-		
-        products.length > 0 && products.map((product, index) => ( 
-		<SwiperSlide key={index}  className="bg-white rounded-lg 
+      ) : (
+        <>
+          {products.length == 0 && loadingproduct == false ? (
+            <div className="w-full flex flex-col justify-center items-center">
+              <ManageSearchIcon sx={{ fontSize: 150 }} />
+              <p className="text-black-700 font-semibold">
+                Pas de produits trouvés
+              </p>
+            </div>
+          ):(
+            products.map((product, index) => (
+              <SwiperSlide
+                key={index}
+                className="bg-white rounded-lg lg:w-[15%] md:w-[20%] sm:w-[30%] xs:w-[30%] mb-10 scale-90"
+              >
+                <div className="flex flex-col items-center justify-center">
+                  <div className="w-[90%] mx-auto mt-4 border border-slate-200 rounded mb-4">
+                    <img
+                      src="./src/assets/yaourt-nature.jpg"
+                      alt="product"
+                      className="produit-img"
+                    />
+                  </div>
+                  <div className="w-full border-t border-slate-200 mb-6"></div>
+                  <div className="px-6 space-y-2 w-full">
+                    <div className="text-left">
+                      <p className="text-sky-700 font-semibold">
+                        {product.name}
+                      </p>
+                    </div>
+                    <Rating
+                      name="size-small"
+                      size="medium"
+                      value={3}
+                      onChange={(event, newValue) =>
+                        sendingRate(newValue, product.id)
+                      }
+                    />
+                  </div>
+                  <p className="price">
+                    <span className="text-emerald-700">{product.price}</span>{" "}
+                    <span className="text-sky-700">Ar</span>
+                  </p>
+                  <section className="w-full flex justify-center items-center">
+                    <div className="w-full px-4">
+                      <button
+                        className="flex flex-row justify-center items-center w-full text-white bg-sky-700 hover:bg-sky-600 duration-100 rounded p-2 mb-4 w-full"
+                        onClick={() =>
+                          addToCart(
+                            product.id,
+                            quantities[product.id],
+                            product.price,
+                            product.name,
+                            product.stock
+                          )
+                        }
+                      >
+                        <AddShoppingCartOutlinedIcon />
+                        <span className="px-2 ubuntu-regular">
+                          Ajouter au panier
+                        </span>
+                      </button>
+                    </div>
+                  </section>
+                </div>
+              </SwiperSlide>
+            ))
+          ) }
+        </>
+      )}
+
+      {products.length > 10 && (
+        <SwiperSlide
+          className="bg-white rounded-lg 
 		lg:w-[15%] md:w-[20%] sm:w-[30%] xs:w-[30%]
-		mb-10 scale-90">
-              
-			
-			<div className="flex flex-col items-center justify-center">
-
-				{/* Image section */}
-				<div className="w-[90%] mx-auto mt-4 border border-slate-200 rounded mb-4">
-					<img
-						src="./src/assets/yaourt-nature.jpg"
-						alt="product images"
-						className="produit-img"
-					/>
-				</div>
-				
-
-				{/* Divider */}
-				<div className="w-full border-t border-slate-200 mb-6"></div>
-				
-				{/* Product information section */}
-				<div className="px-6 space-y-2 w-full">
-					{/* Product name section */}
-					<div className="text-left">
-						<p className="text-sky-700 font-semibold">{ product.name }</p>
-					</div>
-				
-				
-
-					{/* Rating section */}
-					
-						<Rating
-						name="size-small"
-						size="medium"
-						value={3}
-						onChange={(event, newValue) => sendingRate(newValue, product.id)}
-						/>
-					</div>  
-					
-				
-					{/* Price section */}
-					<p className="price ">
-						<span className="text-emerald-700">{ product.price } </span> <span className="text-sky-700">Ar</span>
-					</p> 
-					<section className="w-full flex justify-center items-center">
-
-					{/* Command section */}
-				
-					
-					<div className="w-full px-4">
-						<button 
-						className="flex flex-row justify-center items-center
-						w-full text-white bg-sky-700 hover:bg-sky-600 duration-100
-						rounded p-2 mb-4 w-full
-						"
-						// onClick={addFurtherItemsAfterFetch}
-						onClick={() =>
-							addToCart(
-								product.id,
-								quantities[product.id],
-								product.price,
-								product.name,
-								product.stock
-							)}
-						>
-							<AddShoppingCartOutlinedIcon className=""/>
-							<span className="px-2 ubuntu-regular">
-								Ajouter au panier
-							</span>
-
-						</button>
-					</div>
-					
-					</section>
-				</div>
-	
-			
-		</SwiperSlide>
-
-        ))} 	
-
-		{(products.length > 10) && (
-		<SwiperSlide className="bg-white rounded-lg 
-		lg:w-[15%] md:w-[20%] sm:w-[30%] xs:w-[30%]
-		mb-10 scale-90 mt-28">
-
-			<SeeMoreComponent testProps={hanldePropsEvent} />
+		mb-10 scale-90 mt-28"
+        >
+          <SeeMoreComponent testProps={hanldePropsEvent} />
         </SwiperSlide>
-
-		)}
-	
-    
-
+      )}
     </Swiper>
-	
-    
-
   );
 
 }
