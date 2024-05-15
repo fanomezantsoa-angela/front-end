@@ -19,15 +19,17 @@ export const decodeToken = (token) => {
 };
 
 // Function to check if the user is admin
+
 export const isAdmincheck = () => {
   
   const token = Cookies.get("token");
- 
+
+
+  if (!token) return false;
 
   const decodedToken = decodeToken(token);
-  console.log(decodedToken.isAdmin)
-  
-  return decodedToken.isAdmin;
-   
+ 
+  console.log(decodedToken)
+  return decodedToken ? decodedToken.isAdmin : false;
 };
 
