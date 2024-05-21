@@ -7,9 +7,9 @@ import FirstFooterSectionComponent from "../components/footer/FIrstFooterSection
 import SecondFooterSectionComponent from "../components/footer/SecondFooterSectionComponent";
 import { ProductTypesProvider } from "../Hooks/Product_typesContext";
 import { SearchProvider } from "../Hooks/SearchContext";
-
-
+;
 function Home() {
+
     return (
        
 

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { isAdmin as checkIsAdmin} from "./Usersetting";
+import { isAdmincheck } from "./Usersetting";
 import Swal from "sweetalert2";
 import {refresh_Token} from "../Hooks/Tokencheck"
 import Cookies from "js-cookie"
@@ -9,7 +9,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  
+ 
 
 
 
@@ -64,6 +64,7 @@ const checkCookievalidation = () => {
   useEffect(() => {
     const existence = checkCookievalidation()
     console.log(existence)
+   
     // const unpronoucedFunction = ((!existence) && refreshingToken())
     if(!existence){ 
       const refresh = Cookies.get("refreshToken")
@@ -76,20 +77,21 @@ const checkCookievalidation = () => {
     }
     
   }, []);
+ 
 
-  useEffect( () => {
+  useEffect(() => {
+    
     const token = Cookies.get("token");
     setIsLoggedIn(!!token);
-    setIsAdmin(checkIsAdmin())
-   console.log(isAdmin)
+    console.log("auth",isAdmincheck())
+   setIsAdmin(isAdmincheck());
+   console.log("admin", isAdmin)
     
-    // if(isLoggedIn==false){
-    //   logout();
-    // }
+ 
 
   }, []);
 
-  
+ 
   
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, isAdmin, logout, setIsAdmin }}>
