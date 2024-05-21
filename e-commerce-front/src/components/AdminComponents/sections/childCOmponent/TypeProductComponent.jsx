@@ -129,7 +129,7 @@ export default function TypeProductComponent({action, isActive, data, deleteProp
         // console.log("INSIDE COUNTER")
         setValue(data.data.designation)
         // console.log(data)
-    }, [])
+    }, [data])
 
     return (
 

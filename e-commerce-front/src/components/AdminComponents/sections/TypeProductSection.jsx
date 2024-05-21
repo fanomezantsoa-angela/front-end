@@ -84,7 +84,7 @@ export default function TypeProductSection() {
         } else if(!initial && index >= 0) {
             data[index].active = true
         }
-
+        setCategories([])
         setCategories([...data])
         console.log(categories ,"After active validation***")
     }
@@ -168,10 +168,11 @@ export default function TypeProductSection() {
             const token = tokenExtractor()
             if(token != null) {
                 const result = await apiRequest(`type_product/search/${data}/`, "GET", token, null)
+                console.log(result)
                 if(result.error == null){
                     const response = result.response
                     let data = []
-                    response.data.map((type) => {
+                    response.data.data.map((type) => {
                         data.push({
                             data: type,
                             active: false
