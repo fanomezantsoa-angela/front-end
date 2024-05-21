@@ -160,15 +160,36 @@ export default function TypeProductSection() {
         setSnack(false);
     };
 
+    const handleSearch = async (data) => {
+        console.log("Search Being hendleed: "+ data)
+        if(data == ""){
+            fetchFromInside()
+        } else {
+            const token = tokenExtractor()
+            if(token != null) {
+                const result = await apiRequest(`type_product/search/${data}/`, "GET", token, null)
+                if(result.error == null){
+                    const response = result.response
+                    let data = []
+                    response.data.map((type) => {
+                        data.push({
+                            data: type,
+                            active: false
+                        })
+                    })
+                    // console.log(data)
+                    setActive(data, true, null)
+                }
+                console.log(result)
+            }
+        }
+    }
+
 
     useEffect(() => {
         fetchFromInside(true, null)
     }, [])
 
-    useEffect(() => {
-        console.log("calling useEffect after updating data")
-        console.log(categories)
-    }, [categories])
 
 
     return (
@@ -189,7 +210,7 @@ export default function TypeProductSection() {
                 </div>
 
                 <div className='w-full '>
-                    <SearchBar />
+                    <SearchBar searchAction={handleSearch}/>
                 </div>
             </div>
 
@@ -266,7 +287,7 @@ export default function TypeProductSection() {
                     </div>
                 )) : (
                     <div className='mt-10 text-slate-400 text-center text-xl p-4'>
-                        Aucun categorie pour l'instant...
+                        Aucun categorie trouver...
                     </div>
                 )}
                 

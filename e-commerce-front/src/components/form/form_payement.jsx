@@ -53,7 +53,9 @@ export default function CreditCardForm() {
     const resetform = () => {
       setAdresse("");
       setAccount_number("");
-      setNumcompte("");
+      setPayement_mode("");
+      setPays("")
+      setVille("")
     };
     const Totalmontant = getTotalCost();
     const montant = {
@@ -95,53 +97,57 @@ export default function CreditCardForm() {
                   quantity: item.quantity,
                 })),
               };
-            console.log(formorder);
+               console.log(formorder);
             
-              const responseorder =  await creationorders(formorder);
+                const responseorder =  await creationorders(formorder);
                  if (responseorder.status == 201) {
-                 
-                 console.log(responseorder);
+                   console.log(responseorder);
                    const responseData = await validationPayement(montant);
-                  console.log(responseData);
-                 
-                  setTimeout(3000)
-                  if (responseData.status == 200) {
-                    resetform()
-                Swal.fire({
-              title: "Information",
-              text: "Votre payement a été effectué",
-              icon: "success",
-              confirmButtonText: "Oui",
-                });
-              
-                emptyCart();
-                stopLoading()
-            }
-  
-                 
-            } else if (responseorder.status == 500) {
-              
-              setTimeout(3000)
-                   Swal.fire({
-                     title: "Erreur",
-                     text: "une erreur est survenue pendant le payement ",
-                     icon: "error",
-                     confirmButtonText: "Oui",
-                   });
-                   stopLoading();
-            } else {
-              resetform();
-            
-              setTimeout(3000)
-                 Swal.fire({
-                   title: "Erreur",
-                   text: "une erreur est survenue pendant le payement, veuillez verifier votre solde ",
-                   icon: "error",
-                   confirmButtonText: "Oui",
-                 });
-                 stopLoading()
-            } 
-          }else{
+                   console.log(responseData);
+
+                   setTimeout(3000);
+                   if (responseData.status == 200) {
+                     stopLoading();
+                     Swal.fire({
+                       title: "Information",
+                       text: "Votre payement a été effectué",
+                       icon: "success",
+                       confirmButtonText: "Oui",
+                      });
+                      resetform();
+                      emptyCart();
+                    } else if (responseData.status == 500) {
+                      setTimeout(3000);
+                      Swal.fire({
+                        title: "Erreur",
+                        text: "une erreur est survenue pendant le payement ",
+                        icon: "error",
+                        confirmButtonText: "Oui",
+                      });
+                      stopLoading();
+                    } else {
+                      resetform();
+
+                      setTimeout(3000);
+                      Swal.fire({
+                        title: "Erreur",
+                        text: "une erreur est survenue pendant le payement, veuillez verifier votre solde ",
+                        icon: "error",
+                        confirmButtonText: "Oui",
+                      });
+                      stopLoading();
+                    }
+                 } else {
+                    Swal.fire({
+                      title: "Erreur",
+                      text: "une erreur est survenu, veuillez réessayer votre operation",
+                      icon: "error",
+                      confirmButtonText: "Oui",
+                    });
+                    stopLoading();
+                 }
+
+                 } else{
             
             Swal.fire({
               title: "Erreur",

@@ -11,7 +11,7 @@ import { LoadingContext } from "../../Hooks/LoadingContext";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Swal from "sweetalert2";
-import { isAdmin as checkIsAdmin } from "../../Hooks/Usersetting";
+import { isAdmincheck } from "../../Hooks/Usersetting";
 import Cookies from "js-cookie"
 function Loginform() {
     const location = useLocation();
@@ -64,6 +64,7 @@ function Loginform() {
      startLoading();
      login(formData)
        .then((response) => {
+         console.log(response)
          const token = response.data.access;
          const refreshToken = response.data.refresh
         
@@ -71,8 +72,8 @@ function Loginform() {
          Cookies.set("refreshToken", refreshToken, {expires: 7})
          
          setIsLoggedIn(true);
-         setIsAdmin(checkIsAdmin());
-          console.log("admin?", checkIsAdmin())
+         setIsAdmin(isAdmincheck());
+          console.log("admin?", isAdmincheck());
          resetform();
           if (returnURL) {
            navigate(decodeURIComponent(returnURL));
@@ -81,6 +82,7 @@ function Loginform() {
           }
        })
        .catch((error) => {
+         console.log(error)
          const errorResponse = error.response;
          Swal.fire({
            title: "Erreur",
@@ -91,7 +93,9 @@ function Loginform() {
            icon: "error",
            confirmButtonText: "OK",
          });
+         stopLoading();
        })
+     
        .finally(() => {
          stopLoading();
        });

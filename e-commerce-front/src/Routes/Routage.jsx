@@ -17,11 +17,12 @@ function Routage() {
         <Route path="/Validerpanier" element={<Validationpanier />} />
           {/*ROute pour le profil*/}
         <Route path="/Profil" element={<Profil />} />
-      
+        <Route element={<AdminRoute />}> 
         <Route path="/Admin" element={<Admin />} />
+        </Route>
       </Route>
       {/*Route pour l'admin  */}
-      {/* <Route element={<AdminRoute />}> */}
+       
         <Route path="/" element={<Home />} />
     
 

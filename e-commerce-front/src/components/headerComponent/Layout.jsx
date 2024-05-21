@@ -10,7 +10,7 @@ import { AuthContext } from "../../Hooks/Auth";
 // import Produits_type from "./Produits_type";
 function Layout() {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn} = useContext(AuthContext);
 
   const dirigerLogin = (event) => {
     event.preventDefault(); 

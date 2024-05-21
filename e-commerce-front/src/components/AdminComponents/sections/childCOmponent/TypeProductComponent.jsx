@@ -128,8 +128,13 @@ export default function TypeProductComponent({action, isActive, data, deleteProp
     useEffect(() => {
         // console.log("INSIDE COUNTER")
         setValue(data.data.designation)
+<<<<<<< HEAD:e-commerce-front/src/components/AdminComponents/sections/childCOmponent/TypeProductComponent.jsx
         // console.log(data)
     }, [])
+=======
+        console.log(data)
+    }, [data])
+>>>>>>> a6e1c564b570b43f62a0af872492d46497b001ed:e-commerce-front/src/components/AdminComponents/sections/TypeProductComponent.jsx
 
     return (
 

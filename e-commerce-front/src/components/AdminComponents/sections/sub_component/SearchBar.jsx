@@ -4,13 +4,13 @@ import { useState } from "react";
 import { Inputhandler } from "../../../../Hooks/Inputhandler";
 
 
-export default function SearchBar() {
+export default function SearchBar({searchAction}) {
 
     const [value, setValue, changeValue] = Inputhandler("")
 
     const submitSearch = (e) => {
         e.preventDefault()
-        console.log("Search submited ")
+        searchAction(value)
     }
 
     function showPressButton(e) {
@@ -19,7 +19,7 @@ export default function SearchBar() {
 
     return (
 
-        <div className="flex flex-center justify-center pl-3">
+        <div className="flex flex-col flex-center justify-center pl-3">
             <InputBase
             value={value}
             onChange={changeValue}
