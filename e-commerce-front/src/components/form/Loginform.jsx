@@ -184,6 +184,19 @@ function Loginform() {
               Creer ici
             </a>
           </p>
+          <p className="text-center  px-4">
+          Retouner a 
+            <a
+              href="/signup"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/");
+              }}
+              className="text-sky-600 px-2 underline"
+            >
+              l'acceuil
+            </a>
+          </p>
         </div>
       </form>
     </div>
