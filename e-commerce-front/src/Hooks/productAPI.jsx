@@ -22,11 +22,12 @@ export const Product_rating = async (id, value) => {
   console.log(getToken)
   try {
     
-    const response =  await axiosInstance({
+    const response = await axiosInstance({
       method: "POST",
       url: `/product/${id}/rate/`,
-    
+
       data: value,
+      headers: getAuthorizationHeader,
     });
     return response;
   } catch (error) {

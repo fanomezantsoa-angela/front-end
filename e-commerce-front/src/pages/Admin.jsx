@@ -113,9 +113,9 @@ function Admin(props) {
       aria-label="Handle admin navigation panel"
       >
         <Tab className="hover:scale-110 duration-100" label="Types de produits" {...a11yProps(0)} />
-        <Tab className="hover:scale-110 duration-100" label="Les produits" {...a11yProps(1)} />
-        <Tab className="hover:scale-110 duration-100" label="Livraison" {...a11yProps(2)} />
-        <Tab className="hover:scale-110 duration-100" label="Prise de contact" {...a11yProps(3)} />
+        {/* <Tab className="hover:scale-110 duration-100" label="Les produits" {...a11yProps(1)} /> */}
+        <Tab className="hover:scale-110 duration-100" label="Livraison" {...a11yProps(1)} />
+        <Tab className="hover:scale-110 duration-100" label="Prise de contact" {...a11yProps(2)} />
       </Tabs>
 
       <Divider />
@@ -162,9 +162,6 @@ function Admin(props) {
                         <span>
                             Pannaux d'administratrion
                         </span>
-                        {/* <span>
-                            <LockPersonIcon className="text-sky-700 mx-4" />
-                        </span> */}
                     </Typography>
                 </div>
 
@@ -233,15 +230,15 @@ function Admin(props) {
                 <ProductSectionComponent />
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={1}>
+            {/* <CustomTabPanel value={value} index={1}>
                 Ensemble des produits
-            </CustomTabPanel>
+            </CustomTabPanel> */}
             
-            <CustomTabPanel value={value} index={2}>
+            <CustomTabPanel value={value} index={1}>
                 Livraison
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={3}>
+            <CustomTabPanel value={value} index={2}>
                 <div className="">
                   Prise de contacte 
                 </div>

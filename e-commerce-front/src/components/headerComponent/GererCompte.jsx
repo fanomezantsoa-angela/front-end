@@ -42,7 +42,7 @@ function GererCompte() {
   const goToProfil = () => {
     navigate("/Profil")
   }
-
+  
   return (
     <div>
       <Tooltip title="Parametre de compte">

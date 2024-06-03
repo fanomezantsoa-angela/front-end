@@ -15,8 +15,8 @@ export const createContact = async (data) => {
                     Authorization: `Bearer ${tokenExtractor()}`
                 }
             })
-            
-            if (response.status == 201){
+            console.log(response)
+            if (response.status == 200){
                 feedback.res = true
                 console.log("incontact")
                 return feedback

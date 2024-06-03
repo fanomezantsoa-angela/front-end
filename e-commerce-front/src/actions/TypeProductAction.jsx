@@ -2,13 +2,19 @@
 import { apiRequest } from "./RequestAction"
 import { tokenExtractor } from "./tokenExtractor"
 
-export const getAllType = async () => {
+export const getAllType = async (isOrdered=false ,order=null) => {
     const token = tokenExtractor()
 
     if(token != null){
-        const result = await apiRequest("/type_product/", "GET", token, null)
+        let result = null
+        if(order == null && !isOrdered){
+            result = await apiRequest("/type_product/", "GET", token, null)
+        } else {
+            console.log(order)
+            result = await apiRequest(`/type_product/order/${order}/`, "GET", null, null)
+        }
         let feedback = {res:false, data:null, error:null}
-        console.log(result)
+        console.log(result, "All type request result****")
         if (result.error == null){
             if(result.response.status == 200){
                 feedback.res = true

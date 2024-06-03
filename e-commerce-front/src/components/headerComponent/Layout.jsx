@@ -49,13 +49,15 @@ function Layout() {
             <Userthings />
           </div>
         ) : (
-          <div className="w-[75%] justify-end flex flex-row ">
+          <div className="w-[75%] justify-end items-center flex flex-row ">
             <Panier/>
-            <Button
-              action="se connecter"
-              classname="mx-10 px-3 bg-sky-600 ubuntu-medium hover:bg-sky-500 text-white rounded-md duration-75 shadow-lg shadow-sky-200"
-              buttonhandle={dirigerLogin}
-            />
+            <div>
+              <Button
+                action="Se connecter"
+                classname="mx-10 px-3 py-3 bg-sky-600 ubuntu-medium hover:bg-sky-500 text-white rounded-md duration-75 shadow-lg shadow-sky-200"
+                buttonhandle={dirigerLogin}
+              />
+            </div>
           </div>
         )}
       </div>
