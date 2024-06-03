@@ -1,8 +1,7 @@
-import React from "react";
 import PropTypes from "prop-types";
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
+// import Box from "@mui/material/Box";
+// import Collapse from "@mui/material/Collapse";
+// import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,14 +10,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+// import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+// import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import {  achat_detail } from "../../Hooks/AchatApi";
-import { getToggleButtonGroupUtilityClass } from "@mui/material";
+// import { getToggleButtonGroupUtilityClass } from "@mui/material";
 function Historique_section({ historiques, onDetailsClick }) {
  const [totalPrices, setTotalPrices] = useState({});
+ const [histoData, setHistoData] = useState([])
 
   function formatDate(dateString) {
     if (dateString) {
@@ -38,25 +38,37 @@ function Historique_section({ historiques, onDetailsClick }) {
   }
  
 
+  const fetchTotalPrices = async () => {
+    console.log(historiques, "*****")
+    const prices = {};
+    for (const historique of historiques) {
+      try {
+        const totalPrice = await getDetail(historique.orders[0].purchase);
+        prices[historique.orders[0].purchase] = totalPrice;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    setTotalPrices(prices);
+  };
  
+  
+  useEffect(() => {
+    console.log(histoData, "Initial value inside table section****")
+    fetchTotalPrices();
+    setHistoData(historiques)
+  }, []);
+
 
   useEffect(() => {
-    // Fetch total prices for each order
-    const fetchTotalPrices = async () => {
-      const prices = {};
-      for (const historique of historiques) {
-        try {
-          const totalPrice = await getDetail(historique.orders[0].purchase);
-          prices[historique.orders[0].purchase] = totalPrice;
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      }
-      setTotalPrices(prices);
-    };
-
+    console.log(historiques,"Historique updated data***************************")
     fetchTotalPrices();
-  }, [historiques]);
+    setHistoData(historiques)
+  }, [historiques])
+
+  useEffect(() => {
+    console.log(histoData, "VAlue after update")
+  }, [histoData])
 
   async function getDetail(id) {
     try {
@@ -80,7 +92,7 @@ function Historique_section({ historiques, onDetailsClick }) {
     }
   }
    
-  console.log("sec_historique", historiques);
+  // console.log("sec_historique", historiques);
   
   return (
     <div>
@@ -108,7 +120,7 @@ function Historique_section({ historiques, onDetailsClick }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {historiques.map((historique, index) => (
+              {histoData.map((historique, index) => (
                 <TableRow key={index}>
                   <TableCell align="center">
                     {formatDate(historique.date)}

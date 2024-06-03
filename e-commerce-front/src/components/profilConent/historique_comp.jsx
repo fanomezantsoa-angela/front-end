@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import Achat_detail from "./achat_detail";
 import Historique_section from "./historique section";
 import { achat_histo, achat_detail } from "../../Hooks/AchatApi";
@@ -10,23 +10,23 @@ function Historique_comp() {
   useEffect(() => {
     async function gethistorique() {
       const historesponse = await achat_histo();
-      console.log(historesponse);
+      // console.log(historesponse, "*********");
       if (historesponse.res) {
-        console.log(historesponse.response);
-        console.log("historiques non set", historesponse.response.data.results);
-        setHistorique(historesponse.response.data.results);
-        console.log("historique", historique);
+        // console.log(historesponse.response);
+        const histoData = historesponse.response.data.results
+        setHistorique(histoData);
+        // console.log("historique", historique);
       } else {
-        console.log(historesponse.err);
+        // console.log(historesponse.err);
       }
     }
     gethistorique();
   }, []);
   const getDetails = async(id) => {
     const historesponse = await achat_detail(id);
-      console.log("liste product1", historesponse);
+      // console.log("liste product1", historesponse);
       if (historesponse.res) {
-        console.log("liste product", historesponse.response.data.orders);
+        // console.log("liste product", historesponse.response.data.orders);
      
      
       } else {
@@ -37,9 +37,12 @@ function Historique_comp() {
     
   };
  
+  useEffect(() => {
+    console.log(historique, "NEW VALUE OF HISTORIQUE")
+  }, [historique])
 
   return (
-    <div class="flex flex-row jutify justify-around">
+    <div className="flex flex-row jutify justify-around">
       <div className="w-[100%]">
         <Historique_section
           historiques={historique}

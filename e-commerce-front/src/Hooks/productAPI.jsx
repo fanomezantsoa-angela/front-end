@@ -37,6 +37,7 @@ export const Product_rating = async (id, value) => {
 export const Product_per_type = async (id) => {
    try {
     const response = await axiosInstance.get(`/type_product/${id}/`);
+    console.log(response)
      return response;
   } catch (error) {
     throw error;

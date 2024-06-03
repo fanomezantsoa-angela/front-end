@@ -112,7 +112,7 @@ function Admin(props) {
       orientation='vertical'
       aria-label="Handle admin navigation panel"
       >
-        <Tab className="hover:scale-110 duration-100" label="Types de produits" {...a11yProps(0)} />
+        <Tab className="hover:scale-110 duration-100" label="Categories et produits" {...a11yProps(0)} />
         {/* <Tab className="hover:scale-110 duration-100" label="Les produits" {...a11yProps(1)} /> */}
         <Tab className="hover:scale-110 duration-100" label="Livraison" {...a11yProps(1)} />
         <Tab className="hover:scale-110 duration-100" label="Prise de contact" {...a11yProps(2)} />

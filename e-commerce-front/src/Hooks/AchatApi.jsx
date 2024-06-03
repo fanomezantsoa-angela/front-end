@@ -12,7 +12,7 @@ export const achat_histo = async()=>{
             },
           }
         )
-        console.log(apiresponse)
+        // console.log(apiresponse, "///////////////")
         if(apiresponse.status == 200){
             feedback.res=true
             feedback.response= apiresponse

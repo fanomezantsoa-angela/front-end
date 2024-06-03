@@ -199,7 +199,7 @@ export default function TypeProductSection() {
             
             {/* header */}
             <div className="w-full mb-8 text-center uppercase bg-sky-500 p-4 text-white rounded-full">
-                Les types de produits
+                Categories des produits
             </div>    
 
             
