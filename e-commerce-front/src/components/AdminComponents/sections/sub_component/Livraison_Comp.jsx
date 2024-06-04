@@ -125,7 +125,7 @@ export const Livraison_Comp = () => {
                                   type="button"
                                   sx={{ p: "10px" }}
                                   aria-label="toggle password visibility"
-                                  onClick={handlevalidation}
+                                  onClick={handlevalidation(achat.orders[0].purchase)}
                                 >
                                   <DoneIcon />
                                 </IconButton>
