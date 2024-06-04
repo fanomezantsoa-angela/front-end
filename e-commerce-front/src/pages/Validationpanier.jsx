@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 // import { CartContext, CartProvider } from "../Hooks/PanierContexte";
 import { useNavigate } from "react-router-dom";
-
+import Panier from "../components/PanierComponent/Panier";
 import IconButton from "@mui/material/IconButton";
 import { TiDelete } from "react-icons/ti";
 import { AiFillMinusCircle } from "react-icons/ai";
@@ -11,11 +11,14 @@ import { validationPayement } from "../Hooks/PayementApi";
 import { Button } from "../components/littlecomponent/Button";
 import Form_payement from "../components/form/form_payement";
 import Swal from "sweetalert2";
-
+import Drawer from "@mui/material/Drawer";
+import Valide_layout from "../components/headerComponent/Valide_layout";
+// import Layout from "../components/headerComponent/Layout";
 import { AuthContext} from "../Hooks/Auth";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import MonPanier from "./MonPanier";
+import Paniers from "../components/PanierComponent/Paniers";
 
 function Validationpanier() {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
@@ -51,16 +54,24 @@ function Validationpanier() {
   return (
 
     <div >
+      <div>
+        <Valide_layout/>
+      </div>
+      <div className="flex justify-around w-full" >
 
+     
 
-      <IconButton onClick={retour} className="ml-[2%] mt-[2%] fixed"><IoArrowBackCircle  color="black" size={50}/></IconButton>
+{/* <IconButton onClick={retour} className="ml-[2%] mt-[2%] fixed"><IoArrowBackCircle  color="black" size={50}/></IconButton> */}
 
-    <div >
-    <img src="./src/assets/barket.png" className="w-[600px] z-0  mt-[5%] ml-[5%]" />
-    <Form_payement/>    
+<div >
+{/* <img src="./src/assets/barket.png" className="w-[600px] z-0  mt-[5%] ml-[5%]" /> */}
+<Form_payement className="w-20"/>    
 
-    </div>
-   <MonPanier className=""/>
+</div>
+<Paniers  className="w-[10%]  h-[100vh] ml-10" />
+
+      </div>
+      
     </div>
   );
 }

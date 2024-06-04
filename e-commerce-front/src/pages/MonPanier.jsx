@@ -54,7 +54,7 @@ function MonPanier() {
    
   };
   return (
-    <div className="w-[50%] mt-[-85%] ml-[50%] h-{100%]" >
+    <div  className="">
 
 <div >
                 <h2 className={["text-center text-3xl tracking-widest text-white w-full p-3 bg-sky-700"]}>
@@ -67,7 +67,7 @@ function MonPanier() {
 
 
  {items.map((item, id) => (
-    <ul key={id} className="mt-[5%]  p-5-[50%] flex flex-row w-[100%] justify-around mb-[5%] border-t-none  border-b [] border-solid border-b-[3px]	 text-left text-[14px] text-[black] font-extrabold">
+    <ul key={id} className="mt-[5%]  p-5-[50%] flex flex-row justify-around mb-[5%] border-t-none  border-b [] border-solid border-b-[3px]	 text-left text-[14px] text-[black] font-extrabold">
       {/* <li>{id + 1}</li> */}
 
       <li>{item.name}</li>

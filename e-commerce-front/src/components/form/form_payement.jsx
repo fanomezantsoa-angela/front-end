@@ -175,19 +175,28 @@ export default function CreditCardForm() {
      
     };
   return (
- 
+    <div
+    style={{
+      
+      
+      backgroundRepeat: 'no-repeat'
+    }}
+  >
     <Card
       variant="outlined"
       sx={{
         maxHeight: '20%',
-        maxWidth: '30%',
+        maxWidth: '100%',
         mx: 'auto',
         // to make the demo resizable
         overflow: 'auto',
-        
+        backgroundSize: "100%",
+        backgroundImage: "url('./src/assets/barket.png')",
         bgcolor: 'transparent',
+        backgroundRepeat: 'no-repeat',
+
         zIndex: 2,
-        top: '-350px',
+        top: '10px',
         right:'400px',
         // borderRadius: '10PX',
         borderColor:'transparent'
@@ -214,7 +223,7 @@ export default function CreditCardForm() {
       placeholder="Pays"
       indicator={<KeyboardArrowDown />}
       sx={{
-        width: 180,
+        width: 200,
         [`& .${selectClasses.indicator}`]: {
           transition: '0.2s',
           [`&.${selectClasses.expanded}`]: {
@@ -233,14 +242,14 @@ export default function CreditCardForm() {
       placeholder="Ville"
       indicator={<KeyboardArrowDown />}
       sx={{
-        width:180,
+        width:200,
         [`& .${selectClasses.indicator}`]: {
           transition: '0.2s',
           [`&.${selectClasses.expanded}`]: {
             transform: 'rotate(-180deg)',
           },
         },
-        left:'18px'
+        left:'45px'
       
       }}
       name='ville'
@@ -403,5 +412,6 @@ Choisir le mode de payement      </Typography>
         </CardActions>
       </CardContent>
     </Card>
+    </div>
   );
 }
