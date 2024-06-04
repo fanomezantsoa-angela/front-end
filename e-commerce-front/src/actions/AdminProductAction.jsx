@@ -9,20 +9,19 @@ export const getAllProduct = async (type=null) => {
         let request = (type==null) ? 
         `product/${type}/by_category/` :
         `product/${type}/by_category/`
-        // `type_product/${type}/all_products/`
         
         result = await apiRequest(request, "GET", token, null)
-        let feedback = {res: false, error:null}
-        console.log(result, "REQUEST RESULT.....")
-        if (result.error != null){
+        let feedback = {res: false, error:null, data: null}
+        // console.log(result, "REQUEST RESULT.....")
+        if (result.error == null){
             const responseCode = result.response.status 
             if (responseCode == 200){
                 feedback.res = true
                 feedback.data = result.response.data
+                // console.log(feedback, "/*/*/*/*/*/*/*/*/*/*/*/*/*/*/")
             } else if (responseCode == 404) {
                 feedback.error = "Une erreur est survenu lors de la chargement des produits, veuiller reessayer ulterieurement."
             }
-            console.log(feedback)
         }
 
         return feedback

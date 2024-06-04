@@ -5,11 +5,22 @@ import { useState, useEffect } from "react"
 
 
 export default function ProductSection() {
-    const [customArray, setCustomArray] = useState([1,2,3,4,5,6])
+    const [customArray, setCustomArray] = useState([])
+
+    const fetchData = async () => {
+        const data = await getAllProduct(0, null)
+        if (data.error === null){
+            
+            console.log(data.data[0].products, "Data from useEffect")
+            setCustomArray(data.data[0].products)
+        } else {
+            setCustomArray([])
+        }
+    }
+
 
     useEffect(() => {
-        const data = getAllProduct(0, null)
-        console.log(data, "Data from useEffect")
+        fetchData()
     }, [])
 
 
@@ -17,9 +28,10 @@ export default function ProductSection() {
 
         <div>
             
-            <div>
-                <p>Product section</p>
-            </div>
+            {/* header */}
+            <div className="w-[25%] mb-8 text-center uppercase bg-sky-500 p-4 text-white rounded-full">
+                Section des produits
+            </div>    
 
             {/* List of product */}
             {(customArray.length > 0) ? 
@@ -31,7 +43,7 @@ export default function ProductSection() {
             ) : 
                 (
                     <div className='mt-10 text-slate-400 text-center text-xl p-4'>
-                        Aucun categorie pour l'instant...
+                        Aucun produit pour l'instant...
                     </div>
                 )
             }
