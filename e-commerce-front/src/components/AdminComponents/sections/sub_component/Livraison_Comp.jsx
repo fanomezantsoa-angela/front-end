@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { achats } from "../../../../Hooks/AchatApi"
+import { achats, achats_validation } from "../../../../Hooks/AchatApi"
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,7 +8,24 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import { Inputhandler } from "../../../../Hooks/Inputhandler";
 export const Livraison_Comp = () => {
+  const [date, setDate, changeDate] = Inputhandler("");
+   const [input, setInput] = useState(false);
+     const handleUpdateOption = () => {
+       // order("asc")
+       let inputValue = !input;
+       setInput(inputValue);
+       
+  };
+  const handlevalidation = async(id) => {
+    const validationres = await achats_validation()
+    if (validationres.res) {
+      console.log(validationres.response);
+    } else {
+      console.log(achatresponse.err);
+    }
+  }
      function formatDate(dateString) {
        if (dateString) {
          const date = new Date(dateString);
@@ -31,7 +48,10 @@ export const Livraison_Comp = () => {
         if (achatresponse.response) {
             console.log(achatresponse.response.data.results)
             setListchats(achatresponse.response.data.results);
-        }
+      }
+        else {
+          console.log(achatresponse.err)
+      }
     }
     useEffect(() => {
 
@@ -88,7 +108,35 @@ export const Livraison_Comp = () => {
                     >
                       {achat.is_delivred ? "livré" : "non livré"}
                     </TableCell>
-                    <TableCell><Button >Valide</Button></TableCell>
+                    <TableCell>
+                      {input ? (
+                        // If update mode
+                        <Tooltip title="Appuyer sur la touche ENTRE pour valider">
+                          <InputBase
+                            className="bg-white block w-full rounded-md border-0 py-[3px] text-gray-900 shadow-sm ring-2 ring-inset ring-sky-700 
+                            placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-700 sm:text-sm sm:leading-6 px-2"
+                            type="date"
+                            value={date}
+                            onChange={changeDate}
+                            
+                            endAdornment={
+                              <InputAdornment position="end">
+                                <IconButton
+                                  type="button"
+                                  sx={{ p: "10px" }}
+                                  aria-label="toggle password visibility"
+                                  onClick={handlevalidation}
+                                >
+                                  <DoneIcon />
+                                </IconButton>
+                              </InputAdornment>
+                            }
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Button onClick={handleUpdateOption}>Valide</Button>
+                      )}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
