@@ -17,9 +17,11 @@ import Valide_layout from "../components/headerComponent/Valide_layout";
 import { AuthContext} from "../Hooks/Auth";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import MonPanier from "./MonPanier";
-import Paniers from "../components/PanierComponent/Paniers";
-
+import Panier_valide from "../components/PanierComponent/Panier_valide";
+// import MonPanier from "./MonPanier";
+// import Paniers from "../components/PanierComponent/Paniers";
+import FirstFooterSectionComponent from "../components/footer/FIrstFooterSectionComponent"
+import SecondFooterSectionComponent from "../components/footer/SecondFooterSectionComponent";
 function Validationpanier() {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   // const [payement, setPayment] = useState(false);
@@ -57,7 +59,7 @@ function Validationpanier() {
       <div>
         <Valide_layout/>
       </div>
-      <div className="flex justify-around w-full" >
+      <div className="flex justify-between w-full" >
 
      
 
@@ -68,10 +70,11 @@ function Validationpanier() {
 <Form_payement className="w-20"/>    
 
 </div>
-<Paniers  className="w-[10%]  h-[100vh] ml-10" />
+<Panier_valide  className="  h-[100vh] ml-" />
 
       </div>
-      
+      <FirstFooterSectionComponent/>
+      <SecondFooterSectionComponent/>
     </div>
   );
 }

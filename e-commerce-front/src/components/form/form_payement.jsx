@@ -185,8 +185,8 @@ export default function CreditCardForm() {
     <Card
       variant="outlined"
       sx={{
-        maxHeight: '20%',
-        maxWidth: '100%',
+        maxHeight: '50%',
+        maxWidth: '70%',
         mx: 'auto',
         // to make the demo resizable
         overflow: 'auto',
@@ -196,10 +196,11 @@ export default function CreditCardForm() {
         backgroundRepeat: 'no-repeat',
 
         zIndex: 2,
-        top: '10px',
-        right:'400px',
+        top: '50px',
+        right:'40px',
+        Button:'20px',
         // borderRadius: '10PX',
-        borderColor:'transparent'
+        borderColor:'black'
         
       
       }}
@@ -223,7 +224,7 @@ export default function CreditCardForm() {
       placeholder="Pays"
       indicator={<KeyboardArrowDown />}
       sx={{
-        width: 200,
+        width: 250,
         [`& .${selectClasses.indicator}`]: {
           transition: '0.2s',
           [`&.${selectClasses.expanded}`]: {
@@ -242,14 +243,14 @@ export default function CreditCardForm() {
       placeholder="Ville"
       indicator={<KeyboardArrowDown />}
       sx={{
-        width:200,
+        width:250,
         [`& .${selectClasses.indicator}`]: {
           transition: '0.2s',
           [`&.${selectClasses.expanded}`]: {
             transform: 'rotate(-180deg)',
           },
         },
-        left:'45px'
+        left:'15px'
       
       }}
       name='ville'
@@ -277,11 +278,12 @@ Choisir le mode de payement      </Typography>
           display: 'grid',
           gridTemplateColumns: 'repeat(2, minmax(80px, 1fr))',
           gap: 1.5,
+          
         }}
       >
       <RadioGroup
       aria-label="platform"
-      defaultValue="visa"
+      defaultValue="Visa"
       overlay
       name="type carte"
       sx={{
@@ -292,6 +294,7 @@ Choisir le mode de payement      </Typography>
             inset: -1,
             border: '3px solid',
             borderColor: 'white',
+            // fontSize:'50px'
 
 
          
@@ -328,6 +331,7 @@ Choisir le mode de payement      </Typography>
             border: '3px solid',
             borderColor: '#0061A8',
             bgcolor: 'transparent',
+            
           }}
         >
           <Radio id={value} onChange={payementchange} value={value} checkedIcon={<CheckCircleRoundedIcon />} />
