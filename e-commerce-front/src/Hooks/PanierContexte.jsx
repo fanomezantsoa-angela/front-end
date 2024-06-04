@@ -92,7 +92,8 @@ export function CartProvider({ children }) {
      setSnackbarOpen(true);
      
    }
- };
+  };
+  
 
   const addOneItemToCart = (id, unitPrice, name, quantity, stock) => {
     // check if the item already exists in the cart

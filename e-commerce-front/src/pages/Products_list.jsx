@@ -203,7 +203,7 @@ function Products_list() {
                     <Rating
                       name="size-small"
                       size="medium"
-                      value={3}
+                      value={product.rate}
                       onChange={(event, newValue) =>
                         sendingRate(newValue, product.id)
                       }

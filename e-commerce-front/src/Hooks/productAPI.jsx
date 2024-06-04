@@ -19,7 +19,7 @@ export const Product_search = async (name) => {
   }
 };
 export const Product_rating = async (id, value) => {
-  console.log(getToken)
+ 
   try {
     
     const response = await axiosInstance({
