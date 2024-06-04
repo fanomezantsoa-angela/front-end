@@ -2,11 +2,11 @@ import React from "react";
 import Achat_detail from "./achat_detail";
 import Historique_section from "./historique section";
 import { achat_histo, achat_detail } from "../../Hooks/AchatApi";
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useContext } from "react";
+import { HistoriqueContext } from "../../Hooks/HistoriqueContext";
 function Historique_comp() {
   const [selectedDetails, setSelecteDetails] = useState([]);
-  const [historique, setHistorique] = useState([]);
+  const { historiques, setHistoriques } = useContext(HistoriqueContext)
   useEffect(() => {
     async function gethistorique() {
       const historesponse = await achat_histo();
@@ -14,8 +14,8 @@ function Historique_comp() {
       if (historesponse.res) {
         console.log(historesponse.response);
         console.log("historiques non set", historesponse.response.data.results);
-        setHistorique(historesponse.response.data.results);
-        console.log("historique", historique);
+        setHistoriques(historesponse.response.data.results);
+        console.log("historique", historiques);
       } else {
         console.log(historesponse.err);
       }
@@ -42,7 +42,7 @@ function Historique_comp() {
     <div class="flex flex-row jutify justify-around">
       <div className="w-[100%]">
         <Historique_section
-          historiques={historique}
+          historiques={historiques}
           onDetailsClick={getDetails}
           details={selectedDetails}
         />

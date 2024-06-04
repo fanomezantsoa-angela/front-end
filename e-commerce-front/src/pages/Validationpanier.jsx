@@ -1,20 +1,9 @@
-import { useState, useEffect, useContext } from "react";
-// import { CartContext, CartProvider } from "../Hooks/PanierContexte";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
 import IconButton from "@mui/material/IconButton";
-import { TiDelete } from "react-icons/ti";
-import { AiFillMinusCircle } from "react-icons/ai";
-import { IoIosAddCircle } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
-import { validationPayement } from "../Hooks/PayementApi";
-import { Button } from "../components/littlecomponent/Button";
 import Form_payement from "../components/form/form_payement";
-import Swal from "sweetalert2";
-
 import { AuthContext} from "../Hooks/Auth";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 import MonPanier from "./MonPanier";
 
 function Validationpanier() {

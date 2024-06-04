@@ -29,7 +29,7 @@ export const isAdmincheck = () => {
 
   const decodedToken = decodeToken(token);
  
-  console.log(decodedToken)
+  
   return decodedToken ? decodedToken.isAdmin : false;
 };
 

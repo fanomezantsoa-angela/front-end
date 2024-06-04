@@ -10,7 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InformationComponent from '../components/AdminComponents/InformationComponent';
-import { getClientInformation } from '../actions/InformationActions';
+import { Livraison_Comp } from '../components/AdminComponents/sections/sub_component/Livraison_Comp';
 import { useState } from 'react';
 // Components import 
 import ProductSectionComponent from '../components/AdminComponents/ProductSectionComponent';
@@ -234,8 +234,9 @@ function Admin(props) {
                 Ensemble des produits
             </CustomTabPanel> */}
             
-            <CustomTabPanel value={value} index={1}>
-                Livraison
+            <CustomTabPanel value={value} index={2}>
+                <Livraison_Comp/>
+
             </CustomTabPanel>
 
             <CustomTabPanel value={value} index={2}>

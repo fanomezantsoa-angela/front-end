@@ -49,7 +49,7 @@ export default function NotificationContentComponent({notifData, refetch}) {
 
             await refetch()
             setNotifData(notifData)
-
+            console.log(notifData)
             navigate("/")
         } else {
             alert("Erreur de l'operation")
