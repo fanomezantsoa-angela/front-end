@@ -66,3 +66,23 @@ export const achats = async () => {
     return feedback;
   }
 };  
+export const achats_validation = async (date, id) => {
+  let feedback = { res: true, err: null, response: null };
+  try {
+    const apiresponse = await axiosInstance.get(`/purchase/${id}/delivery/`, date, {
+      headers: {
+        Authorization: getAuthorizationHeader, // Note: Call the function to get the authorization header
+      },
+    });
+    console.log(apiresponse);
+    if (apiresponse.status == 200) {
+      feedback.res = true;
+      feedback.response = apiresponse;
+      return feedback;
+    }
+  } catch (error) {
+    console.log(error);
+    feedback.err = error;
+    return feedback;
+  }
+};

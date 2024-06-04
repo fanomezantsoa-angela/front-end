@@ -5,13 +5,13 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
 import Tooltip from "@mui/material/Tooltip";
-import {Inputhandler} from "../../../Hooks/Inputhandler"
+import {Inputhandler} from "../../../../Hooks/Inputhandler"
 import InputBase from "@mui/material/InputBase";
 import InputAdornment from "@mui/material/InputAdornment";
 import DoneIcon from '@mui/icons-material/Done';
 
-import { apiRequest } from "../../../actions/RequestAction";
-import { tokenExtractor } from "../../../actions/tokenExtractor";
+import { apiRequest } from "../../../../actions/RequestAction";
+import { tokenExtractor } from "../../../../actions/tokenExtractor";
 import Snackbar from '@mui/material/Snackbar';
 
 
@@ -126,9 +126,9 @@ export default function TypeProductComponent({action, isActive, data, deleteProp
     }
 
     useEffect(() => {
-        console.log("INSIDE COUNTER")
+        // console.log("INSIDE COUNTER")
         setValue(data.data.designation)
-        console.log(data)
+        // console.log(data)
     }, [])
 
     return (

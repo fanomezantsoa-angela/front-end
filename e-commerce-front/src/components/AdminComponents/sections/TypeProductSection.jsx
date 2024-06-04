@@ -1,6 +1,6 @@
 import SearchBar from './sub_component/SearchBar';
 import FilterComponent from './sub_component/FilterComponent';
-import TypeProductComponent from './TypeProductComponent';
+import TypeProductComponent from './childCOmponent/TypeProductComponent';
 import Tooltip from '@mui/material/Tooltip';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {Inputhandler} from "../../../Hooks/Inputhandler"
@@ -10,7 +10,6 @@ import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
-// import Alert from '@mui/material/Alert';
 
 import { apiRequest } from "../../../actions/RequestAction";
 import { tokenExtractor } from "../../../actions/tokenExtractor";
@@ -23,25 +22,29 @@ export default function TypeProductSection() {
   
     const [categories, setCategories] = useState([])
     const [designation, setDesignation, changeDesignation] = Inputhandler("")
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
     const [error, setError] = useState(false)
     const [snack, setSnack] = useState(false)
     const [snackStyle, setSnackStyle] = useState({ backgroundColor: 'green', color:'white' })
     const [message, setMessage] = useState("Ajout effectue avec succes.")
 
-    const fetchAllType = async () => {
-        const response = await getAllType()
+    const fetchAllType = async (isOrdered=false, order=null) => {
+        let response = null
+        if(isOrdered && order){
+            response = await getAllType(true ,order)
+        } else {
+            response = await getAllType()
+        }
         console.log(response)
         if (response.res) {
             let data = []
+            console.log(response)
             response.data.results.map((type) => {
                 data.push({
                     data: type,
                     active: false
                 })
             })
-            // data[0].active = true
-            // setCategories(data)
             return data
         } else{
             // Handle Error
@@ -52,6 +55,7 @@ export default function TypeProductSection() {
     
     const getOrder = (data) => {
         console.log(data)
+        fetchOrder(data)
     }
 
     const handleAction = (data) => {
@@ -77,30 +81,32 @@ export default function TypeProductSection() {
     async function setActive(data, initial=true, index=null) {
         if(initial){
             data[0].active = true
-            setCategories(data)
         } else if(!initial && index >= 0) {
             data[index].active = true
-            setCategories(data)
         }
-    } 
+
+        setCategories([...data])
+        console.log(categories ,"After active validation***")
+    }
     
     const fetchFromInside = async(initial, index) => {
         const data = await fetchAllType()
-        console.log("****")
-        console.log(data)
         setActive(data, initial, index)
     }
 
+    const fetchOrder = async (order) => {
+        // console.log(order)
+        setCategories([])
+        const data = await fetchAllType(true, order)
+        setActive(data, true)
+    }
 
     const addOperation = () => {
-        let value = open
         setOpen(!open)
     }
 
     const handleEscape = (e) => {
-        console.log("inside escape function")
         if (e.key === "Escape"){
-            console.log("Escape validate by key down event.")
             setOpen(false)
         } else if(e.key === "Enter"){
             validateCreate()
@@ -125,7 +131,6 @@ export default function TypeProductSection() {
                 
                 console.log(response)
                 if (response.error == null){
-                    console.log("Inside Validation****")
                     setOpen(false)
                     setSnack(true)
                     fetchFromInside(true, null)
@@ -155,20 +160,37 @@ export default function TypeProductSection() {
         setSnack(false);
     };
 
+    const handleSearch = async (data) => {
+        console.log("Search Being hendleed: "+ data)
+        if(data == ""){
+            fetchFromInside()
+        } else {
+            const token = tokenExtractor()
+            if(token != null) {
+                const result = await apiRequest(`type_product/search/${data}/`, "GET", token, null)
+                if(result.error == null){
+                    const response = result.response
+                    let data = []
+                    response.data.map((type) => {
+                        data.push({
+                            data: type,
+                            active: false
+                        })
+                    })
+                    // console.log(data)
+                    setActive(data, true, null)
+                }
+                console.log(result)
+            }
+        }
+    }
+
 
     useEffect(() => {
-        console.log("Inside useEffect")
         fetchFromInside(true, null)
     }, [])
 
-    useEffect(() => {
-        console.log("calling useEffect after updating data")
-        console.log(categories)
-    }, [categories])
 
-    // useEffect(() => {
-    //     console.log("***CATEGORIES HAS BEEN CHANGED***")
-    // }, [categories])
 
     return (
 
@@ -188,7 +210,7 @@ export default function TypeProductSection() {
                 </div>
 
                 <div className='w-full '>
-                    <SearchBar />
+                    <SearchBar searchAction={handleSearch}/>
                 </div>
             </div>
 
@@ -265,7 +287,7 @@ export default function TypeProductSection() {
                     </div>
                 )) : (
                     <div className='mt-10 text-slate-400 text-center text-xl p-4'>
-                        Aucun categorie pour l'instant...
+                        Aucun categorie trouver...
                     </div>
                 )}
                 

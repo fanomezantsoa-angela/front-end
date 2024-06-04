@@ -143,7 +143,7 @@ function Inscription() {
   return (
     <div className="inscription-container">
       <form className=" space-y-1">
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row justify-between items-center space-x-1">
           <div>
             <Forminput
               typeinput="text"
