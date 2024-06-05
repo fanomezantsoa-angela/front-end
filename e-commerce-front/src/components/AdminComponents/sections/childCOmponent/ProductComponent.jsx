@@ -9,13 +9,8 @@ import DeleteOutline from "@mui/icons-material/DeleteOutline";
 
 export default function ProductComponent ({mainData, index, actionHandler}) {
 
-<<<<<<< HEAD
     const [data, setData] = useState({})
     const [rateValue, setRateValue] = useState(0)
-=======
-
-export default function ProductComponent () {
->>>>>>> 9ee22065164a37309c700f0ccd5e1f5542d7a40a
 
     const sendingRate = async (newValue, id) => {			
         const response = await Product_rating(id, { rate_value: rateValue });
