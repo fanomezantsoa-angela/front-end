@@ -13,8 +13,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import EditNoteOutlined from "@mui/icons-material/EditNoteOutlined";
-import DeleteOutline from "@mui/icons-material/DeleteOutline";
-import { set } from "date-fns";
 
 const style = {
     position: 'absolute',

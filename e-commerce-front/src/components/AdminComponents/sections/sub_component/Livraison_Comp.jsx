@@ -92,22 +92,11 @@ export const Livraison_Comp = () => {
   return (
     <>
       <div>
-        <span
-          className="w-50
-          mb-8
-          text-center
-          uppercase
-          bg-sky-500
-          px-12
-          py-2.5
-          text-white
-          rounded-full
-          m-"
-        >
-          Livraison
-        </span>
+      <div className="w-[25%] mb-8 text-center uppercase bg-sky-500 p-4 text-white rounded-full">
+          Section des produits
+      </div> 
       </div>
-      <div className="w-4/5 my-7">
+      <div className="w-full my-7">
         <TableContainer component={Paper} sx={{ top: "180px" }}>
           <Table aria-label="collapsible table">
             <TableHead>
@@ -127,7 +116,7 @@ export const Livraison_Comp = () => {
                   <TableCell>{achat.ville}</TableCell>
                   <TableCell
                     class={
-                      achat.is_delivered ? "text-green-600" : "text-orange-600"
+                      achat.is_delivered ? "text-green-600 border-b" : "text-orange-600 border-b"
                     }
                   >
                     {achat.is_delivered ? "livré" : "non livré"}

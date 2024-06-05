@@ -17,15 +17,15 @@ export default function AdminNotificationComponent() {
     const fetchAllNotification = async () => {
         let response = await getAdminNotification();
         if (response.res) {
-            response.count = 0
-
-            response.data.map(notif => {
-                if (!notif.seen && (notif.type == "livraison")) {
-                    response.count++
-                }
-            })
-            setNotification(response)
-            setNotifData(response.data)
+            // response.count = 0
+            console.log(response.data.count)
+            // response.data.data.map(notif => {
+            //     if (!notif.seen) {
+            //         response.count++
+            //     }
+            // })
+            setNotification(response.data.count)
+            setNotifData(response.data.data)
             console.log(response)
         }
         // else (
@@ -61,12 +61,12 @@ export default function AdminNotificationComponent() {
                     aria-label="panier"
                     buttonhandle={() => toggleDrawer(true)}
                     action={
-
-                        <Badge color="primary" badgeContent={notification.count} max={10}>
+                        
+                        <Badge color="primary" badgeContent={notification} max={10}>
                             {/* <MailIcon /> */}
                             <Tooltip title="Les notifications">
                                 {
-                                    notification.count < 1 ?
+                                    notification < 1 ?
                                         (
                                             <NotificationsNoneOutlinedIcon sx={{ fontSize: 40, }} className="text-sky-700" />
                                         ) :
