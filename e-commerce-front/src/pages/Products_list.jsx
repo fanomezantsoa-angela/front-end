@@ -188,7 +188,7 @@ function Products_list() {
                 <div className="flex flex-col items-center justify-center">
                   <div className="w-[90%] mx-auto mt-4 border border-slate-200 rounded mb-4">
                     <img
-                      src="./src/assets/yaourt-nature.jpg"
+                      src={product.image}
                       alt="product"
                       className="produit-img"
                     />
