@@ -15,7 +15,7 @@ import { HistoriqueContext } from "../../Hooks/HistoriqueContext";
 
 
 function Historique_section({  onDetailsClick }) {
- const [totalPrices, setTotalPrices] = useState({});
+ const [totalPrices, setTotalPrices] = useState([]);
   const { historiques } = useContext(HistoriqueContext);
   function formatDate(dateString) {
     if (dateString) {

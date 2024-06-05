@@ -19,6 +19,8 @@ function Panier_valide({ panierClose }) {
       addOneItemToCart,
       removeOneItemFromCart,
       deleteItemFromCart,
+      updateItemQuantity,
+
       getTotalCost,
     } = useContext(CartContext);
     const validerpanier= () => {
@@ -55,8 +57,14 @@ function Panier_valide({ panierClose }) {
          }
   };
 
-      
-
+  const handleQuantityChange = (id, value) => {
+    if (value === "") {
+      updateItemQuantity(id, 0); // Met la quantité à zéro si l'input est vide
+    } else {
+      const quantity = parseInt(value, 10);
+      updateItemQuantity(id, quantity);
+    }
+  };
   
   return (
     <div style={{ backgroundColor: "white" }} className="	w-[40%]  h-[100vh]    "  >
@@ -94,7 +102,8 @@ function Panier_valide({ panierClose }) {
 
 
                   </IconButton>
-                  <input value={item.quantity}className="w-[15%]" />
+                  <input value={item.quantity}className="w-[15%]" 
+                   onChange={(e) => handleQuantityChange(item.id, e.target.value)}/>
 
           
                 <IconButton

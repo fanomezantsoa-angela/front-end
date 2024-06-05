@@ -40,7 +40,7 @@ function Historique_comp() {
  
   useEffect(() => {
     console.log(historique, "NEW VALUE OF HISTORIQUE")
-  }, [historique])
+  }, [historiques]);
 
   return (
     <div className="flex flex-row jutify justify-around">

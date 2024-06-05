@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom"
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import Tooltip from "@mui/material/Tooltip";
 
-
-export default function AdminActionHeaderComponent() {
+// import GererProfil from "./GererProfil";
+export default function Profilaction() {
     const navigate = useNavigate()
 
     const goToHome = () => {

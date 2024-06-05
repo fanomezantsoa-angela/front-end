@@ -7,7 +7,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { Logout } from "@mui/icons-material";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-
+import Profil from "../../pages/Profil";
 
 
 import { AuthContext } from "../../Hooks/Auth";
@@ -87,7 +87,10 @@ function GererAdminCompte() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={()=>{
+          handleClose(),
+          navigate("/Profil")
+        }}>
           <ListItemIcon>
             <AccountBoxIcon className="text-sky-700" />
           </ListItemIcon>

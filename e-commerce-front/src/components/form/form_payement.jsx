@@ -116,7 +116,8 @@ export default function CreditCardForm() {
                       });
                       resetform();
                       emptyCart();
-                    } else if (responseData.status == 500) {
+                    }
+                     else if (responseData.status == 500) {
                       setTimeout(3000);
                       Swal.fire({
                         title: "Erreur",
@@ -125,7 +126,8 @@ export default function CreditCardForm() {
                         confirmButtonText: "Oui",
                       });
                       stopLoading();
-                    } else {
+                    }
+                     else {
                       resetform();
 
                       setTimeout(3000);
@@ -159,9 +161,7 @@ export default function CreditCardForm() {
   
           } 
           
-     
-  
-        } 
+         } 
         else{
           stopLoading()
           Swal.fire({
@@ -174,6 +174,7 @@ export default function CreditCardForm() {
         }
      
     };
+  
   return (
     <div
     style={{
