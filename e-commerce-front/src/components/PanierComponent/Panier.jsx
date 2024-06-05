@@ -2,6 +2,8 @@ import { Button } from "../littlecomponent/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+
 import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -52,18 +54,19 @@ function Panier() {
             ></Button>
         </section>
 
-        <Modal
+        <Drawer 
+        anchor="right"
           open={panier}
           onClose={panierClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box className="paniers">
+          {/* <Box className="paniers"> */}
           
               <Paniers panierClose={panierClose} />
          
-          </Box>
-        </Modal>
+          {/* </Box> */}
+        </Drawer>
        
       </div>
     );

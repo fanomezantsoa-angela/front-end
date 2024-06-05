@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import Userthings from "./Userthings";
 import {Button} from "../littlecomponent/Button"
 import Panier from "../PanierComponent/Panier";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import Tooltip from "@mui/material/Tooltip";
+import Userthings_valide from "./Userthings_valide";
 import Paniercomponent from "../PanierComponent/Paniercomponent";
 import { useEffect, useContext } from "react";
 import { AuthContext } from "../../Hooks/Auth";
 // import Produits_type from "./Produits_type";
-function Layout() {
+function Valide_layout() {
   const navigate = useNavigate();
   const { isLoggedIn} = useContext(AuthContext);
 
@@ -17,7 +20,7 @@ function Layout() {
     navigate("/Login");
 }
   return (
-    <div className="flex flex-row py-10 items-center justify-center w-full bg-white h-[150px]">
+    <div className="flex flex-row py-10 items-center justify-between w-full bg-white h-[160px] pt-[1%]">
 
       <section className="basis-1/3 m-0 p-0 flex flex-row items-center">
         
@@ -38,32 +41,21 @@ function Layout() {
       </section>
 
       {/* Search bar */}
-      <div className="basis-1/3 ">
+      {/* <div className="basis-1/3 ">
         <Recherche />
-      </div>
+      </div> */}
 
       {/* User utils */}
       <div className="basis-1/3 flex justify-end w-full">
-        {isLoggedIn ? (
+      
           <div className="px-10">
-            <Userthings />
+            <Userthings_valide/>
           </div>
-        ) : (
-          <div className="w-[75%] justify-end items-center flex flex-row ">
-            <Panier/>
-            <div>
-              <Button
-                action="Se connecter"
-                classname="mx-10 px-3 py-3 bg-sky-600 ubuntu-medium hover:bg-sky-500 text-white rounded-md duration-75 shadow-lg shadow-sky-200"
-                buttonhandle={dirigerLogin}
-              />
-            </div>
-          </div>
-        )}
+        
       </div>
      
     </div>
    
   );
 }
-export default Layout;
+export default Valide_layout;
