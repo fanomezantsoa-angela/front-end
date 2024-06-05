@@ -39,7 +39,7 @@ function Historique_comp() {
   };
  
   useEffect(() => {
-    console.log(historique, "NEW VALUE OF HISTORIQUE")
+    console.log(historiques, "NEW VALUE OF HISTORIQUE")
   }, [historiques])
 
   return (

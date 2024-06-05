@@ -13,6 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import InputAdornment from "@mui/material/InputAdornment";
 import DoneIcon from "@mui/icons-material/Done";
+import Snackbar from "@mui/material/Snackbar";
 
 export const Livraison_Comp = () => {
   const [date, setDate] = useState("");
@@ -41,7 +42,8 @@ export const Livraison_Comp = () => {
       newListachats[index].delivery_date = date;
       setListachats(newListachats);
       setInputachats(Array(listachats.length).fill(false)); // Close all input fields
-
+      setSnackbarMessage("Le quantité mise à jour dans l.");
+      setSnackbarOpen(true)
     } else {
       console.log(validationres.err);
       setInputachats(Array(listachats.length).fill(false));
@@ -164,7 +166,9 @@ export const Livraison_Comp = () => {
                     ) : (
                       <>
                         {achat.delivery_date == null ? (
-                          <Button onClick={() => handleUpdateOption(index)}>
+                          <Button onClick={() => handleUpdateOption(index)
+                            
+                          }>
                             Valider
                           </Button>
                         ) : (

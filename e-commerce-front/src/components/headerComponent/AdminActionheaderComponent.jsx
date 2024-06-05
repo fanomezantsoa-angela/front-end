@@ -1,5 +1,5 @@
 import GererAdminCompte from "./GererAdminCompte"
-import NotificationComponent from "../notification/NotificationCOmponent"
+import AdminNotificationComponent from "../notification/AdminNotificationComponent"
 import { useNavigate } from "react-router-dom"
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import Tooltip from "@mui/material/Tooltip";
@@ -20,7 +20,7 @@ export default function AdminActionHeaderComponent() {
             <div className="w-[100%] justify-evenly flex items-center flex-row px-2">
 
                 <div className="">
-                    <NotificationComponent/>
+                    <AdminNotificationComponent/>
                 </div>
                 
                 <div className="px-2" onClick={goToHome}>

@@ -8,15 +8,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-
+import { Button } from "@mui/material";
 import { HistoriqueContext } from "../../Hooks/HistoriqueContext";
-
+import { useState, useContext, useEffect } from "react";
 
 
 
 function Historique_section({  onDetailsClick }) {
  const [totalPrices, setTotalPrices] = useState({});
   const { historiques } = useContext(HistoriqueContext);
+  const [histoData, setHistoData]= useState([])
   function formatDate(dateString) {
     if (dateString) {
       const date = new Date(dateString);
