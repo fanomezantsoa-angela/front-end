@@ -48,7 +48,7 @@ export default function AdminNotificationContent({ notifData, refetch }) {
       await refetch();
       setNotifData(notifData);
       console.log(notifData);
-      navigate("/");
+      
     } else {
       alert("Erreur de l'operation");
     }
@@ -98,68 +98,87 @@ export default function AdminNotificationContent({ notifData, refetch }) {
           role="presentation"
         >
           <List>
-            {notificationData.map(
-              (notif, index) =>
-                notif.type == "achat" && (
-                  <ListItem
-                    key={index}
-                    disablePadding
-                    alignItems="flex-start"
-                    onClick={() => markThis(index)}
-                    className={`border-b my-5 p-4 hover:bg-slate-100 scale-95 hover:scale-100 duration-75 cursor-pointer shadow ${
-                      !notif.seen ? "bg-sky-100" : "bg-slate-50"
-                    }`}
-                  >
-                    <div className="space-y-2">
-                      {/* Date section */}
-                      <div className="flex flex-row justify-end items-center space-x-3 ">
-                        <p className="text-slate-500">
-                          {formatTimeDifference(notif.created_at)}
-                        </p>
-                        <span className="text-emerald-600">
-                          <AccessTimeIcon sx={{ fontSize: 25 }} />
-                        </span>
-                      </div>
-
-                      {/* Type of notification */}
-                      <div>
-                        <span className="bg-sky-200 text-white rounded-full px-4 py-2">
-                          {notif.type}
-                        </span>
-                      </div>
-
-                      {/* Information section */}
-                      <div>
-                        <p>
-                          Une commande a été le{" "}
-                          <span className="text-emerald-700">
-                            {formatTimeDifference(notif.purchase_details.date)}
-                          </span>
-                          , dans la ville{" "}
-                          <span className="text-emerald-700">
-                            {notif.purchase_details.ville != null
-                              ? notif.purchase_details.ville
-                              : "inconnu"}
-                          </span>
-                          , a l'adresse{" "}
-                          <span className="text-emerald-700">
-                            {notif.purchase_details.address != null
-                              ? notif.purchase_details.address
-                              : "inconnu"}
-                          </span>
-                          ,{" "}
-                          {formatMessage(notif.purchase_details.delivery_date)}{" "}
-                          <span className="text-emerald-700">
-                            {notif.purchase_details.delivery_date != null &&
-                              formatTimeDifference(
-                                notif.purchase_details.delivery_date
-                              )}
-                          </span>
-                        </p>
-                      </div>
+            {notificationData.map((notif, index) =>
+              notif.type == "achat" ? (
+                <ListItem
+                  key={index}
+                  disablePadding
+                  alignItems="flex-start"
+                  onClick={() => markThis(index)}
+                  className={`border-b my-5 p-4 hover:bg-slate-100 scale-95 hover:scale-100 duration-75 cursor-pointer shadow ${
+                    !notif.seen ? "bg-sky-100" : "bg-slate-50"
+                  }`}
+                >
+                  <div className="space-y-2">
+                    {/* Date section */}
+                    <div className="flex flex-row justify-end items-center space-x-3 ">
+                      <p className="text-slate-500">
+                        {formatTimeDifference(notif.created_at)}
+                      </p>
+                      <span className="text-emerald-600">
+                        <AccessTimeIcon sx={{ fontSize: 25 }} />
+                      </span>
                     </div>
-                  </ListItem>
-                )
+
+                    {/* Type of notification */}
+                    <div>
+                      <span className="bg-sky-200 text-white rounded-full px-4 py-2">
+                        {notif.type}
+                      </span>
+                    </div>
+
+                    {/* Information section */}
+                    <div>
+                      <p>
+                        Une commande a été le{" "}
+                        <span className="text-emerald-700">
+                          {formatTimeDifference(notif.purchase_details.date)}
+                        </span>
+                        , dans la ville{" "}
+                        <span className="text-emerald-700">
+                          {notif.purchase_details.ville != null
+                            ? notif.purchase_details.ville
+                            : "inconnu"}
+                        </span>
+                        , a l'adresse{" "}
+                        <span className="text-emerald-700">
+                          {notif.purchase_details.address != null
+                            ? notif.purchase_details.address
+                            : "inconnu"}
+                        </span>
+                        , {formatMessage(notif.purchase_details.delivery_date)}{" "}
+                        <span className="text-emerald-700">
+                          {notif.purchase_details.delivery_date != null &&
+                            notif.purchase_details.delivery_date}{" "}
+                          formatTimeDifference
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </ListItem>
+              ) : (
+                <ListItem
+                  key={index}
+                  disablePadding
+                  alignItems="flex-start"
+                  onClick={() => markThis(index)}
+                  className={`border-b my-5 p-4 hover:bg-slate-100 scale-95 hover:scale-100 duration-75 cursor-pointer shadow ${
+                    !notif.seen ? "bg-sky-100" : "bg-slate-50"
+                  }`}
+                >
+                  <div>
+                    <div>
+                      <span className="bg-sky-600 text-white rounded-full px-4 py-2">
+                        {notif.type}
+                      </span>
+                    </div>
+                    Un societé a contacté le{" "}
+                    <span className="text-emerald-700">
+                      {regularTimeFormat(notif.created_at)}
+                    </span>
+                  </div>
+                </ListItem>
+              )
             )}
           </List>
         </Box>

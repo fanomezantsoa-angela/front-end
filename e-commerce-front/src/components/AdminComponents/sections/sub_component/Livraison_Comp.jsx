@@ -41,7 +41,7 @@ export const Livraison_Comp = () => {
       newListachats[index].delivery_date = date;
       setListachats(newListachats);
       setInputachats(Array(listachats.length).fill(false)); // Close all input fields
-
+      getAchats();
     } else {
       console.log(validationres.err);
       setInputachats(Array(listachats.length).fill(false));

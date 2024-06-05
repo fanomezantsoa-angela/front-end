@@ -131,38 +131,50 @@ function Historique_section({  onDetailsClick }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {histoData.map((historique, index) => (
-                <TableRow key={index}>
-                  <TableCell align="center">
-                    {formatDate(historique.date)}
-                  </TableCell>
-                  <TableCell align="center">
-                    Vous avez effectué un achat de{" "}
-                    {totalPrices[historique.orders[0].purchase]} Ar
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      sx={{ width: 20, height: 20 }}
-                      onClick={() =>
-                        onDetailsClick(historique.orders[0].purchase)
-                      }
-                    >
-                      Détails
-                    </Button>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    className={
-                      historique.is_delivered
-                        ? "text-green-600"
-                        : "text-orange-600"
-                    }
-                  >
-                    {historique.is_delivered ? "Livré" : "Non livré"}
+              {histoData.length == 0 ? (
+                <TableRow>
+                  <TableCell colSpan={4} align="center">
+                    <div className="mt-10 text-slate-400 text-center text-xl p-4">
+                      Aucun achat pour l'instant...
+                    </div>
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                <>
+                  {histoData.map((historique, index) => (
+                    <TableRow key={index}>
+                      <TableCell align="center">
+                        {formatDate(historique.date)}
+                      </TableCell>
+                      <TableCell align="center">
+                        Vous avez effectué un achat de{" "}
+                        {totalPrices[historique.orders[0].purchase]} Ar
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="outlined"
+                          sx={{ width: 20, height: 20 }}
+                          onClick={() =>
+                            onDetailsClick(historique.orders[0].purchase)
+                          }
+                        >
+                          Détails
+                        </Button>
+                      </TableCell>
+                      <TableCell
+                        align="center"
+                        class={
+                          historique.is_delivered
+                            ? "text-green-600"
+                            : "text-orange-600"
+                        }
+                      >
+                        {historique.is_delivered ? "Livré" : "Non livré"}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
