@@ -1,6 +1,6 @@
 import ProductComponent from "./childCOmponent/ProductComponent"
-import { getAllProduct, updateProductImage } from "../../../actions/AdminProductAction"
-import { useState, useEffect } from "react"
+import { getAllProduct, updateProductImage, createProduct, updateProduct, deleteProduct } from "../../../actions/AdminProductAction"
+import { useState, useEffect, Fragment } from "react"
 import Tooltip from '@mui/material/Tooltip';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Modal from '@mui/material/Modal';
@@ -8,6 +8,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Snackbar from '@mui/material/Snackbar';
+import CloseIcon from '@mui/icons-material/Close';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import EditNoteOutlined from "@mui/icons-material/EditNoteOutlined";
 import DeleteOutline from "@mui/icons-material/DeleteOutline";
@@ -23,10 +26,20 @@ const style = {
     p: 4,
   };
 
-export default function ProductSection() {
+export default function ProductSection({changeProducts}) {
     const [customArray, setCustomArray] = useState([])
+    const [productType, setProductType] = useState(0)
+    const [productId, setProductId] = useState(0)
 
-    const [open, setOpen] = useState(true)
+    const [loading, setLoading] = useState(false)
+    const [deleteLoading, setDeleteLoading] = useState(false)
+
+    const [snack, setSnack] = useState(false)
+    const [snackStyle, setSnackStyle] = useState({ backgroundColor: 'green', color:'white' })
+    const [message, setMessage] = useState("Ajout effectue avec succes.")
+
+    const [open, setOpen] = useState(false)
+    const [operation, setOperation] = useState("a")
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -35,6 +48,7 @@ export default function ProductSection() {
     const [selectedFile, setSelectedFile] = useState(null);
 
     const addOperation = async () => {
+        setOperation("a")
         setOpen(true)
     }
 
@@ -50,48 +64,119 @@ export default function ProductSection() {
         setSelectedFile(event.target.files[0]);
       };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
         let data = {
             name: name,
             description: description,
+            rate:0,
+            type:productType,
             price: price, 
             stock: stock
         }
-
-        console.log({ name, description, price, stock,image: selectedFile  });
-        setOpen(false)
-        // Implement your logic h`ere (e.g., send data to API)
+        console.log(customArray)
+        // console.log(data)
+        if(operation == "a"){
+            let response = await createProduct(data)
+            if(response.res) {
+                // console.log(response.data)
+                let imageUpdate = await updateImage(response.data.id)
+                let res = (imageUpdate.res) ? "data created" : "Error while update images"
+                setMessage("Produits creer avec succes!")
+                setSnack(true)
+                fetchData()
+                clearInput()
+            } else {
+                alert("Erreur lors de la creation du produit")
+            }
+            setOpen(false)
+        } else {
+            data.id = productId
+            let response = await updateProduct(data)
+            if(response.res) {
+                // console.log(response.data)
+                let imageUpdate = await updateImage(response.data.id)
+                let res = (imageUpdate.res) ? "data created" : "Error while update images"
+                setMessage("Produits modifie avec succes!")
+                setSnack(true)
+                fetchData()
+                clearInput()
+            } else {
+                alert("Erreur lors de la creation du produit")
+            }
+            setOpen(false)
+        }
+        setLoading(false)
     };
 
-    async function updateProductImage(productId) {
+    async function updateImage(productId) {
         const formData = new FormData();
         formData.append('image', selectedFile);
       
         const result = await updateProductImage(productId, formData)
-        console.log(result)
-
+        return result
     }
 
     const fetchData = async () => {
-        const data = await getAllProduct(0, null)
+        let id = 10
+        if(changeProducts != 0){
+            id = changeProducts
+        }
+        const data = await getAllProduct(id)
         if (data.error === null){
             
-            console.log(data.data[0].products, "Data from useEffect")
-            setCustomArray(data.data[0].products)
+            console.log(data, "Data from useEffect")
+            setCustomArray(data.data.products)
+            setProductType(data.data.id)
         } else {
-            setCustomArray([])
+            console.log("error")
         }
     }
 
     const handleAction = async (data) => {
-        alert(data.index)
+        // alert(data.action)
+        setProductId(customArray[data.index].id)
+        
+        if(data.action == "edit"){
+            setName(customArray[data.index].name)
+            setDescription(customArray[data.index].description)
+            setPrice(customArray[data.index].price)
+            setStock(customArray[data.index].stock)
+            setSelectedFile(null)
+            setOperation(data.action)
+            setOpen(true)
+        } else if (data.action == "delete"){
+            setDeleteLoading(true)
+            if(window.confirm("Voulez-vous vraiment supprimer ce produit !") == true){
+                const response = await deleteProduct(customArray[data.index].id)
+                if(response.res){
+                    setMessage("Produit supprimer avec succes!")
+                    setSnack(true)
+                    fetchData()
+                }
+                setDeleteLoading(false)
+            }
+        }
     }
+
+    const handleClosedSnack = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setSnack(false);
+    };
 
 
     useEffect(() => {
         fetchData()
     }, [])
+
+    useEffect(() => {
+        console.log(changeProducts)
+        fetchData()
+    }, [changeProducts])
 
 
     return (
@@ -159,21 +244,21 @@ export default function ProductSection() {
                     
                     <form onSubmit={handleSubmit}>
                         <TextField
-                        label="Name"
+                        label="Nom du produit*"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         fullWidth
                         margin="normal"
                         />
                         <TextField
-                        label="Description"
+                        label="Description*"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         fullWidth
                         margin="normal"
                         />
                         <TextField
-                        label="Price"
+                        label="Prix*"
                         type="number"
                         value={price}
                         onChange={(e) => setPrice(Number(e.target.value))}
@@ -185,7 +270,7 @@ export default function ProductSection() {
                         margin="normal"
                         />
                         <TextField
-                        label="Stock"
+                        label="Stock*"
                         type="number"
                         value={stock}
                         onChange={(e) => setStock(Number(e.target.value))}
@@ -206,31 +291,54 @@ export default function ProductSection() {
                             />
                             <label htmlFor="icon-button-file">
                                 <IconButton color="primary" aria-label="upload picture" component="span">
-                                <span className="text-sm mr-2">Choisir une image</span>
+                                <span className="text-sm mr-2">Choisir une image*</span>
                                     <PhotoCamera />
                                 </IconButton>
                             </label>
                             {selectedFile && <p className="text-sm text-sky-700">{selectedFile.name}</p>}
                         </div>
-
+                        
+                        {((name== "") || (description=="") || (price==0) || (stock==0) || (selectedFile==null)) && (
+                            <p className="text-red-600">Veuillez remplir tous les champs ci-dessus.</p>
+                        )}
 
                         <div className='w-full text-center pb-4'>
                             <Tooltip title="Ajouter un produit">
                                 <button 
                                 onClick={handleSubmit}
+                                disabled={(loading) ? true : false}
                                 type="submit"
                                 className='w-full bg-sky-600 rounded-md py-2 hover:bg-sky-500 duration-100 cursor-pointer
                                 flex flex-row items-center justify-center space-x-2 text-white'>
-                                    <div className='text-xl'>
-                                        Soumettre
-                                    </div>
+                                    {(!loading) ? (
+                                        <div>
+                                            <div className='text-xl'>
+                                                Soumettre
+                                            </div>
 
-                                    <div>
-                                        <EditNoteOutlined sx={{
-                                            fontSize: 25
+                                            <div>
+                                                <EditNoteOutlined sx={{
+                                                    fontSize: 25
+                                                }}
+                                                className=''/>
+                                            </div>
+                                        </div>
+                                    ): (
+                                        <Box
+                                        sx={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            color: "#FFFFFF",
                                         }}
-                                        className=''/>
-                                    </div>
+                                        >
+                                        <CircularProgress
+                                            sx={{
+                                            color: "white",
+                                            }}
+                                        />
+                                        </Box>
+
+                                    )}
                                 </button>
                             </Tooltip>
                         </div>
@@ -261,6 +369,33 @@ export default function ProductSection() {
                     </form>
                 </Box>
             </Modal>
+            </div>
+
+            <div>
+                <Snackbar
+                    open={snack}
+                    autoHideDuration={4000}
+                    onClose={handleClosedSnack}
+                    message={message}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                    ContentProps={{
+                        style:  snackStyle// Set background color using ContentProps
+                    }}
+                    action={<Fragment>
+    
+                        <IconButton
+                        size="small"
+                        aria-label="close"
+                        color="inherit"
+                        onClick={handleClosedSnack}
+                        >
+                        <CloseIcon fontSize="small" />
+                        </IconButton>
+                    </Fragment>}
+                />  
             </div>
 
         </div>

@@ -37,7 +37,7 @@ export default function ProductComponent ({mainData, index, actionHandler}) {
     }
 
     useEffect(() => {
-        console.log(mainData, "Main data from props to chils ******")
+        // console.log(mainData, "Main data from props to chils ******")
         setRateValue(mainData.rate)
         setData(mainData)
     }, [mainData])
@@ -58,7 +58,7 @@ export default function ProductComponent ({mainData, index, actionHandler}) {
             {/* Product image */}
             <div className="w-[20%]  basis-1/5">
                 <img
-                    src="./src/assets/yaourt-nature.jpg"
+                    src={"http://127.0.0.1:8000"+data.image}
                     alt="product"
                     className="produit-img rounded-lg"
                 />

@@ -8,11 +8,12 @@ export const apiRequest = async (sub_url, method, token=null, data=null) => {
     if (data != null) parameter.data = data
     if (token != null) parameter.headers = {Authorization: `Bearer ${token}`}
     
-    // console.log(parameter)
+    console.log(parameter)
     let requestResult = {response: null, error:null}
 
     try {
         const response = await axiosInstance(parameter)
+        console.log(response)
         requestResult.response = response
         return requestResult
     } catch (error) {
