@@ -50,7 +50,7 @@ export default function NotificationContentComponent({notifData, refetch}) {
             await refetch()
             setNotifData(notifData)
             console.log(notifData)
-            navigate("/")
+            navigate(`/Profil`);
         } else {
             alert("Erreur de l'operation")
         }
