@@ -116,7 +116,8 @@ export default function CreditCardForm() {
                       });
                       resetform();
                       emptyCart();
-                    } else if (responseData.status == 500) {
+                    }
+                     else if (responseData.status == 500) {
                       setTimeout(3000);
                       Swal.fire({
                         title: "Erreur",
@@ -183,6 +184,7 @@ export default function CreditCardForm() {
       console.log("hbjkbkj")
      
     };
+  
   return (
     <div
     style={{

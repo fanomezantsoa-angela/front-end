@@ -1,11 +1,11 @@
 import GererAdminCompte from "./GererAdminCompte"
-import AdminNotificationComponent from "../notification/AdminNotificationComponent"
+import NotificationComponent from "../notification/NotificationCOmponent"
 import { useNavigate } from "react-router-dom"
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import Tooltip from "@mui/material/Tooltip";
 
-
-export default function AdminActionHeaderComponent() {
+// import GererProfil from "./GererProfil";
+export default function Profilaction() {
     const navigate = useNavigate()
 
     const goToHome = () => {
@@ -20,7 +20,7 @@ export default function AdminActionHeaderComponent() {
             <div className="w-[100%] justify-evenly flex items-center flex-row px-2">
 
                 <div className="">
-                    <AdminNotificationComponent/>
+                    <NotificationComponent/>
                 </div>
                 
                 <div className="px-2" onClick={goToHome}>

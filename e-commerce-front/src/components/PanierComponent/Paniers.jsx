@@ -13,17 +13,19 @@ function Paniers({ panierClose }) {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
-  const {
-    items,
-    addOneItemToCart,
-    removeOneItemFromCart,
-    deleteItemFromCart,
-    getTotalCost,
-  } = useContext(CartContext);
-  const validerpanier = () => {
-    panierClose();
-      const token = tokenExtractor();
-    if (!token) {
+    const {
+      items,
+      addOneItemToCart,
+      removeOneItemFromCart,
+      deleteItemFromCart,
+      updateItemQuantity,
+
+      getTotalCost,
+    } = useContext(CartContext);
+    const validerpanier= () => {
+      panierClose();
+
+    if (!localStorage.getItem("token")) {
       Swal.fire({
         title: "il est nécessaire de se connecter",
         text: "i est nécessaire de se connnecter pour commandes le(s) peoduit(s). Voules-vous se connecter?",
@@ -52,6 +54,16 @@ function Paniers({ panierClose }) {
     }
   };
 
+  const handleQuantityChange = (id, value) => {
+    if (value === "") {
+      updateItemQuantity(id, 0); // Met la quantité à zéro si l'input est vide
+    } else {
+      const quantity = parseInt(value, 10);
+      updateItemQuantity(id, quantity);
+    }
+  };
+
+  
   return (
     <div
       style={{ backgroundColor: "white" }}
@@ -96,7 +108,8 @@ function Paniers({ panierClose }) {
                   >
                     <AiFillMinusCircle size={20} color="#0061A8" />
                   </IconButton>
-                  <input value={item.quantity} className="w-[15%]" />
+                  <input value={item.quantity} className="w-[15%]" 
+                   onChange={(e) => handleQuantityChange(item.id, e.target.value)}/>
 
                   <IconButton
                     variant="info"
