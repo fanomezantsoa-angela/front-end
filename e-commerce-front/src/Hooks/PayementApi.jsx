@@ -33,15 +33,24 @@ export const creationpurchase = async (Formdata) => {
   }
 };
 export const creationorders = async (Formdata) => {
-  try {
+  let feedback = { err: null, response: null, res:false}
+  try{
     const response = await axiosInstance.post("/order/", Formdata, {
       headers: {
         Authorization: getAuthorizationHeader,
       },
     });
-    return response;
+    if (response.status == 201) {
+      feedback.res = true;
+      feedback.response = response
+      return feedback;
+    }
+    
   } catch (error) {
-    throw error;
+     console.log(error);
+     feedback.err = error;
+     return feedback;
+    
   }
 
 };

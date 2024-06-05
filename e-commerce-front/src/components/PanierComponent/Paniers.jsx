@@ -7,7 +7,7 @@ import { TiDelete } from "react-icons/ti";
 import { AiFillMinusCircle } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { IoIosAddCircle } from "react-icons/io";
-
+import { tokenExtractor } from "../../actions/tokenExtractor";
 import { AuthContext } from "../../Hooks/Auth";
 function Paniers({ panierClose }) {
   const navigate = useNavigate();
@@ -22,8 +22,8 @@ function Paniers({ panierClose }) {
   } = useContext(CartContext);
   const validerpanier = () => {
     panierClose();
-
-    if (!localStorage.getItem("token")) {
+      const token = tokenExtractor();
+    if (!token) {
       Swal.fire({
         title: "il est nécessaire de se connecter",
         text: "i est nécessaire de se connnecter pour commandes le(s) peoduit(s). Voules-vous se connecter?",
