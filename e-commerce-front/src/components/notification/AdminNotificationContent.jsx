@@ -131,10 +131,7 @@ export default function AdminNotificationContent({ notifData, refetch }) {
                       {/* Information section */}
                       <div>
                         <p>
-                          Une commande a été le{" "}
-                          <span className="text-emerald-700">
-                            {formatTimeDifference(notif.purchase_details.date)}
-                          </span>
+                          Une commande a été effectué
                           , dans la ville{" "}
                           <span className="text-emerald-700">
                             {notif.purchase_details.ville != null
