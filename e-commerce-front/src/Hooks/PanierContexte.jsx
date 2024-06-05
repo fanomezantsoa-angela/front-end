@@ -9,6 +9,7 @@ export const CartContext = createContext({
   items: [],
   getCartItemQuantity: () => {},
   addOneItemToCart: () => {},
+  updateItemQuantity:()=>{},
   removeOneItemFromCart: () => {},
   deleteItemFromCart: () => {},
   getTotalCost: () => {},
@@ -121,6 +122,30 @@ export function CartProvider({ children }) {
       console.log(item.name)
     }
   };
+
+
+  const updateItemQuantity = (id, quantity) => {
+    const item = cartItems.find((item) => item.id === id);
+    if (item) {
+      if (quantity > item.stock) {
+        setCartItems(
+          cartItems.map((item) =>
+            item.id === id ? { ...item, quantity: item.stock } : item
+          )
+        );
+        setSnackbarMessage("Stock insuffisant.");
+        setSnackbarOpen(true);
+      } else {
+        setCartItems(
+          cartItems.map((item) =>
+            item.id === id ? { ...item, quantity: quantity } : item
+          )
+        );
+        setSnackbarMessage("La quantité du produit a été mise à jour.");
+        setSnackbarOpen(true);
+      }
+    }
+  }
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -182,6 +207,7 @@ const getTotalCost = () => {
     getNumberOfCartItems,
     addToCart,
     emptyCart,
+    updateItemQuantity,
   };
   return (
     <CartContext.Provider value={contextValue}>

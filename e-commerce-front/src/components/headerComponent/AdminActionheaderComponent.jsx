@@ -23,10 +23,6 @@ export default function AdminActionHeaderComponent() {
                     <NotificationComponent/>
                 </div>
                 
-                <div className="">
-                    <GererAdminCompte />
-                </div>
-                
                 <div className="px-2" onClick={goToHome}>
                     <Tooltip title="Retour a l'acceuil">
                         <HomeOutlinedIcon sx={{fontSize: 55 }} 
@@ -34,6 +30,11 @@ export default function AdminActionHeaderComponent() {
                     </Tooltip>
                 </div>
 
+                <div className="">
+                    <GererAdminCompte />
+                </div>
+                
+              
             </div>
       </>
     )

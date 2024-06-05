@@ -11,6 +11,7 @@ import { validationPayement } from "../Hooks/PayementApi";
 import { Button } from "../components/littlecomponent/Button";
 import Form_payement from "../components/form/form_payement";
 import Swal from "sweetalert2";
+import CreditCardForm from "../components/form/form_payement";
 import Drawer from "@mui/material/Drawer";
 import Valide_layout from "../components/headerComponent/Valide_layout";
 // import Layout from "../components/headerComponent/Layout";
@@ -67,7 +68,7 @@ function Validationpanier() {
 
 <div >
 {/* <img src="./src/assets/barket.png" className="w-[600px] z-0  mt-[5%] ml-[5%]" /> */}
-<Form_payement className="w-20"/>    
+<CreditCardForm className="w-20"/>    
 
 </div>
 <Panier_valide  className="  h-[100vh] ml-" />
