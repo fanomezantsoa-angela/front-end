@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
-// import Box from "@mui/material/Box";
-// import Collapse from "@mui/material/Collapse";
-// import IconButton from "@mui/material/IconButton";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,16 +8,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-// import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-// import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import Button from "@mui/material/Button";
-import { useState, useEffect } from "react";
-import {  achat_detail } from "../../Hooks/AchatApi";
-// import { getToggleButtonGroupUtilityClass } from "@mui/material";
-function Historique_section({ historiques, onDetailsClick }) {
- const [totalPrices, setTotalPrices] = useState({});
- const [histoData, setHistoData] = useState([])
+import { Button } from "@mui/material";
+import { HistoriqueContext } from "../../Hooks/HistoriqueContext";
+import { useState, useContext, useEffect } from "react";
 
+
+
+function Historique_section({  onDetailsClick }) {
+ const [totalPrices, setTotalPrices] = useState({});
+  const { historiques } = useContext(HistoriqueContext);
+  const [histoData, setHistoData]= useState([])
   function formatDate(dateString) {
     if (dateString) {
       const date = new Date(dateString);
@@ -98,17 +96,30 @@ function Historique_section({ historiques, onDetailsClick }) {
     <div>
       <Typography
         variant="h6"
-        className="text-sky-700 uppercase items-center flex mb-5"
+        className="text-sky-500 uppercase items-center flex mb-5"
         noWrap
         component="div"
       >
-        <span>Historique</span>
+        <span
+          className=" w-50
+          mb-8
+          text-center
+          uppercase
+          bg-sky-500
+          px-12
+          py-2.5
+          text-white
+          rounded-full
+          m-5"
+        >
+          Historiques
+        </span>
         {/* <span>
                             <LockPersonIcon className="text-sky-700 mx-4" />
                         </span> */}
       </Typography>
       <div>
-        <TableContainer component={Paper} sx={{ top: "100px" }}>
+        <TableContainer component={Paper} sx={{ top: "150px" }}>
           <Table aria-label="collapsible table">
             <TableHead>
               <TableRow>
@@ -142,7 +153,7 @@ function Historique_section({ historiques, onDetailsClick }) {
                   </TableCell>
                   <TableCell
                     align="center"
-                    class={
+                    className={
                       historique.is_delivered
                         ? "text-green-600"
                         : "text-orange-600"

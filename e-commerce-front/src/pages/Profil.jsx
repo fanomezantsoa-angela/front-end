@@ -10,15 +10,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InformationComponent from '../components/AdminComponents/InformationComponent';
-import { getClientInformation } from '../actions/InformationActions';
 import { useState } from 'react';
 import Historique_comp from '../components/profilConent/historique_comp';
-// Components import 
-import ProductSectionComponent from '../components/AdminComponents/ProductSectionComponent';
-
-
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 
 
 import AdminActionHeaderComponent from '../components/headerComponent/AdminActionheaderComponent';
@@ -107,15 +100,7 @@ function Profil(props) {
 
       <Divider />
       {/* Navigation */}
-      <Tabs 
-      value={value} 
-      onChange={handleChange} 
-      orientation='vertical'
-      aria-label="Handle admin navigation panel"
-      >
-        <Tab className="hover:scale-110 duration-100" label="Vos historiauque d'achat" {...a11yProps(0)} />
-     
-      </Tabs>
+      
 
       <Divider />
     </div>

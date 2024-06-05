@@ -10,7 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InformationComponent from '../components/AdminComponents/InformationComponent';
-import { getClientInformation } from '../actions/InformationActions';
+import { Livraison_Comp } from '../components/AdminComponents/sections/sub_component/Livraison_Comp';
 import { useState } from 'react';
 // Components import 
 import ProductSectionComponent from '../components/AdminComponents/ProductSectionComponent';
@@ -126,7 +126,7 @@ function Admin(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
 
       {/* Header */}
@@ -138,51 +138,46 @@ function Admin(props) {
         }}
       >
         {/* Header of the admin pannel component */}
-        <Toolbar className='bg-white shadow-none py-5'>
-            <div className='flex flex-row items-center w-full'>
+        <Toolbar className="bg-white shadow-none py-5">
+          <div className="flex flex-row items-center w-full">
+            {/* Text part */}
+            <div className="basis-4/5">
+              <IconButton
+                color="primary"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ mr: 2, display: { sm: "none" } }}
+              >
+                <MenuIcon />
+              </IconButton>
 
-                {/* Text part */}
-                <div className='basis-4/5'>
-
-                    <IconButton
-                        color="primary"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-
-                    <Typography 
-                    variant="h6" 
-                    className='text-sky-700 uppercase items-center flex' 
-                    noWrap 
-                    component="div">
-                        <span>
-                            Pannaux d'administratrion
-                        </span>
-                    </Typography>
-                </div>
-
-                {/* Icon part */}
-                <div className='basis-1/5'>
-                    {/* All icons over here */}
-                    <AdminActionHeaderComponent />
-                </div>
+              <Typography
+                variant="h6"
+                className="text-sky-700 uppercase items-center flex"
+                noWrap
+                component="div"
+              >
+                <span>Pannaux d'administratrion</span>
+              </Typography>
             </div>
+
+            {/* Icon part */}
+            <div className="basis-1/5">
+              {/* All icons over here */}
+              <AdminActionHeaderComponent />
+            </div>
+          </div>
         </Toolbar>
       </AppBar>
-
-
-
 
       {/* Navigation bar */}
       <Box
         component="nav"
-        sx={{ 
-            width: { sm: drawerWidth }, 
-            flexShrink: { sm: 0 },  }}
+        sx={{
+          width: { sm: drawerWidth },
+          flexShrink: { sm: 0 },
+        }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -197,8 +192,11 @@ function Admin(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
         >
           {drawer}
@@ -206,8 +204,11 @@ function Admin(props) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
           open
         >
@@ -215,40 +216,40 @@ function Admin(props) {
         </Drawer>
       </Box>
 
-
-
-
       {/* Main section Element */}
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
       >
         <Toolbar />
 
         <div className="relative w-full h-full">
-            <CustomTabPanel value={value} index={0}>
-                <ProductSectionComponent />
-            </CustomTabPanel>
+          <CustomTabPanel value={value} index={0}>
+            <ProductSectionComponent />
+          </CustomTabPanel>
 
-            {/* <CustomTabPanel value={value} index={1}>
+          {/* <CustomTabPanel value={value} index={1}>
                 Ensemble des produits
             </CustomTabPanel> */}
+
+          <CustomTabPanel value={value} index={1}>
             
-            <CustomTabPanel value={value} index={1}>
-                Livraison
-            </CustomTabPanel>
+              <Livraison_Comp />
+         
+          </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={2}>
-                <div className="">
-                  Prise de contacte 
-                </div>
+          <CustomTabPanel value={value} index={2}>
+            <div className="">Prise de contacte</div>
 
-                <div className="">
-                        <ContactuInfo/>
-                </div>
-            </CustomTabPanel>
+            <div className="">
+              <ContactuInfo />
+            </div>
+          </CustomTabPanel>
         </div>
-
       </Box>
     </Box>
   );

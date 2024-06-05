@@ -45,4 +45,46 @@ export const achat_detail= async(id)=>{
        feedback.err= error
        return feedback;
    }
-} 
+}
+export const achats = async () => {
+  let feedback = { res: true, err: null, response: null };
+  try {
+    const apiresponse = await axiosInstance.get("purchase/", {
+      headers: {
+        Authorization: getAuthorizationHeader, // Note: Call the function to get the authorization header
+      },
+    });
+    console.log(apiresponse);
+    if (apiresponse.status == 200) {
+      feedback.res = true;
+      feedback.response = apiresponse;
+      return feedback;
+    }
+  } catch (error) {
+    console.log(error);
+    feedback.err = error;
+    return feedback;
+  }
+};  
+export const achats_validation = async (id, data) => {
+  let feedback = { res: true, err: null, response: null };
+  try {
+    const apiresponse = await axiosInstance(await axiosInstance({
+      method: "PUT",
+      url: `/purchase/${id}/delivery/`,
+
+      data: data,
+      headers: getAuthorizationHeader,
+    }));
+    console.log(apiresponse);
+    if (apiresponse.status == 200) {
+      feedback.res = true;
+      feedback.response = apiresponse;
+      return feedback;
+    }
+  } catch (error) {
+    console.log(error);
+    feedback.err = error;
+    return feedback;
+  }
+};
