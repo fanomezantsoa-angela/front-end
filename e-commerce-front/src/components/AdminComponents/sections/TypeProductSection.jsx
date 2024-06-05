@@ -18,7 +18,7 @@ import { useState, useEffect, Fragment } from 'react';
 // Action import
 import { getAllType } from '../../../actions/TypeProductAction';
 
-export default function TypeProductSection() {
+export default function TypeProductSection({triggerChange}) {
   
     const [categories, setCategories] = useState([])
     const [designation, setDesignation, changeDesignation] = Inputhandler("")
@@ -59,7 +59,7 @@ export default function TypeProductSection() {
     }
 
     const handleAction = (data) => {
-        console.log("Data from action props")
+        // console.log("Data from action props", categories[data].data.id)
         let categoryList = categories
         categoryList.forEach((category, index) => {
             if(data == index){
@@ -68,9 +68,10 @@ export default function TypeProductSection() {
                 category.active = false
             }
         });
-        console.log(categoryList)
+        triggerChange(categories[data].data.id)
+        // console.log(categoryList)
         setCategories([...categoryList])
-        console.log(data)
+        // console.log(data)
     }
 
     const handleDelete = async (index) => {
@@ -296,30 +297,30 @@ export default function TypeProductSection() {
 
             {/* SanckBar */}
             <div>
-            <Snackbar
-                open={snack}
-                autoHideDuration={4000}
-                onClose={handleClosedSnack}
-                message={message}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                }}
-                ContentProps={{
-                    style:  snackStyle// Set background color using ContentProps
-                }}
-                action={<Fragment>
-  
-                    <IconButton
-                      size="small"
-                      aria-label="close"
-                      color="inherit"
-                      onClick={handleClosedSnack}
-                    >
-                      <CloseIcon fontSize="small" />
-                    </IconButton>
-                  </Fragment>}
-            />  
+                <Snackbar
+                    open={snack}
+                    autoHideDuration={4000}
+                    onClose={handleClosedSnack}
+                    message={message}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                    ContentProps={{
+                        style:  snackStyle// Set background color using ContentProps
+                    }}
+                    action={<Fragment>
+    
+                        <IconButton
+                        size="small"
+                        aria-label="close"
+                        color="inherit"
+                        onClick={handleClosedSnack}
+                        >
+                        <CloseIcon fontSize="small" />
+                        </IconButton>
+                    </Fragment>}
+                />  
             </div>
             
         </div>
