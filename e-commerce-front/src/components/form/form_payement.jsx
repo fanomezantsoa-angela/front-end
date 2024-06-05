@@ -99,8 +99,8 @@ export default function CreditCardForm() {
               };
                console.log(formorder);
             
-                const responseorder =  await creationorders(formorder);
-                 if (responseorder.status == 201) {
+                const responseorder = await creationorders(formorder);
+                 if (responseorder.res) {
                    console.log(responseorder);
                    const responseData = await validationPayement(montant);
                    console.log(responseData);
@@ -125,9 +125,10 @@ export default function CreditCardForm() {
                         icon: "error",
                         confirmButtonText: "Oui",
                       });
-                      stopLoading();
-                    }
-                     else {
+                     stopLoading();
+                      resetform();
+                   } else {
+                     console.log("montant erreur")
                       resetform();
 
                       setTimeout(3000);
@@ -139,17 +140,20 @@ export default function CreditCardForm() {
                       });
                       stopLoading();
                     }
-                 } else {
-                    Swal.fire({
-                      title: "Erreur",
-                      text: "une erreur est survenu, veuillez réessayer votre operation",
-                      icon: "error",
-                      confirmButtonText: "Oui",
-                    });
-                    stopLoading();
+                 } else if (responseorder.err) {
+                   console.log("erreur 500 order")
+                   Swal.fire({
+                     title: "Erreur",
+                     text: "une erreur est survenu, veuillez réessayer votre operation",
+                     icon: "error",
+                     confirmButtonText: "Oui",
+                   });
+                   stopLoading();
+                    resetform();
                  }
 
-                 } else{
+          } else {
+            console.log("erreur order")
             
             Swal.fire({
               title: "Erreur",
@@ -158,11 +162,15 @@ export default function CreditCardForm() {
               confirmButtonText: "Oui",
             });
             stopLoading();
+             resetform();
   
           } 
           
-         } 
-        else{
+     
+  
+        } 
+      else {
+         console.log("erreur achat");
           stopLoading()
           Swal.fire({
             title: "Erreur",
@@ -170,8 +178,10 @@ export default function CreditCardForm() {
             icon: "error",
             confirmButtonText: "Oui",
           });
+         resetform();
         
-        }
+      }
+      console.log("hbjkbkj")
      
     };
   

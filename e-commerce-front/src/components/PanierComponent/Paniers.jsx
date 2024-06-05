@@ -7,7 +7,7 @@ import { TiDelete } from "react-icons/ti";
 import { AiFillMinusCircle } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { IoIosAddCircle } from "react-icons/io";
-
+import { tokenExtractor } from "../../actions/tokenExtractor";
 import { AuthContext } from "../../Hooks/Auth";
 function Paniers({ panierClose }) {
   const navigate = useNavigate();

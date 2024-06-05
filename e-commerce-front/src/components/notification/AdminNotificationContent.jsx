@@ -1,6 +1,6 @@
 
 
-export default AdminNotificationContentimport { useEffect, useState } from "react";
+// export default AdminNotificationContentimport { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { Divider } from "@mui/material";
 import List from "@mui/material/List";
