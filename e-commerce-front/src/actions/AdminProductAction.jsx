@@ -30,3 +30,22 @@ export const getAllProduct = async (type=null) => {
         return feedback
     }
 }
+
+
+export const createPorduct = async () => {
+    const token = tokenExtractor()
+
+    if (token != null ){
+
+    } else {
+        let feedback = {res:false, error:"Veuiller vour connecter avant de pouvoir pleinement utiliser l'application."} 
+        return feedback
+    }
+}
+
+
+
+export const updateProductImage = async (id, formdata) => {
+    console.log({id, formdata})
+    return true
+}
